@@ -1,0 +1,68 @@
+{
+  "elmRoutes": {
+    "titles": {
+      "error": "Chyba",
+      "nointernet": "Bez internetu",
+      "introduction": "Úvod"
+    },
+    "meta": [
+      "Filip Vrba - Blog"
+    ],
+    "languages": [
+      "Čeština"
+    ]
+  },
+  "elmSignin": [
+    "Přihlášení",
+    "Email",
+    "Zadejte svůj email",
+    "Špatný email",
+    "Heslo",
+    "Zadejte své heslo",
+    "Špatné heslo",
+    "Přihlásit se",
+    "Nemáte účet?",
+    "Zaregistrujte se"
+  ],
+  "elmSignup": [
+    "Registrace",
+    "Email",
+    "Zadejte svůj email",
+    "Špatný email",
+    "Heslo",
+    "Zadejte své heslo",
+    "Špatné heslo",
+    "Ověření hesla",
+    "Zadejte heslo znovu",
+    "Hesla se neshodují",
+    "Registrovat",
+    "Již máte účet?",
+    "Přihlaste se"
+  ],
+  "elmNointernet": [
+    "Jste offline",
+    "Nemáte připojení k internetu. Zkontrolujte své připojení a zkuste to znovu.",
+    "Obnovit stránku"
+  ],
+  "elmDashboardHeaderAccount": [
+    "Účet",
+    "Přihlášen jako",
+    "Nastavení",
+    "Odhlásit se"
+  ],
+  "elmProfileEditing": [
+    "Vymazání účtu",
+    "Pokud chcete trvale smazat svůj účet, klikněte na tlačítko níže. Tento proces je nevratný.",
+    "Smazat účet",
+    "Opravdu chcete smazat svůj účet? Tento proces je nevratný.",
+    "Změna hesla",
+    "Aktuální heslo",
+    "Zadali jste špatné aktuální heslo vašeho účtu.",
+    "Nové heslo",
+    "Zadejte jiné heslo.",
+    "Potvrďte nové heslo",
+    "Hesla se neshodují.",
+    "Vaše nové heslo bylo úspěšně změněno.",
+    "Změnit heslo"
+  ]
+}

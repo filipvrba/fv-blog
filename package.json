@@ -10,5 +10,9 @@
   },
   "devDependencies": {
     "vite": "^4.3.9"
+  },
+  "dependencies": {
+    "bootstrap-icons": "^1.11.3",
+    "crypto-js": "^4.2.0"
   }
 }
