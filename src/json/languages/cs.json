@@ -3,7 +3,9 @@
     "titles": {
       "error": "Chyba",
       "nointernet": "Bez internetu",
-      "introduction": "Úvod"
+      "introduction": "Úvod",
+      "signin": "Přihlásit se",
+      "signup": "Registrovat se"
     },
     "meta": [
       "Filip Vrba - Blog"
