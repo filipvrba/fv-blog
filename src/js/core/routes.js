@@ -3,15 +3,15 @@ window.ROUTES_JSON = routesObj;
 import errorHTML from "../../html/error.html?raw";
 import nointernetHTML from "../../html/nointernet.html?raw";
 import introductionHTML from "../../html/introduction.html?raw";
-import signinHTML from "../../html/signin.html?raw";
-import dashboardHTML from "../../html/dashboard.html?raw";
+import adminSigninHTML from "../../html/admin/signin.html?raw";
+import adminHTML from "../../html/admin.html?raw";
 
 window.PAGES = {
   error: errorHTML,
   nointernet: nointernetHTML,
   introduction: introductionHTML,
-  signin: signinHTML,
-  dashboard: dashboardHTML
+  "admin/signin": adminSigninHTML,
+  admin: adminHTML
 };
 
 class Routes {

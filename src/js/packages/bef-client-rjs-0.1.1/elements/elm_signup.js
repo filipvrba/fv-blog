@@ -69,10 +69,10 @@ export default class ElmSignup extends HTMLElement {
 
         return this._cDatabaseSignin.addToken(
           {id: userId, token, date},
-          () => location.hash = "dashboard"
+          () => location.hash = "admin"
         )
       } else {
-        return location.hash = "signin"
+        return location.hash = "admin-signin"
       }
     })
   };

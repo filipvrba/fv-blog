@@ -59,10 +59,10 @@ export default class ElmSignup < HTMLElement
         token, date = @c_protect_signin.write_new_token()
 
         @c_database_signin.add_token({id: user_id, token: token, date: date}) do
-          location.hash = "dashboard"
+          location.hash = "admin"
         end
       else
-        location.hash = "signin"
+        location.hash = "admin-signin"
       end
     end
   end

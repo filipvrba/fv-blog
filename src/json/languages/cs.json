@@ -4,9 +4,8 @@
       "error": "Chyba",
       "nointernet": "Bez internetu",
       "introduction": "Úvod",
-      "signin": "Přihlásit se",
-      "signup": "Registrovat se",
-      "dashboard": "Dashboard"
+      "admin/signin": "Přihlásit se",
+      "admin": "Admin"
     },
     "meta": [
       "Filip Vrba - Blog"

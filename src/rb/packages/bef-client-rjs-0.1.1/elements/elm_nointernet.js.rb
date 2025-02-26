@@ -16,7 +16,7 @@ export default class ElmNointernet < HTMLElement
   def button_reload_click()
     location_hash_history = local_storage.get_item('hashHistory')
     unless location_hash_history
-      location.hash = 'dashboard'
+      location.hash = 'admin'
     else
       location.hash = location_hash_history
     end

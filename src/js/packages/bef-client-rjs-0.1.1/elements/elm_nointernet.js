@@ -12,7 +12,7 @@ export default class ElmNointernet extends HTMLElement {
 
   buttonReloadClick() {
     let locationHashHistory = localStorage.getItem("hashHistory");
-    return locationHashHistory ? location.hash = locationHashHistory : location.hash = "dashboard"
+    return locationHashHistory ? location.hash = locationHashHistory : location.hash = "admin"
   };
 
   initElm() {

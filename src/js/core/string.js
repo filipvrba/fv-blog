@@ -16,4 +16,25 @@ function encodeSha256() {
   return CryptoJS.SHA256(this).toString()
 };
 
-String.prototype.encodeSha256 = encodeSha256
+String.prototype.encodeSha256 = encodeSha256;
+
+function base64Split(maxSegmentSizeKb=10) {
+  let maxSegmentSize = maxSegmentSizeKb * 1_024;
+  let base64String = this;
+  let segments = [];
+  let currentIndex = 0;
+
+  while (currentIndex < base64String.length) {
+    let segment = base64String.substring(
+      currentIndex,
+      currentIndex + maxSegmentSize
+    );
+
+    segments.push(segment);
+    currentIndex += maxSegmentSize
+  };
+
+  return segments
+};
+
+String.prototype.base64Split = base64Split

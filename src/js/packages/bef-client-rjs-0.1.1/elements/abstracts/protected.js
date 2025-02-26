@@ -48,7 +48,7 @@ export default class AProtected extends HTMLElement {
   };
 
   gotoSignin() {
-    return location.hash = "signin"
+    return location.hash = "admin-signin"
   };
 
   protectedCallback() {

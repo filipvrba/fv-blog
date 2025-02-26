@@ -42,7 +42,7 @@ export default class ElmSignin < HTMLElement
         token, date = @c_protect.write_new_token()
 
         @c_database.add_token({id: user_id, token: token, date: date}) do
-          location.hash = "dashboard"
+          location.hash = "admin"
         end
       else
         @c_inputs.remove_values_from_inputs()

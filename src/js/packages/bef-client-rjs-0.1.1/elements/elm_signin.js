@@ -49,7 +49,7 @@ export default class ElmSignin extends HTMLElement {
 
         return this._cDatabase.addToken(
           {id: userId, token, date},
-          () => location.hash = "dashboard"
+          () => location.hash = "admin"
         )
       } else {
         return this._cInputs.removeValuesFromInputs()

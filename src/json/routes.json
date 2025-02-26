@@ -13,11 +13,11 @@
       "priority": 10
     },
     {
-      "endpoint": "signin",
+      "endpoint": "admin/signin",
       "priority": 1
     },
     {
-      "endpoint": "dashboard",
+      "endpoint": "admin",
       "priority": 1
     }
   ]

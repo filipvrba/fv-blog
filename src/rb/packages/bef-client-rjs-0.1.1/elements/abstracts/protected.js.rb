@@ -44,7 +44,7 @@ export default class AProtected < HTMLElement
   end
 
   def goto_signin()
-    location.hash = "signin"
+    location.hash = "admin-signin"
   end
 
   def protected_callback()
