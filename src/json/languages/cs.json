@@ -5,7 +5,8 @@
       "nointernet": "Bez internetu",
       "introduction": "Úvod",
       "signin": "Přihlásit se",
-      "signup": "Registrovat se"
+      "signup": "Registrovat se",
+      "dashboard": "Dashboard"
     },
     "meta": [
       "Filip Vrba - Blog"

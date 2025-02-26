@@ -6,9 +6,6 @@ export default class ElmHeaderAccount < HTMLElement
   def initialize
     super
 
-    endpoint      = location.hash.sub('#', '')
-
-    @settings_off = endpoint == 'settings' 
     @language     = Language.relevant.elm_dashboard_header_account
     @user_id      = self.get_attribute('user-id')
     @c_database   = CDatabase.new(self)
@@ -45,7 +42,6 @@ export default class ElmHeaderAccount < HTMLElement
         #{@language[1]}<br><strong id='dropdownHeaderEmail'></strong>
       </li>
       <li><hr class='dropdown-divider'></li>
-      <li><a id='dashboard-header-settings-link' class='dropdown-item #{'disabled' if @settings_off}' href='#settings'>#{@language[2]}</a></li>
       <li><a class='dropdown-item'onclick='dropdownItemSignoutClick()' href='#'>#{@language[3]}</a></li>
     </ul>
   </li>

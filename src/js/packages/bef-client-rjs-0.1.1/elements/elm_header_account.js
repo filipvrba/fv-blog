@@ -7,8 +7,6 @@ export default class ElmHeaderAccount extends HTMLElement {
 
   constructor() {
     super();
-    let endpoint = location.hash.replace("#", "");
-    this._settingsOff = endpoint === "settings";
     this._language = Language.relevant.elmDashboardHeaderAccount;
     this._userId = this.getAttribute("user-id");
     this._cDatabase = new CDatabase(this);
@@ -42,7 +40,6 @@ export default class ElmHeaderAccount extends HTMLElement {
         ${this._language[1]}<br><strong id='dropdownHeaderEmail'></strong>
       </li>
       <li><hr class='dropdown-divider'></li>
-      <li><a id='dashboard-header-settings-link' class='dropdown-item ${this._settingsOff ? "disabled" : null}' href='#settings'>${this._language[2]}</a></li>
       <li><a class='dropdown-item'onclick='dropdownItemSignoutClick()' href='#'>${this._language[3]}</a></li>
     </ul>
   </li>

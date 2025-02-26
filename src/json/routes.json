@@ -9,22 +9,6 @@
       "priority": -1
     },
     {
-      "endpoint": "confirm",
-      "priority": -1
-    },
-    {
-      "endpoint": "rejection",
-      "priority": -1
-    },
-    {
-      "endpoint": "event/signup",
-      "priority": -1
-    },
-    {
-      "endpoint": "event/candidates",
-      "priority": -1
-    },
-    {
       "endpoint": "introduction",
       "priority": 10
     },
@@ -33,15 +17,7 @@
       "priority": 1
     },
     {
-      "endpoint": "signup",
-      "priority": 1
-    },
-    {
       "endpoint": "dashboard",
-      "priority": 1
-    },
-    {
-      "endpoint": "settings",
       "priority": 1
     }
   ]

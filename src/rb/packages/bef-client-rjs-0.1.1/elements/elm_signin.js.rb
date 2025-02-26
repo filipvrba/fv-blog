@@ -84,10 +84,6 @@ export default class ElmSignin < HTMLElement
       <div class='d-grid mb-3'>
         <button id='loginSigninBtn' class='btn btn-primary' onclick='btnSignInClick()'>#{@language[7]}</button>
       </div>
-      <!-- Odkaz na registraci -->
-      <div class='text-center'>
-        <p class='mb-0'>#{@language[8]} <a href='#signup' class='text-primary'>#{@language[9]}</a></p>
-      </div>
     </div>
   </div>
 </div>
