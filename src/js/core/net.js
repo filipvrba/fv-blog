@@ -10,29 +10,24 @@ export default class Net {
   };
 
   static bef(query, callback) {
-    let dbName = ENV.VITE_DATABASE;
     let encodeQuery = encodeURIComponent(query);
 
-    return Net.curl(
-      `/api/bef?db=${dbName}&query=${encodeQuery}`,
+    return Net.curl(`/api/bef?query=${encodeQuery}`, (response) => {
+      let data;
 
-      (response) => {
-        let data;
+      if (response) {
+        data = JSON.parse(response);
 
-        if (response) {
-          data = JSON.parse(response);
-
-          if (data.status_code === 403 || data.status_code === 405 || data.status === "SQL Error") {
-            console.warn(data);
-            if (callback) return callback(null)
-          } else if (callback) {
-            return callback(data)
-          }
+        if (data.status_code === 403 || data.status_code === 405 || data.status === "SQL Error") {
+          console.warn(data);
+          if (callback) return callback(null)
         } else if (callback) {
-          return callback(null)
+          return callback(data)
         }
+      } else if (callback) {
+        return callback(null)
       }
-    )
+    })
   };
 
   static checkInternet(callback) {

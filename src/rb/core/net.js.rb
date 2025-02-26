@@ -15,10 +15,8 @@ export default class Net
   end
 
   def self.bef(query, &callback)
-    db_name = ENV::VITE_DATABASE
-
     encode_query = encodeURIComponent(query)
-    Net.curl("/api/bef?db=#{db_name}&query=#{encode_query}") do |response|
+    Net.curl("/api/bef?query=#{encode_query}") do |response|
 
       if response
         data = JSON.parse(response)

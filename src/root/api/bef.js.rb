@@ -1,6 +1,6 @@
 export default def handler(req, res)
   sql_query = req.query.query
-  database  = process.env.VITE_DATABASE
+  database  = process.env.DATABASE
 
   options = {
     db: database,

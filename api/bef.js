@@ -1,6 +1,6 @@
 export default function handler(req, res) {
   let sqlQuery = req.query.query;
-  let database = process.env.VITE_DATABASE;
+  let database = process.env.DATABASE;
   let options = {db: database, query: sqlQuery, tokens: getTokens()};
   return query(options, response => res.status(200).json(response))
 };
