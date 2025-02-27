@@ -5,9 +5,49 @@ export default class CDatabase {
     this._parent = parent
   };
 
+  getBase64Image(fileId, callback) {
+    let query = `SELECT data FROM file_parts WHERE file_id = ${fileId} ORDER BY part_order;`;
+
+    return Net.bef(query, (rows) => {
+      let base64Image;
+      let haveRows = rows.length > 0;
+
+      if (haveRows) {
+        base64Image = rows.map(h => h.data).join("");
+        if (callback) return callback(base64Image)
+      } else if (callback) {
+        return callback(null)
+      }
+    })
+  };
+
+  getImages(callback) {
+    let query = `SELECT id, name, description FROM files WHERE user_id = ${this._parent.userId} AND file_type LIKE 'image/%';`;
+
+    return Net.bef(query, (rows) => {
+      let haveRows = rows && rows.length > 0;
+
+      if (haveRows) {
+        if (callback) return callback(rows)
+      } else if (callback) {
+        return callback(null)
+      }
+    })
+  };
+
+  removeFiles(idFiles=[], callback) {
+    if (idFiles.length <= 0) return;
+    let query = `DELETE FROM files WHERE id IN (${idFiles.join(", ")});`;
+
+    return Net.bef(query, (message) => {
+      if (callback) return callback(message)
+    })
+  };
+
   saveFile(options, callback) {
-    let description = options.description ? `'${options.description}'` : "NULL";
-    let queryNewFile = `INSERT INTO files (name, description, file_type, user_id) VALUES ('${options.name}', ${description}, '${options.fileType}', ${this._parent.userId});`;
+    let description = options.description ? `'${options.description.encodeBase64()}'` : "NULL";
+    let queryNewFile = `INSERT INTO files (name, description, file_type, user_id) VALUES ('${options.name.encodeBase64()}', ${description}, '${options.fileType}', ${this._parent.userId});`;
+    if (callback) callback({token: "tPreFile"});
 
     return Net.bef(queryNewFile, (msgNewFile) => {
       let queryFileId;
@@ -60,22 +100,6 @@ export default class CDatabase {
           if (callback) return callback({token: "tSegments"})
         }
       })
-    })
-  };
-
-  getBase64Image(fileId, callback) {
-    let query = `SELECT data FROM file_parts WHERE file_id = ${fileId} ORDER BY part_order;`;
-
-    return Net.bef(query, (rows) => {
-      let base64Image;
-      let haveRows = rows.length > 0;
-
-      if (haveRows) {
-        base64Image = rows.map(h => h.data).join("");
-        if (callback) return callback(base64Image)
-      } else if (callback) {
-        return callback(null)
-      }
     })
   }
 }

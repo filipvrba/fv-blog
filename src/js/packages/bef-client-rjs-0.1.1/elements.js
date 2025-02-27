@@ -15,4 +15,7 @@ import ElmProfileEditing from "./elements/elm_profile_editing";
 window.customElements.define(
   "elm-profile-editing",
   ElmProfileEditing
-)
+);
+
+import ElmConfirmModal from "./elements/elm_confirm_modal";
+window.customElements.define("elm-confirm-modal", ElmConfirmModal)

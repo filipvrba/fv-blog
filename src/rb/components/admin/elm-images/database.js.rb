@@ -5,11 +5,56 @@ export default class CDatabase
     @parent = parent
   end
 
-  def save_file(options, &callback)
-    description = options.description ? "'#{options.description}'" : 'NULL'
-    query_new_file = "INSERT INTO files (name, description, file_type, user_id) " +
-      "VALUES ('#{options.name}', #{description}, '#{options.file_type}', #{@parent.user_id});"
+  def get_base64_image(file_id, &callback)
+    query = "SELECT data FROM file_parts " +
+      "WHERE file_id = #{file_id} ORDER BY part_order;"
+    
+    Net.bef(query) do |rows|
+      have_rows = rows.length > 0
 
+      if have_rows
+        base64_image = rows.map {|h| h.data}.join('')
+
+        callback(base64_image) if callback
+      else
+        callback(nil) if callback
+      end
+    end
+  end
+
+  def get_images(&callback)
+    query = "SELECT id, name, description FROM files WHERE user_id = #{@parent.user_id} AND file_type LIKE 'image/%';"
+
+    Net.bef(query) do |rows|
+      have_rows = rows && rows.length > 0
+
+      if have_rows
+        callback(rows) if callback
+      else
+        callback(nil) if callback
+      end
+      
+    end
+  end
+
+  def remove_files(id_files = [], &callback)
+    unless id_files.length > 0
+      return
+    end
+
+    query = "DELETE FROM files WHERE id IN (#{id_files.join(', ')});"
+
+    Net.bef(query) do |message|
+      callback(message) if callback
+    end
+  end
+
+  def save_file(options, &callback)
+    description = options.description ? "'#{options.description.encode_base64()}'" : 'NULL'
+    query_new_file = "INSERT INTO files (name, description, file_type, user_id) " +
+      "VALUES ('#{options.name.encode_base64()}', #{description}, '#{options.file_type}', #{@parent.user_id});"
+
+    callback({token: :t_pre_file}) if callback
     Net.bef(query_new_file) do |msg_new_file|
       if msg_new_file
         callback({token: :t_file}) if callback
@@ -57,23 +102,6 @@ export default class CDatabase
         if result_count == segments.length
           callback({token: :t_segments}) if callback
         end
-      end
-    end
-  end
-
-  def get_base64_image(file_id, &callback)
-    query = "SELECT data FROM file_parts " +
-      "WHERE file_id = #{file_id} ORDER BY part_order;"
-    
-    Net.bef(query) do |rows|
-      have_rows = rows.length > 0
-
-      if have_rows
-        base64_image = rows.map {|h| h.data}.join('')
-
-        callback(base64_image) if callback
-      else
-        callback(nil) if callback
       end
     end
   end
