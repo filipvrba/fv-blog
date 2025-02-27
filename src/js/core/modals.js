@@ -14,8 +14,8 @@ export default class Modals {
     return Events.emit("#app", CInputsConfirmModal.ENVS.show, options)
   };
 
-  static adminImages() {
-    return Events.emit("#app", CInputsAdminImagesModal.ENVS.show)
+  static adminImages(fileId) {
+    return Events.emit("#app", CInputsAdminImagesModal.ENVS.show, fileId)
   }
 };
 

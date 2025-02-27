@@ -5,6 +5,27 @@ export default class CContents
     @parent = parent
 
     @t_body = @parent.query_selector('#adminImagesTBody')
+
+    window.admin_images_th_click = th_click
+  end
+
+  def th_click(image_id)
+    Modals.admin_images(image_id)
+  end
+
+  def template_image(image)
+    return """
+    <tr>
+      <th scope='row'>#{image.id}</th>
+      <td class='pointer' onclick='adminImagesThClick(#{image.id})'>#{image.name.decode_base64()}</td>
+      <td>#{image.description.decode_base64() || '---'}</td>
+      <td>
+        <div class='form-check form-check-reverse mx-5'>
+          <input id='adminImagesCheck-#{image.id}' class='form-check-input' type='checkbox'>
+        </div>
+      </td>
+    </tr>
+    """
   end
 
   def update_table()
@@ -17,19 +38,7 @@ export default class CContents
 
       if images
         images.each do |image|
-          template = """
-          <tr>
-            <th scope='row'>#{image.id}</th>
-            <td>#{image.name.decode_base64()}</td>
-            <td>#{image.description.decode_base64() || '---'}</td>
-            <td>
-              <div class='form-check form-check-reverse mx-5'>
-                <input id='adminImagesCheck-#{image.id}' class='form-check-input' type='checkbox'>
-              </div>
-            </td>
-          </tr>
-          """
-
+          template = template_image(image)
           elements.push(template)
         end
       else

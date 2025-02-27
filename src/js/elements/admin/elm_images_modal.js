@@ -1,8 +1,17 @@
 import CInputs from "../../components/admin/elm-images-modal/inputs";
+import CContents from "../../components/admin/elm-images-modal/contents";
 
 export default class ElmAdminImagesModal extends HTMLElement {
   get bsModalImages() {
     return this._bsModalImages
+  };
+
+  get cContents() {
+    return this._cContents
+  };
+
+  get cInputs() {
+    return this._cInputs
   };
 
   constructor() {
@@ -15,7 +24,8 @@ export default class ElmAdminImagesModal extends HTMLElement {
     this.initElm();
     let modalImages = this.querySelector("#adminImagesModal");
     this._bsModalImages = new bootstrap.Modal(modalImages);
-    this._cInputs = new CInputs(this)
+    this._cInputs = new CInputs(this);
+    this._cContents = new CContents(this)
   };
 
   connectedCallback() {
@@ -58,7 +68,8 @@ export default class ElmAdminImagesModal extends HTMLElement {
           </div>
         </div>
       </div>
-      <div class='modal-footer'>
+      <div id='adminImagesModalBodyTwo' class='modal-body'></div>
+      <div id='adminImagesModalFooter' class='modal-footer'>
         <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Zavřít</button>
         <button id='adminImagesModalBtnSave' type='button' class='btn btn-success' onclick='adminImagesModalBtnSaveClick()'>Uložit a pokračovat</button>
       </div>

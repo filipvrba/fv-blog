@@ -6,7 +6,7 @@ export default class CInputs
 
   def initialize(parent)
     @parent = parent
-    @h_show = lambda { show() }
+    @h_show = lambda {|e| show(e.detail.value) }
 
     @h_admin_images_modal_file_name_keypress = lambda { admin_images_modal_file_name_keypress() }
     @h_admin_images_modal_file_description_keypress = lambda { admin_images_modal_file_description_keypress() }
@@ -32,12 +32,13 @@ export default class CInputs
     Events.disconnect('#app', ENVS.show, @h_show)
   end
 
-  def show()
+  def show(file_id)
     if @parent.bs_modal_images._is_shown
       return
     end
 
-    inputs_clean()
+    @parent.c_contents.switch_content(file_id)
+
     @parent.bs_modal_images.show()
   end
 

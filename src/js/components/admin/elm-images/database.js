@@ -5,22 +5,6 @@ export default class CDatabase {
     this._parent = parent
   };
 
-  getBase64Image(fileId, callback) {
-    let query = `SELECT data FROM file_parts WHERE file_id = ${fileId} ORDER BY part_order;`;
-
-    return Net.bef(query, (rows) => {
-      let base64Image;
-      let haveRows = rows.length > 0;
-
-      if (haveRows) {
-        base64Image = rows.map(h => h.data).join("");
-        if (callback) return callback(base64Image)
-      } else if (callback) {
-        return callback(null)
-      }
-    })
-  };
-
   getImages(callback) {
     let query = `SELECT id, name, description FROM files WHERE user_id = ${this._parent.userId} AND file_type LIKE 'image/%';`;
 

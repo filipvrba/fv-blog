@@ -14,8 +14,8 @@ export default class Modals
     Events.emit('#app', CInputsConfirmModal::ENVS.show, options)
   end
 
-  def self.admin_images()
-    Events.emit('#app', CInputsAdminImagesModal::ENVS.show)
+  def self.admin_images(file_id)
+    Events.emit('#app', CInputsAdminImagesModal::ENVS.show, file_id)
   end
 end
 window.Modals = Modals

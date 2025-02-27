@@ -1,10 +1,7 @@
 export default class CInputs {
   constructor(parent) {
     this._parent = parent;
-
-    this._hShow = () => {
-      return this.show()
-    };
+    this._hShow = e => this.show(e.detail.value);
 
     this._hAdminImagesModalFileNameKeypress = () => {
       return this.adminImagesModalFileNameKeypress()
@@ -48,9 +45,9 @@ export default class CInputs {
     return Events.disconnect("#app", CInputs.ENVS.show, this._hShow)
   };
 
-  show() {
+  show(fileId) {
     if (this._parent.bsModalImages._isShown) return;
-    this.inputsClean();
+    this._parent.cContents.switchContent(fileId);
     return this._parent.bsModalImages.show()
   };
 

@@ -7,4 +7,7 @@ import ElmAdminImagesModal from "./elements/admin/elm_images_modal";
 window.customElements.define(
   "elm-admin-images-modal",
   ElmAdminImagesModal
-)
+);
+
+import ElmImgLoader from "./elements/elm_img_loader";
+window.customElements.define("elm-img-loader", ElmImgLoader)

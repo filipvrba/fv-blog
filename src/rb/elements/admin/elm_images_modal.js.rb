@@ -1,7 +1,9 @@
-import 'CInputs', '../../components/admin/elm-images-modal/inputs'
+import 'CInputs',   '../../components/admin/elm-images-modal/inputs'
+import 'CContents', '../../components/admin/elm-images-modal/contents'
 
 export default class ElmAdminImagesModal < HTMLElement
   attr_reader :bs_modal_images
+  attr_reader :c_contents, :c_inputs
 
   def initialize
     super
@@ -13,7 +15,8 @@ export default class ElmAdminImagesModal < HTMLElement
     modal_images     = self.query_selector('#adminImagesModal')
     @bs_modal_images = bootstrap.Modal.new(modal_images)
 
-    @c_inputs = CInputs.new(self)
+    @c_inputs   = CInputs.new(self)
+    @c_contents = CContents.new(self)
   end
 
   def connected_callback()
@@ -58,7 +61,8 @@ export default class ElmAdminImagesModal < HTMLElement
           </div>
         </div>
       </div>
-      <div class='modal-footer'>
+      <div id='adminImagesModalBodyTwo' class='modal-body'></div>
+      <div id='adminImagesModalFooter' class='modal-footer'>
         <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Zavřít</button>
         <button id='adminImagesModalBtnSave' type='button' class='btn btn-success' onclick='adminImagesModalBtnSaveClick()'>Uložit a pokračovat</button>
       </div>

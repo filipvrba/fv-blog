@@ -5,23 +5,6 @@ export default class CDatabase
     @parent = parent
   end
 
-  def get_base64_image(file_id, &callback)
-    query = "SELECT data FROM file_parts " +
-      "WHERE file_id = #{file_id} ORDER BY part_order;"
-    
-    Net.bef(query) do |rows|
-      have_rows = rows.length > 0
-
-      if have_rows
-        base64_image = rows.map {|h| h.data}.join('')
-
-        callback(base64_image) if callback
-      else
-        callback(nil) if callback
-      end
-    end
-  end
-
   def get_images(&callback)
     query = "SELECT id, name, description FROM files WHERE user_id = #{@parent.user_id} AND file_type LIKE 'image/%';"
 
