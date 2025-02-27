@@ -37,4 +37,16 @@ function base64Split(maxSegmentSizeKb=10) {
   return segments
 };
 
-String.prototype.base64Split = base64Split
+String.prototype.base64Split = base64Split;
+
+function shortenText(maxLength=150) {
+  let text = this;
+
+  if (text.length > maxLength) {
+    return text.slice(0, maxLength) + "..."
+  } else {
+    return text
+  }
+};
+
+String.prototype.shortenText = shortenText

@@ -30,3 +30,13 @@ def base64_split(max_segment_size_kb = 10)
   return segments
 end
 String.prototype.base64_split = base64_split
+
+def shorten_text(max_length = 150)
+  text = self
+  if text.length > max_length
+    return text.slice(0, max_length) + "..."
+  else
+    return text
+  end
+end
+String.prototype.shorten_text = shorten_text

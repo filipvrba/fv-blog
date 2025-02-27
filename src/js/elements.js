@@ -10,4 +10,8 @@ window.customElements.define(
 );
 
 import ElmImgLoader from "./elements/elm_img_loader";
-window.customElements.define("elm-img-loader", ElmImgLoader)
+window.customElements.define("elm-img-loader", ElmImgLoader);
+import ElmAdminArticles from "./elements/admin/elm_articles";
+window.customElements.define("elm-admin-articles", ElmAdminArticles);
+import ElmAdminArticle from "./elements/admin/elm_article";
+window.customElements.define("elm-admin-article", ElmAdminArticle)
