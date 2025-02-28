@@ -38,13 +38,13 @@ export default class ElmAdminArticle < HTMLElement
       @c_database.save_article(options) do |message|
         set_spinner_visibility(false)
 
-        @c_contents.goto_articles() if message
+        @c_contents.goto_articles() if message && options.is_goto
       end
     else
       @c_database.update_article(options) do |message|
         set_spinner_visibility(false)
 
-        @c_contents.goto_articles() if message
+        @c_contents.goto_articles() if message && options.is_goto
       end
     end
   end

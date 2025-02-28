@@ -6,6 +6,8 @@ export default class CInputs
     window.admin_articles_dropdown_btn_remove_click     = dropdown_btn_remove_click
     window.admin_articles_dropdown_btn_edit_click       = dropdown_btn_edit_click
     window.admin_articles_dropdown_btn_visibility_click = dropdown_btn_visibility_click 
+
+    window.admin_articles_btn_show_click = btn_show_click
   end
 
   def dropdown_btn_new_click()
@@ -65,5 +67,9 @@ export default class CInputs
 
   def dropdown_btn_edit_click(article_id)
     @parent.c_contents.goto_article(article_id)
+  end
+
+  def btn_show_click(article_id, is_published)
+    window.open("/?aid=#{article_id}&preview=#{!is_published}#article", '_blank')
   end
 end

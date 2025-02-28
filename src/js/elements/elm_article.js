@@ -6,6 +6,10 @@ export default class ElmArticle extends HTMLElement {
     return this._articleId
   };
 
+  get isPreview() {
+    return this._isPreview
+  };
+
   get cDatabase() {
     return this._cDatabase
   };
@@ -13,6 +17,8 @@ export default class ElmArticle extends HTMLElement {
   constructor() {
     super();
     this._articleId = URLParams.getIndex("aid") || 0;
+    this._isPreview = URLParams.get("preview") || "";
+    this._isPreview = this._isPreview === "true";
     this._cDatabase = new CDatabase(this);
     this._cContents = new CContents(this)
   };

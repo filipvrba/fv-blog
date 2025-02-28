@@ -9,6 +9,13 @@ export default class CDatabase
     query = "SELECT file_id, title, full_text, created_at, is_adult " +
       "FROM articles WHERE id = #{@parent.article_id} AND is_published = 1;"
 
+    if @parent.is_preview
+      query = "SELECT file_id, title, full_text, created_at, is_adult " +
+        "FROM articles WHERE user_id = " +
+        "(SELECT user_id FROM tokens WHERE token = '#{Cookie.get('l-token')}' " +
+        "AND expires_at > CURRENT_TIMESTAMP) AND id = #{@parent.article_id} AND is_published = 0;"
+    end
+
     Net.bef(query) do |rows|
       have_rows = rows && rows.length > 0
 

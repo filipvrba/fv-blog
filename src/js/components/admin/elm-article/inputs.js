@@ -110,8 +110,9 @@ export default class CInputs {
       return
     };
 
-    let fnTrue = () => (
+    let fnClick = isGoto => (
       this._parent.btnSaveClick({
+        isGoto,
         isAdult: this._adminArticleSwitchCheckAdult.checked,
         imageId: this._adminArticleIdimage.value,
         category: this._adminArticleCategory.value,
@@ -120,7 +121,16 @@ export default class CInputs {
       })
     );
 
-    return Modals.confirm({fnTrue})
+    let fnTrue = () => fnClick(true);
+    let fnFalse = () => fnClick(false);
+
+    let confirmOptions = {
+      fnTrue,
+      fnFalse,
+      message: "<p>Chceš uložit a ukončit úpravy?</p>"
+    };
+
+    return Modals.confirm(confirmOptions)
   };
 
   adminArticleBtnBackClick() {

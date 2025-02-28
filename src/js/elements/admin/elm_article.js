@@ -52,11 +52,11 @@ export default class ElmAdminArticle extends HTMLElement {
 
       (message) => {
         this.setSpinnerVisibility(false);
-        if (message) return this._cContents.gotoArticles()
+        if (message && options.isGoto) return this._cContents.gotoArticles()
       }
     ) : this._cDatabase.saveArticle(options, (message) => {
       this.setSpinnerVisibility(false);
-      if (message) return this._cContents.gotoArticles()
+      if (message && options.isGoto) return this._cContents.gotoArticles()
     })
   };
 

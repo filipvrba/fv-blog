@@ -50,8 +50,9 @@ export default class CInputs
       return
     end
 
-    fn_true = lambda do
+    fn_click = lambda do |is_goto|
       @parent.btn_save_click({
+        is_goto: is_goto,
         is_adult: @admin_article_switch_check_adult.checked,
         image_id: @admin_article_idimage.value,
         category: @admin_article_category.value,
@@ -60,7 +61,13 @@ export default class CInputs
       })
     end
 
-    Modals.confirm({fn_true: fn_true})
+    fn_true  = lambda { fn_click(true) }
+    fn_false = lambda { fn_click(false) }
+    confirm_options = {
+      fn_true: fn_true, fn_false: fn_false,
+      message: "<p>Chceš uložit a ukončit úpravy?</p>"
+    }
+    Modals.confirm(confirm_options)
   end
 
   def admin_article_btn_back_click()

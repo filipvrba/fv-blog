@@ -4,7 +4,8 @@ export default class CInputs {
     window.adminArticlesDropdownBtnNewClick = this.dropdownBtnNewClick.bind(this);
     window.adminArticlesDropdownBtnRemoveClick = this.dropdownBtnRemoveClick.bind(this);
     window.adminArticlesDropdownBtnEditClick = this.dropdownBtnEditClick.bind(this);
-    window.adminArticlesDropdownBtnVisibilityClick = this.dropdownBtnVisibilityClick.bind(this)
+    window.adminArticlesDropdownBtnVisibilityClick = this.dropdownBtnVisibilityClick.bind(this);
+    window.adminArticlesBtnShowClick = this.btnShowClick.bind(this)
   };
 
   dropdownBtnNewClick() {
@@ -73,5 +74,12 @@ export default class CInputs {
 
   dropdownBtnEditClick(articleId) {
     return this._parent.cContents.gotoArticle(articleId)
+  };
+
+  btnShowClick(articleId, isPublished) {
+    return window.open(
+      `/?aid=${articleId}&preview=${!isPublished}#article`,
+      "_blank"
+    )
   }
 }
