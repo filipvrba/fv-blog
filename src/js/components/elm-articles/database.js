@@ -1,0 +1,31 @@
+import Net from "../../core/net";
+
+export default class CDatabase {
+  constructor(parent) {
+    this._parent = parent
+  };
+
+  getAllArticles(callback) {
+    let query = "SELECT id, file_id, title, short_text, category, created_at FROM articles ORDER BY created_at DESC;";
+
+    return Net.bef(query, (rows) => {
+      let articles;
+      let haveRows = rows && rows.length > 0;
+
+      if (haveRows) {
+        articles = rows.map(h => ({
+          id: parseInt(h.id),
+          fileId: parseInt(h.file_id) || "",
+          title: h.title.decodeBase64(),
+          shortText: h.short_text.decodeBase64(),
+          category: h.category.decodeBase64(),
+          createdAt: DateUtils.formatDate(h.created_at)
+        }));
+
+        if (callback) return callback(articles)
+      } else if (callback) {
+        return callback(null)
+      }
+    })
+  }
+}

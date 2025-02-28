@@ -9,8 +9,12 @@
       "priority": -1
     },
     {
-      "endpoint": "introduction",
+      "endpoint": "articles",
       "priority": 10
+    },
+    {
+      "endpoint": "article",
+      "priority": 1
     },
     {
       "endpoint": "admin/signin",

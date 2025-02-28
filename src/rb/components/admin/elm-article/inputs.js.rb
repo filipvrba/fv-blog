@@ -25,14 +25,12 @@ export default class CInputs
     @admin_article_idimage.add_event_listener('keypress', @h_admin_article_idimage_keypress)
     @admin_article_category.add_event_listener('keypress', @h_admin_article_category_keypress)
     @admin_article_title.add_event_listener('keypress', @h_admin_article_title_keypress)
-    @admin_article_text.add_event_listener('keypress', @h_admin_article_text_keypress)
   end
 
   def disconnected_callback()
     @admin_article_idimage.remove_event_listener('keypress', @h_admin_article_idimage_keypress)
     @admin_article_category.remove_event_listener('keypress', @h_admin_article_category_keypress)
     @admin_article_title.remove_event_listener('keypress', @h_admin_article_title_keypress)
-    @admin_article_text.remove_event_listener('keypress', @h_admin_article_text_keypress)
   end
 
   def admin_article_btn_save_click()
@@ -82,12 +80,6 @@ export default class CInputs
     return unless event.key == 'Enter'
 
     @admin_article_text.focus()
-  end
-  
-  def admin_article_text_keypress()
-    return unless event.key == 'Enter'
-
-    @admin_article_btn_save.click()
   end
   
   def have_admin_article_idimage()

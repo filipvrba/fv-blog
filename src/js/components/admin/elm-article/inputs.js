@@ -30,10 +30,7 @@ export default class CInputs {
       return this.adminArticleTitleKeypress()
     };
 
-    this._hAdminArticleTextKeypress = () => {
-      return this.adminArticleTextKeypress()
-    };
-
+    this._hAdminArticleTextKeypress = () => adminArticleTextKeypress();
     this._adminArticleIdimage = this._parent.querySelector("#adminArticleIDImage");
     this._adminArticleCategory = this._parent.querySelector("#adminArticleCategory");
     this._adminArticleTitle = this._parent.querySelector("#adminArticleTitle");
@@ -55,14 +52,9 @@ export default class CInputs {
       this._hAdminArticleCategoryKeypress
     );
 
-    this._adminArticleTitle.addEventListener(
+    return this._adminArticleTitle.addEventListener(
       "keypress",
       this._hAdminArticleTitleKeypress
-    );
-
-    return this._adminArticleText.addEventListener(
-      "keypress",
-      this._hAdminArticleTextKeypress
     )
   };
 
@@ -77,14 +69,9 @@ export default class CInputs {
       this._hAdminArticleCategoryKeypress
     );
 
-    this._adminArticleTitle.removeEventListener(
+    return this._adminArticleTitle.removeEventListener(
       "keypress",
       this._hAdminArticleTitleKeypress
-    );
-
-    return this._adminArticleText.removeEventListener(
-      "keypress",
-      this._hAdminArticleTextKeypress
     )
   };
 
@@ -147,11 +134,6 @@ export default class CInputs {
   adminArticleTitleKeypress() {
     if (event.key !== "Enter") return;
     return this._adminArticleText.focus()
-  };
-
-  adminArticleTextKeypress() {
-    if (event.key !== "Enter") return;
-    return this._adminArticleBtnSave.click()
   };
 
   haveAdminArticleIdimage() {

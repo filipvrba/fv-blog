@@ -1,4 +1,6 @@
-import 'CryptoJS', 'crypto-js'
+import 'CryptoJS',   'crypto-js'
+import 'markdownit', 'markdown-it'
+import 'hljs',       'highlight.js'
 
 def decode_base64()
   CryptoJS.enc.Base64.parse(self).to_string(CryptoJS.enc.Utf8)
@@ -32,7 +34,7 @@ end
 String.prototype.base64_split = base64_split
 
 def shorten_text(max_length = 150)
-  text = self
+  text = self.split("\n").first
   if text.length > max_length
     return text.slice(0, max_length) + "..."
   else
@@ -40,3 +42,23 @@ def shorten_text(max_length = 150)
   end
 end
 String.prototype.shorten_text = shorten_text
+
+def md_to_html()
+  options = {
+    html: true,
+    highlight: lambda do |str, lang|
+
+      if lang && hljs.getLanguage(lang)
+        begin
+          return hljs.highlight(str, { language: lang }).value
+        rescue
+        end
+      end
+  
+      return '' # use external default escaping
+    end
+  }
+  md = markdownit(options)
+  md.render(self)
+end
+String.prototype.md_to_html = md_to_html

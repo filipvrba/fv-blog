@@ -1,4 +1,6 @@
 import CryptoJS from "crypto-js";
+import markdownit from "markdown-it";
+import hljs from "highlight.js";
 
 function decodeBase64() {
   return CryptoJS.enc.Base64.parse(this).toString(CryptoJS.enc.Utf8)
@@ -40,7 +42,7 @@ function base64Split(maxSegmentSizeKb=10) {
 String.prototype.base64Split = base64Split;
 
 function shortenText(maxLength=150) {
-  let text = this;
+  let text = this.split("\n")[0];
 
   if (text.length > maxLength) {
     return text.slice(0, maxLength) + "..."
@@ -49,4 +51,23 @@ function shortenText(maxLength=150) {
   }
 };
 
-String.prototype.shortenText = shortenText
+String.prototype.shortenText = shortenText;
+
+function mdToHtml() {
+  let options = {html: true, highlight(str, lang) {
+    if (lang && hljs.getLanguage(lang)) {
+      try {
+        return hljs.highlight(str, {language: lang}).value
+      } catch {
+
+      }
+    };
+
+    return ""
+  }};
+
+  let md = markdownit(options);
+  return md.render(this)
+};
+
+String.prototype.mdToHtml = mdToHtml

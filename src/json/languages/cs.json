@@ -3,7 +3,8 @@
     "titles": {
       "error": "Chyba",
       "nointernet": "Bez internetu",
-      "introduction": "Úvod",
+      "articles": "Články",
+      "article": "Článek",
       "admin/signin": "Přihlásit se",
       "admin": "Admin"
     },

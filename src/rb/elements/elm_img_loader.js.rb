@@ -6,7 +6,8 @@ export default class ElmImgLoader < HTMLElement
   def initialize
     super
 
-    @file_id = self.get_attribute('file-id')
+    @file_id = self.get_attribute('file-id') || nil
+    @is_rounded = self.get_attribute('rounded') == ''
     
     init_elm()
 
@@ -14,9 +15,15 @@ export default class ElmImgLoader < HTMLElement
   end
 
   def connected_callback()
-    @c_database.get_image() do |image|
-      # puts image
-      self.innerHTML = "<img src='#{image.src}' class='img-fluid' alt='#{image.alt}'>"
+    class_rounded = @is_rounded ? "rounded-3" : ''
+
+    if @file_id
+      @c_database.get_image() do |image|
+        # puts image
+        self.innerHTML = "<img src='#{image.src}' class='img-fluid #{class_rounded}' alt='#{image.alt}'>"
+      end
+    else
+      self.innerHTML = "<img src='/imgs/no_img_01.jpg' class='img-fluid #{class_rounded}' alt='No Image Available'>"
     end
   end
 
