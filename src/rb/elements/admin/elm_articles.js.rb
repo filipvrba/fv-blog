@@ -43,6 +43,7 @@ export default class ElmAdminArticles < HTMLElement
           <th scope='col'></th>
           <th scope='col'>Název</th>
           <th scope='col'>Kategorie</th>
+          <th scope='col'>Viditelnost</th>
           <th scope='col' class='text-end'>
             <div class='dropdown' >
               <button class='btn btn-primary dropdown-toggle' type='button' data-bs-toggle='dropdown' aria-expanded='false'>
@@ -54,6 +55,9 @@ export default class ElmAdminArticles < HTMLElement
                   <button class='dropdown-item' onclick='adminArticlesDropdownBtnNewClick()'>Nový</button>
                 </li>
                 <li>
+                  <button class='dropdown-item' onclick='adminArticlesDropdownBtnVisibilityClick()'>Upravit viditelnost</button>
+                </li>
+                <li>
                   <button class='dropdown-item' onclick='adminArticlesDropdownBtnRemoveClick()'>Odebrat</button>
                 </li>
               </ul>
@@ -63,6 +67,7 @@ export default class ElmAdminArticles < HTMLElement
       </thead>
       <tbody id='adminArticlesTBody'>
         <tr>
+          <td class='text-center'>~~~</td>
           <td class='text-center'>~~~</td>
           <td class='text-center'>~~~</td>
           <td class='text-center'>~~~</td>

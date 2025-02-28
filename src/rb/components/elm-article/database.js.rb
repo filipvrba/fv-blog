@@ -6,8 +6,8 @@ export default class CDatabase
   end
 
   def get_artcile(&callback)
-    query = "SELECT file_id, title, full_text, created_at " +
-      "FROM articles WHERE id = #{@parent.article_id};"
+    query = "SELECT file_id, title, full_text, created_at, is_adult " +
+      "FROM articles WHERE id = #{@parent.article_id} AND is_published = 1;"
 
     Net.bef(query) do |rows|
       have_rows = rows && rows.length > 0
@@ -18,7 +18,8 @@ export default class CDatabase
             file_id: h['file_id'].to_i || '',
             title: h.title.decode_base64(),
             full_text: h['full_text'].decode_base64(),
-            created_at: DateUtils.format_date(h['created_at'])
+            created_at: DateUtils.format_date(h['created_at']),
+            is_adult: h['is_adult'] == 1.to_s
           }
         end
         callback(articles.first) if callback

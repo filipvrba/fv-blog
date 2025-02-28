@@ -7,7 +7,7 @@ export default class CDatabase
 
   def get_all_articles(&callback)
     query = "SELECT id, file_id, title, short_text, category, created_at " +
-      "FROM articles ORDER BY created_at DESC;"
+      "FROM articles WHERE is_published = 1 ORDER BY created_at DESC;"
 
     Net.bef(query) do |rows|
       have_rows = rows && rows.length > 0

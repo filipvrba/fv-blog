@@ -14,6 +14,7 @@ export default class CContents {
 
     return this._parent.cDatabase.getArticle((article) => {
       this._parent.setSpinnerVisibility(false);
+      this._parent.cInputs.adminArticleSwitchCheckAdult.checked = article.isAdult;
       this._parent.cInputs.adminArticleIdimage.value = article.fileId;
       this._parent.cInputs.adminArticleCategory.value = article.category;
       this._parent.cInputs.adminArticleTitle.value = article.title;

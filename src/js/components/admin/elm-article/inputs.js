@@ -15,6 +15,10 @@ export default class CInputs {
     return this._adminArticleText
   };
 
+  get adminArticleSwitchCheckAdult() {
+    return this._adminArticleSwitchCheckAdult
+  };
+
   constructor(parent) {
     this._parent = parent;
 
@@ -31,6 +35,7 @@ export default class CInputs {
     };
 
     this._hAdminArticleTextKeypress = () => adminArticleTextKeypress();
+    this._adminArticleSwitchCheckAdult = this._parent.querySelector("#adminArticleSwitchCheckAdult");
     this._adminArticleIdimage = this._parent.querySelector("#adminArticleIDImage");
     this._adminArticleCategory = this._parent.querySelector("#adminArticleCategory");
     this._adminArticleTitle = this._parent.querySelector("#adminArticleTitle");
@@ -107,6 +112,7 @@ export default class CInputs {
 
     let fnTrue = () => (
       this._parent.btnSaveClick({
+        isAdult: this._adminArticleSwitchCheckAdult.checked,
         imageId: this._adminArticleIdimage.value,
         category: this._adminArticleCategory.value,
         title: this._adminArticleTitle.value,

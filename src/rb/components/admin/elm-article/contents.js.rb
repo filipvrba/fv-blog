@@ -18,6 +18,7 @@ export default class CContents
     @parent.c_database.get_article() do |article|
       @parent.set_spinner_visibility(false)
 
+      @parent.c_inputs.admin_article_switch_check_adult.checked = article.is_adult
       @parent.c_inputs.admin_article_idimage.value = article.file_id
       @parent.c_inputs.admin_article_category.value = article.category
       @parent.c_inputs.admin_article_title.value = article.title

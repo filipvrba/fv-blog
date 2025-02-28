@@ -75,6 +75,14 @@ export default class ElmAdminArticle extends HTMLElement {
     <elm-spinner id='spinnerAdminArticle' class='spinner-overlay'></elm-spinner>
 
     <div class='form-container'>
+
+      <div class='col-md-6 mx-auto'>
+        <div class='form-check form-switch mb-4'>
+          <input class='form-check-input' type='checkbox' role='switch' id='adminArticleSwitchCheckAdult' data-button-id='adminArticleBtnSave'>
+          <label class='form-check-label' for='adminArticleSwitchCheckAdult'>Povolit upozornění na věkovou omezenost</label>
+        </div>
+      </div>
+
       <div class='row g-3'>
         <div class='col-md-6'>
           <div class='mb-3'>
