@@ -1,0 +1,26 @@
+#cmp-banner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 999;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 15px;
+  opacity: 0; /* Banner je ve výchozím stavu neviditelný */
+  transform: translateY(100%); /* Posunutí banneru dolů mimo obrazovku */
+  transition: opacity 0.5s ease, transform 0.5s ease; /* Přechod pro plynulé zobrazení */
+}
+
+#cmp-banner.show {
+  opacity: 1; /* Při zobrazení bude viditelný */
+  transform: translateY(0); /* Posune se na viditelnou část obrazovky */
+}
+
+#cmp-banner h5 {
+  color: white;
+}
+
+.cmp-options {
+  margin-top: 10px;
+}

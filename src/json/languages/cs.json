@@ -67,5 +67,11 @@
     "Hesla se neshodují.",
     "Vaše nové heslo bylo úspěšně změněno.",
     "Změnit heslo"
+  ],
+  "cmpBanner": [
+    "Vaše soukromí je pro nás důležité",
+    "Tento web používá cookies k ukládání údajů o vaší návštěvě a klikání na články za účelem analýzy návštěvnosti blogu. Souhlasíte s tímto sledováním?",
+    "Přijmout vše",
+    "Odmítnout vše"
   ]
 }
