@@ -17,13 +17,20 @@ export default class ElmImgLoader < HTMLElement
   def connected_callback()
     class_rounded = @is_rounded ? "rounded-3" : ''
 
+    l_no_image = lambda do
+      self.innerHTML = "<img src='/imgs/no_img_01.jpg' class='img-fluid #{class_rounded}' alt='No Image Available'>"
+    end
+
     if @file_id
       @c_database.get_image() do |image|
-        # puts image
-        self.innerHTML = "<img src='#{image.src}' class='img-fluid #{class_rounded}' alt='#{image.alt}'>"
+        if image
+          self.innerHTML = "<img src='#{image.src}' class='img-fluid #{class_rounded}' alt='#{image.alt}'>"
+        else
+          l_no_image.call()
+        end
       end
     else
-      self.innerHTML = "<img src='/imgs/no_img_01.jpg' class='img-fluid #{class_rounded}' alt='No Image Available'>"
+      l_no_image.call()
     end
   end
 

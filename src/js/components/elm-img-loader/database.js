@@ -26,7 +26,7 @@ export default class CDatabase {
 
     return Net.bef(query, (rows) => {
       let base64File, image;
-      let haveRows = rows.length > 0;
+      let haveRows = rows && rows.length > 0;
 
       if (haveRows) {
         base64File = rows.map(h => h.data).join("");

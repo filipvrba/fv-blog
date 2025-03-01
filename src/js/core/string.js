@@ -67,6 +67,7 @@ function mdToHtml() {
   }};
 
   let md = markdownit(options);
+  MDRules.register(md);
   return md.render(this)
 };
 

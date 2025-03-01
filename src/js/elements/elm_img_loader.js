@@ -16,9 +16,13 @@ export default class ElmImgLoader extends HTMLElement {
   connectedCallback() {
     let classRounded = this._isRounded ? "rounded-3" : "";
 
+    let lNoImage = () => (
+      this.innerHTML = `<img src='/imgs/no_img_01.jpg' class='img-fluid ${classRounded}' alt='No Image Available'>`
+    );
+
     return this._fileId ? this._cDatabase.getImage(image => (
-      this.innerHTML = `<img src='${image.src}' class='img-fluid ${classRounded}' alt='${image.alt}'>`
-    )) : this.innerHTML = `<img src='/imgs/no_img_01.jpg' class='img-fluid ${classRounded}' alt='No Image Available'>`
+      image ? this.innerHTML = `<img src='${image.src}' class='img-fluid ${classRounded}' alt='${image.alt}'>` : lNoImage.call()
+    )) : lNoImage.call()
   };
 
   disconnectedCallback() {

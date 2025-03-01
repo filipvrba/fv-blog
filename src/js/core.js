@@ -10,4 +10,5 @@ import "./core/settings";
 import "./core/clock";
 import "./core/image_compressor";
 import "./core/modals";
-import "./core/date_utils"
+import "./core/date_utils";
+import "./core/md_rules"

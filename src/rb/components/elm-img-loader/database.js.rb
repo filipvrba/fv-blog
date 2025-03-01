@@ -28,7 +28,7 @@ export default class CDatabase
       "WHERE fp.file_id = #{@parent.file_id} ORDER BY fp.part_order;"
 
     Net.bef(query) do |rows|
-      have_rows = rows.length > 0
+      have_rows = rows && rows.length > 0
 
       if have_rows
         base64_file = rows.map {|h| h.data}.join('')

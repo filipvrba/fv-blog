@@ -59,6 +59,7 @@ def md_to_html()
     end
   }
   md = markdownit(options)
+  MDRules.register(md)
   md.render(self)
 end
 String.prototype.md_to_html = md_to_html
