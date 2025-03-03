@@ -16,7 +16,7 @@ export default async function handler(req, res) {
 };
 
 async function getArticleIds(baseUrl) {
-  let query = "SELECT id FROM articles WHERE is_published = 1 ORDER BY created_at DESC;";
+  let query = "SELECT id, updated_at FROM articles WHERE is_published = 1 ORDER BY created_at DESC;";
   let queryEncode = encodeURIComponent(query);
   let apiUrl = `${baseUrl}/api/bef?query=${queryEncode}`;
   let response = await fetch(apiUrl);
