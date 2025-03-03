@@ -2,7 +2,7 @@ export default async function handler(req, res) {
   let baseUrl = "https://filipvrba-blog.vercel.app";
   let articles = await getArticleIds(baseUrl);
 
-  let urls = articles.map(a => (
+  let urls = articles.map(article => (
     `<url>\n        <loc>${baseUrl}/article/${article.id}</loc>\n        <lastmod>${new Date(article.updated_at).toISOString()}</lastmod>\n    </url>`
   )).join("");
 

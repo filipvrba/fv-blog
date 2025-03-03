@@ -1,9 +1,9 @@
 export default async def handler(req, res)
   base_url = 'https://filipvrba-blog.vercel.app'
   articles = await get_article_ids(base_url)
-  urls     = articles.map do |a|
+  urls     = articles.map do |article|
     "<url>
-        <loc>#{baseUrl}/article/#{article.id}</loc>
+        <loc>#{base_url}/article/#{article.id}</loc>
         <lastmod>#{Date.new(article['updated_at']).toISO_string()}</lastmod>
     </url>"
   end.join('')
