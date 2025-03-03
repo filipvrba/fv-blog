@@ -23,7 +23,7 @@ export default class CContents {
             </div>
             <div class='text-center mt-3'>
               <h1 class='fw-bold'>${article.title}</h1>
-              <p class='h4'>Publikováno: ${article.createdAt}</p>
+              <p class='h4'>Publikováno: ${article.updatedAt}</p>
             </div>
           </header>
           <article class='container text-break article mt-5'>

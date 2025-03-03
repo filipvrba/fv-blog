@@ -1,7 +1,12 @@
 export default async def handler(req, res)
   base_url = 'https://filipvrba-blog.vercel.app'
   articles = await get_article_ids(base_url)
-  urls     = articles.map {|a| "<url><loc>#{base_url}/article/#{a.id}</loc></url>"}.join('')
+  urls     = articles.map do |a|
+    "<url>
+        <loc>#{baseUrl}/article/#{article.id}</loc>
+        <lastmod>#{Date.new(article['updated_at']).toISO_string()}</lastmod>
+    </url>"
+  end.join('')
 
   sitemap  = "<?xml version='1.0' encoding='UTF-8'?>
   <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>

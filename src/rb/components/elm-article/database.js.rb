@@ -10,7 +10,7 @@ export default class CDatabase
       "FROM articles WHERE id = #{@parent.article_id} AND is_published = 1;"
 
     if @parent.is_preview
-      query = "SELECT file_id, title, full_text, created_at, is_adult " +
+      query = "SELECT file_id, title, full_text, updated_at, is_adult " +
         "FROM articles WHERE user_id = " +
         "(SELECT user_id FROM tokens WHERE token = '#{Cookie.get('l-token')}' " +
         "AND expires_at > CURRENT_TIMESTAMP) AND id = #{@parent.article_id} AND is_published = 0;"
@@ -25,7 +25,7 @@ export default class CDatabase
             file_id: h['file_id'].to_i || '',
             title: h.title.decode_base64(),
             full_text: h['full_text'].decode_base64(),
-            created_at: DateUtils.format_date(h['created_at']),
+            updated_at: DateUtils.format_date(h['updated_at']),
             is_adult: h['is_adult'] == 1.to_s
           }
         end

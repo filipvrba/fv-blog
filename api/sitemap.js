@@ -3,7 +3,7 @@ export default async function handler(req, res) {
   let articles = await getArticleIds(baseUrl);
 
   let urls = articles.map(a => (
-    `<url><loc>${baseUrl}/article/${a.id}</loc></url>`
+    `<url>\n        <loc>${baseUrl}/article/${article.id}</loc>\n        <lastmod>${new Date(article.updated_at).toISOString()}</lastmod>\n    </url>`
   )).join("");
 
   let sitemap = `<?xml version='1.0' encoding='UTF-8'?>

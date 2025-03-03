@@ -12,7 +12,7 @@ export default class CDatabase {
     let shortText = options.text.shortenText().encodeBase64();
     let fullText = options.text.encodeBase64();
     let isAdult = options.isAdult ? 1 : 0;
-    let query = `INSERT INTO articles (user_id, file_id, title, category, short_text, full_text, is_adult) VALUES (${this._parent.userId}, ${fileId}, '${title}', '${category}', '${shortText}', '${fullText}', ${isAdult});`;
+    let query = `INSERT INTO articles (user_id, file_id, title, category, short_text, full_text, is_adult, updated_at) VALUES (${this._parent.userId}, ${fileId}, '${title}', '${category}', '${shortText}', '${fullText}', ${isAdult}, CURRENT_TIMESTAMP);`;
 
     return Net.bef(query, (message) => {
       if (callback) return callback(message)
@@ -26,7 +26,7 @@ export default class CDatabase {
     let shortText = options.text.shortenText().encodeBase64();
     let fullText = options.text.encodeBase64();
     let isAdult = options.isAdult ? 1 : 0;
-    let query = `UPDATE articles SET file_id = ${fileId}, title = '${title}', category = '${category}', short_text = '${shortText}', full_text = '${fullText}', is_adult = ${isAdult} WHERE id = ${this._parent.articleId};`;
+    let query = `UPDATE articles SET file_id = ${fileId}, title = '${title}', category = '${category}', short_text = '${shortText}', full_text = '${fullText}', is_adult = ${isAdult}, updated_at = CURRENT_TIMESTAMP WHERE id = ${this._parent.articleId};`;
 
     return Net.bef(query, (message) => {
       if (callback) return callback(message)

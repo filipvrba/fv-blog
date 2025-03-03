@@ -6,7 +6,7 @@ export default class CDatabase {
   };
 
   getAllArticles(callback) {
-    let query = "SELECT id, file_id, title, short_text, category, created_at FROM articles WHERE is_published = 1 ORDER BY created_at DESC;";
+    let query = "SELECT id, file_id, title, short_text, category, updated_at FROM articles WHERE is_published = 1 ORDER BY created_at DESC;";
 
     return Net.bef(query, (rows) => {
       let articles;
@@ -19,7 +19,7 @@ export default class CDatabase {
           title: h.title.decodeBase64(),
           shortText: h.short_text.decodeBase64(),
           category: h.category.decodeBase64(),
-          createdAt: DateUtils.formatDate(h.created_at)
+          updatedAt: DateUtils.formatDate(h.updated_at)
         }));
 
         if (callback) return callback(articles)
