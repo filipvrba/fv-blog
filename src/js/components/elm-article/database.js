@@ -9,7 +9,7 @@ export default class CDatabase {
     let query = `SELECT file_id, title, full_text, created_at, is_adult FROM articles WHERE id = ${this._parent.articleId} AND is_published = 1;`;
 
     if (this._parent.isPreview) {
-      query = `SELECT file_id, title, full_text, updated_at, is_adult FROM articles WHERE user_id = (SELECT user_id FROM tokens WHERE token = '${Cookie.get("l-token")}' AND expires_at > CURRENT_TIMESTAMP) AND id = ${this._parent.articleId} AND is_published = 0;`
+      query = `SELECT file_id, title, full_text, changed_at, is_adult FROM articles WHERE user_id = (SELECT user_id FROM tokens WHERE token = '${Cookie.get("l-token")}' AND expires_at > CURRENT_TIMESTAMP) AND id = ${this._parent.articleId} AND is_published = 0;`
     };
 
     return Net.bef(query, (rows) => {
@@ -21,7 +21,7 @@ export default class CDatabase {
           fileId: parseInt(h.file_id) || "",
           title: h.title.decodeBase64(),
           fullText: h.full_text.decodeBase64(),
-          updatedAt: DateUtils.formatDate(h.updated_at),
+          changedAt: DateUtils.formatDate(h.changed_at),
           isAdult: h.is_adult === (1).toString()
         }));
 

@@ -3,7 +3,7 @@ export default async function handler(req, res) {
   let articles = await getArticleIds(baseUrl);
 
   let urls = articles.map(article => (
-    `<url>\n        <loc>${baseUrl}/article/${article.id}</loc>\n        <lastmod>${new Date(article.updated_at).toISOString()}</lastmod>\n    </url>`
+    `<url>\n        <loc>${baseUrl}/article/${article.id}</loc>\n        <lastmod>${new Date(article.changed_at).toISOString()}</lastmod>\n    </url>`
   )).join("");
 
   let sitemap = `<?xml version='1.0' encoding='UTF-8'?>
@@ -16,7 +16,7 @@ export default async function handler(req, res) {
 };
 
 async function getArticleIds(baseUrl) {
-  let query = "SELECT id, updated_at FROM articles WHERE is_published = 1 ORDER BY created_at DESC;";
+  let query = "SELECT id, changed_at FROM articles WHERE is_published = 1 ORDER BY created_at DESC;";
   let queryEncode = encodeURIComponent(query);
   let apiUrl = `${baseUrl}/api/bef?query=${queryEncode}`;
   let response = await fetch(apiUrl);

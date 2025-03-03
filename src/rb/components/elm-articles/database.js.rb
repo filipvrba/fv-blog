@@ -6,7 +6,7 @@ export default class CDatabase
   end
 
   def get_all_articles(&callback)
-    query = "SELECT id, file_id, title, short_text, category, updated_at " +
+    query = "SELECT id, file_id, title, short_text, category, changed_at " +
       "FROM articles WHERE is_published = 1 ORDER BY created_at DESC;"
 
     Net.bef(query) do |rows|
@@ -20,7 +20,7 @@ export default class CDatabase
             title: h.title.decode_base64(),
             short_text: h['short_text'].decode_base64(),
             category: h.category.decode_base64(),
-            updated_at: DateUtils.format_date(h['updated_at'])
+            changed_at: DateUtils.format_date(h['changed_at'])
           }
         end
 

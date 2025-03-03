@@ -4,7 +4,7 @@ export default async def handler(req, res)
   urls     = articles.map do |article|
     "<url>
         <loc>#{base_url}/article/#{article.id}</loc>
-        <lastmod>#{Date.new(article['updated_at']).toISO_string()}</lastmod>
+        <lastmod>#{Date.new(article['changed_at']).toISO_string()}</lastmod>
     </url>"
   end.join('')
 
@@ -19,7 +19,7 @@ export default async def handler(req, res)
 end
 
 async def get_article_ids(base_url)
-  query        = "SELECT id, updated_at FROM articles WHERE is_published = 1 ORDER BY created_at DESC;"
+  query        = "SELECT id, changed_at FROM articles WHERE is_published = 1 ORDER BY created_at DESC;"
   query_encode = encodeURI_component(query)
   api_url      = "#{base_url}/api/bef?query=#{query_encode}"
   response     = await fetch(api_url)

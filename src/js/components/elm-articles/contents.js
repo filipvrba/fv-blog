@@ -36,7 +36,7 @@ export default class CContents {
               <br>
               <small class='text-muted'>
                 <i class='bi bi-calendar-fill'></i>
-                ${article.updatedAt}
+                ${article.changedAt}
               </small>
             </p>
           </div>

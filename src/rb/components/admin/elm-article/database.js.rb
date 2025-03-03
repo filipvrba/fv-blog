@@ -13,9 +13,9 @@ export default class CDatabase
     full_text  = options.text.encode_base64()
     is_adult   = options.is_adult ? 1 : 0
 
-    query = "INSERT INTO articles (user_id, file_id, title, category, short_text, full_text, is_adult, updated_at) " +
+    query = "INSERT INTO articles (user_id, file_id, title, category, short_text, full_text, is_adult) " +
       "VALUES (#{@parent.user_id}, #{file_id}, '#{title}', '#{category}', " +
-      "'#{short_text}', '#{full_text}', #{is_adult}, CURRENT_TIMESTAMP);"
+      "'#{short_text}', '#{full_text}', #{is_adult});"
 
     Net.bef(query) do |message|
       callback(message) if callback
@@ -32,7 +32,7 @@ export default class CDatabase
 
     query = "UPDATE articles SET file_id = #{file_id}, title = '#{title}', " +
       "category = '#{category}', short_text = '#{short_text}', " +
-      "full_text = '#{full_text}', is_adult = #{is_adult}, updated_at = CURRENT_TIMESTAMP " +
+      "full_text = '#{full_text}', is_adult = #{is_adult}, changed_at = CURRENT_TIMESTAMP " +
       "WHERE id = #{@parent.article_id};"
 
     Net.bef(query) do |message|
