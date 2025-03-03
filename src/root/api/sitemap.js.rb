@@ -3,15 +3,15 @@ export default async def handler(req, res)
   articles = await get_article_ids(base_url)
   urls     = articles.map do |article|
     "<url>
-        <loc>#{base_url}/article/#{article.id}</loc>
-        <lastmod>#{Date.new(article['changed_at']).toISO_string()}</lastmod>
+      <loc>#{base_url}/api/article/#{article.id}</loc>
+      <lastmod>#{Date.new(article['changed_at']).toISO_string()}</lastmod>
     </url>"
   end.join('')
 
   sitemap  = "<?xml version='1.0' encoding='UTF-8'?>
   <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
-      <url><loc>#{base_url}</loc></url>
-      #{urls}
+    <url><loc>#{base_url}</loc></url>
+    #{urls}
   </urlset>"
 
   res.set_header('Content-Type', 'text/xml')

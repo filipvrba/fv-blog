@@ -3,13 +3,13 @@ export default async function handler(req, res) {
   let articles = await getArticleIds(baseUrl);
 
   let urls = articles.map(article => (
-    `<url>\n        <loc>${baseUrl}/article/${article.id}</loc>\n        <lastmod>${new Date(article.changed_at).toISOString()}</lastmod>\n    </url>`
+    `<url>\n      <loc>${baseUrl}/api/article/${article.id}</loc>\n      <lastmod>${new Date(article.changed_at).toISOString()}</lastmod>\n    </url>`
   )).join("");
 
   let sitemap = `<?xml version='1.0' encoding='UTF-8'?>
   <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
-      <url><loc>${baseUrl}</loc></url>
-      ${urls}
+    <url><loc>${baseUrl}</loc></url>
+    ${urls}
   </urlset>`;
   res.setHeader("Content-Type", "text/xml");
   return res.status(200).send(sitemap)
