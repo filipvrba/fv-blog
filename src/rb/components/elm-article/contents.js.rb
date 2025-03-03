@@ -3,11 +3,20 @@ export default class CContents
     @parent = parent
   end
 
+  def set_document_title(article_title)
+    title = "#{article_title} | #{Language.relevant.elm_routes.meta[0]}"
+    document.title = title
+  end
+
   def update_container()
     @parent.c_database.get_artcile() do |article|
       unless article
-        @parent.innerHTML = get_no_article()
+        no_article_title = "Chybějící článek"
+        set_document_title(no_article_title)
+        @parent.innerHTML = get_no_article(no_article_title)
       else
+        set_document_title(article.title)
+
         fn_true = lambda do
           template = """
           <header class='row mx-3 d-flex justify-content-center'>
@@ -50,12 +59,12 @@ export default class CContents
     end
   end
 
-  def get_no_article()
+  def get_no_article(no_article_title)
     return """
 <div class='container d-flex justify-content-center align-items-center'>
   <div class='text-center'>
     <i class='bi bi-slash-circle display-1 text-danger'></i>
-    <h1 class='mt-3'>Chybějící článek</h1>
+    <h1 class='mt-3'>#{no_article_title}</h1>
     <p class='lead'>Omlouváme se, článek neexistuje nebo byl smazán.</p>
   </div>
 </div>

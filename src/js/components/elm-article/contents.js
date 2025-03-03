@@ -3,11 +3,18 @@ export default class CContents {
     this._parent = parent
   };
 
+  setDocumentTitle(articleTitle) {
+    let title = `${articleTitle} | ${Language.relevant.elmRoutes.meta[0]}`;
+    return document.title = title
+  };
+
   updateContainer() {
     return this._parent.cDatabase.getArtcile((article) => {
-      let fnTrue, confirmOptions;
+      let fnTrue, confirmOptions, noArticleTitle;
 
       if (article) {
+        this.setDocumentTitle(article.title);
+
         fnTrue = () => {
           let template = `${`
           <header class='row mx-3 d-flex justify-content-center'>
@@ -52,17 +59,19 @@ export default class CContents {
           return fnTrue.call()
         }
       } else {
-        return this._parent.innerHTML = this.getNoArticle()
+        noArticleTitle = "Chybějící článek";
+        this.setDocumentTitle(noArticleTitle);
+        return this._parent.innerHTML = this.getNoArticle(noArticleTitle)
       }
     })
   };
 
-  getNoArticle() {
+  getNoArticle(noArticleTitle) {
     return `${`
 <div class='container d-flex justify-content-center align-items-center'>
   <div class='text-center'>
     <i class='bi bi-slash-circle display-1 text-danger'></i>
-    <h1 class='mt-3'>Chybějící článek</h1>
+    <h1 class='mt-3'>${noArticleTitle}</h1>
     <p class='lead'>Omlouváme se, článek neexistuje nebo byl smazán.</p>
   </div>
 </div>
