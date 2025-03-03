@@ -6,7 +6,7 @@ export default class CDatabase
   end
 
   def get_artcile(&callback)
-    query = "SELECT file_id, title, full_text, created_at, is_adult " +
+    query = "SELECT file_id, title, full_text, changed_at, is_adult " +
       "FROM articles WHERE id = #{@parent.article_id} AND is_published = 1;"
 
     if @parent.is_preview

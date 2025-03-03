@@ -6,7 +6,7 @@ export default class CDatabase {
   };
 
   getArtcile(callback) {
-    let query = `SELECT file_id, title, full_text, created_at, is_adult FROM articles WHERE id = ${this._parent.articleId} AND is_published = 1;`;
+    let query = `SELECT file_id, title, full_text, changed_at, is_adult FROM articles WHERE id = ${this._parent.articleId} AND is_published = 1;`;
 
     if (this._parent.isPreview) {
       query = `SELECT file_id, title, full_text, changed_at, is_adult FROM articles WHERE user_id = (SELECT user_id FROM tokens WHERE token = '${Cookie.get("l-token")}' AND expires_at > CURRENT_TIMESTAMP) AND id = ${this._parent.articleId} AND is_published = 0;`
