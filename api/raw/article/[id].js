@@ -8,7 +8,9 @@ export default async function handler(req, res) {
   let article = await getArticle(baseUrl, id);
   if (!article) return res.status(404).json({error: "Article not found"});
   let rawContent = `# ${article.title}\n\n${article.fullText}`;
-  return res.status(200).type("text/markdown").send(rawContent)
+  res.status(200);
+  res.setHeader("Content-Type", "text/markdown");
+  return res.send(rawContent)
 };
 
 async function getArticle(baseUrl, articleId) {
