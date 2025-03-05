@@ -30,7 +30,7 @@ async def get_article(base_url, article_id)
 
     return {
       title: Buffer.from(data.first.title, "base64").to_s("utf-8"),
-      full_text: Buffer.from(data.first.full_text, "base64").to_s("utf-8"),
+      full_text: Buffer.from(data.first['full_text'], "base64").to_s("utf-8"),
     }
   rescue => error
     console.error("Error fetching article:", error)

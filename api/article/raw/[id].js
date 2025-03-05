@@ -25,7 +25,7 @@ async function getArticle(baseUrl, articleId) {
 
     return {
       title: Buffer.from(data[0].title, "base64").toString("utf-8"),
-      fullText: Buffer.from(data[0].fullText, "base64").toString("utf-8")
+      fullText: Buffer.from(data[0].full_text, "base64").toString("utf-8")
     }
   } catch (error) {
     console.error("Error fetching article:", error);
