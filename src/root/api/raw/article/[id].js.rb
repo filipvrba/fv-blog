@@ -12,8 +12,8 @@ export default async def handler(req, res)
   end
 
   raw_content = "# #{article.title}\n\n#{article.full_text}"
-  res.set_header("Content-Type", "text/html")
-  res.status(200).send(raw_content)
+  # res.set_header("Content-Type", "text/html")
+  res.status(200).markdown(raw_content)
 end
 
 async def get_article(base_url, article_id)
