@@ -13,9 +13,9 @@ export default class CContents
         articles.each do |article|
           template = """
 <div class='col-md-6 col-lg-4 mb-4'>
-  <div class='card shadow-sm h-100'>
+  <div class='card anim-card shadow-sm h-100'>
     <div class='card-img-top'>
-      <div class='card border-0'>
+      <div class='card anim-card border-0'>
         <elm-img-loader file-id='#{article.file_id}'></elm-img-loader>
       </div>
     </div>

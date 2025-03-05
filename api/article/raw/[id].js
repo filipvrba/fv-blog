@@ -9,7 +9,7 @@ export default async function handler(req, res) {
   if (!article) return res.status(404).json({error: "Article not found"});
   let rawContent = `# ${article.title}\n\n${article.fullText}`;
   res.setHeader("Content-Type", "text/markdown");
-  return res.send(rawContent)
+  return res.status(200).send(rawContent)
 };
 
 async function getArticle(baseUrl, articleId) {

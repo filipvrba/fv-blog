@@ -17,7 +17,7 @@ export default class MDRules {
     return md.renderer.rules.img_loader = (tokens, idx, options, env, selfObj) => {
       let token = tokens[idx];
       let fileId = token.attrs.fileId;
-      return `${`<div class='card border-0 bg-transparent'>\n        <elm-img-loader rounded file-id='${fileId}'></elm-img-loader>\n      </div>`}`
+      return `${`<div class='card anim-card border-0 bg-transparent'>\n        <elm-img-loader rounded file-id='${fileId}'></elm-img-loader>\n      </div>`}`
     }
   }
 };

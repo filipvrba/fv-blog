@@ -20,7 +20,7 @@ export default class CContents
         fn_true = lambda do
           template = """
           <header class='row mx-3 d-flex justify-content-center'>
-            <div class='card border-0 bg-transparent' style='max-width: 720px; max-height: 405px;'>
+            <div class='card anim-card border-0 bg-transparent' style='max-width: 720px; max-height: 405px;'>
               <elm-img-loader rounded file-id='#{article.file_id}' class='d-flex justify-content-center'></elm-img-loader>
             </div>
             <div class='text-center mt-3'>
