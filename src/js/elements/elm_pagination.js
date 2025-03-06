@@ -4,13 +4,19 @@ export default class ElmPagination extends HTMLElement {
 
     this._hInitElm = (e) => {
       this._containerLength = e.detail.value;
+
+      this._containerIndex = Math.min(
+        URLParams.getIndex("asid"),
+        this._containerLength - 1
+      );
+
       this.initElm();
       return this.updateDial()
     };
 
     this._isCenter = this.getAttribute("centered") === "" || false;
-    this._containerLength = 0;
-    this._containerIndex = 0;
+    this._containerLength = null;
+    this._containerIndex = null;
     window.paginationBtnNextClick = this.btnNextClick.bind(this);
     window.paginationBtnPreviousClick = this.btnPreviousClick.bind(this)
   };
@@ -44,11 +50,8 @@ export default class ElmPagination extends HTMLElement {
   };
 
   emitClick() {
-    return Events.emit(
-      "#app",
-      ElmPagination.ENVS.click,
-      this._containerIndex
-    )
+    Events.emit("#app", ElmPagination.ENVS.click, this._containerIndex);
+    return URLParams.set("asid", this._containerIndex)
   };
 
   initElm() {

@@ -9,13 +9,15 @@ export default class ElmPagination < HTMLElement
 
     @h_init_elm = lambda do |e|
       @container_length = e.detail.value
+      @container_index  = Math.min(URLParams.get_index('asid'), @container_length - 1)
+
       init_elm()
       update_dial()
     end
 
     @is_center        = self.get_attribute('centered') == '' || false
-    @container_length = 0
-    @container_index  = 0
+    @container_length = nil
+    @container_index  = nil
 
     window.pagination_btn_next_click     = btn_next_click
     window.pagination_btn_previous_click = btn_previous_click
@@ -51,6 +53,7 @@ export default class ElmPagination < HTMLElement
 
   def emit_click()
     Events.emit('#app', ENVS.click, @container_index)
+    URLParams.set('asid', @container_index)
   end
 
   def init_elm()
