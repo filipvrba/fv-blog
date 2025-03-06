@@ -33,4 +33,13 @@ window.customElements.define(
 import ElmArticles from "./elements/elm_articles";
 window.customElements.define("elm-articles", ElmArticles);
 import ElmArticle from "./elements/elm_article";
-window.customElements.define("elm-article", ElmArticle)
+window.customElements.define("elm-article", ElmArticle);
+import ElmArticlesContainer from "./elements/articles/elm_container";
+
+window.customElements.define(
+  "elm-articles-container",
+  ElmArticlesContainer
+);
+
+import ElmPagination from "./elements/elm_pagination";
+window.customElements.define("elm-pagination", ElmPagination)

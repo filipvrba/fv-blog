@@ -4,13 +4,24 @@ export default class CContents {
     this._container = this._parent.querySelector("#articlesContainer")
   };
 
-  updateContainer() {
-    return this._parent.cDatabase.getAllArticles((articles) => {
-      let elements = [];
+  static mainTemplate() {
+    return `${`
+    <div id='articlesContainer' class='container row mx-auto'>
+      <div class='d-flex justify-content-center align-items-center position-fixed top-50 start-50 translate-middle' style='z-index: 999;'>
+        <div class='spinner-border' style='width: 5rem; height: 5rem;' role='status'>
+          <span class='visually-hidden'>Loading...</span>
+        </div>
+      </div>
+    </div>
+    `}`
+  };
 
-      if (articles) {
-        for (let article of articles) {
-          let template = `${`
+  updateContainer(articles) {
+    let elements = [];
+
+    if (articles) {
+      for (let article of articles) {
+        let template = `${`
 <div class='col-md-6 col-lg-4 mb-4'>
   <div class='card anim-card shadow-sm h-100'>
     <div class='card-img-top'>
@@ -52,12 +63,11 @@ export default class CContents {
     </div>
   </div>
 </div>
-          `}`;
-          elements.push(template)
-        }
-      };
+        `}`;
+        elements.push(template)
+      }
+    };
 
-      return this._container.innerHTML = elements.join("")
-    })
+    return this._container.innerHTML = elements.join("")
   }
 }

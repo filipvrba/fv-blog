@@ -29,3 +29,9 @@ window.custom_elements.define('elm-articles', ElmArticles)
 
 import 'ElmArticle', './elements/elm_article'
 window.custom_elements.define('elm-article', ElmArticle)
+
+import 'ElmArticlesContainer', './elements/articles/elm_container'
+window.custom_elements.define('elm-articles-container', ElmArticlesContainer)
+
+import 'ElmPagination', './elements/elm_pagination'
+window.custom_elements.define('elm-pagination', ElmPagination)

@@ -2,7 +2,7 @@ import 'CContents', '../components/elm-articles/contents'
 import 'CDatabase', '../components/elm-articles/database'
 
 export default class ElmArticles < HTMLElement
-  attr_reader :c_database
+  attr_reader :c_database, :c_contents
 
   def initialize
     super
@@ -14,25 +14,15 @@ export default class ElmArticles < HTMLElement
   end
 
   def connected_callback()
-    @c_contents.update_container()
+    @c_database.get_all_articles() do |articles|
+      @c_contents.update_container(articles)
+    end
   end
 
   def disconnected_callback()
   end
 
   def init_elm()
-    template = """
-    <div id='articlesContainer' class='container row mx-auto'>
-    
-      <div class='d-flex justify-content-center align-items-center position-fixed top-50 start-50 translate-middle' style='z-index: 999;'>
-        <div class='spinner-border' style='width: 5rem; height: 5rem;' role='status'>
-          <span class='visually-hidden'>Loading...</span>
-        </div>
-      </div>
-
-    </div>
-    """
-
-    self.innerHTML = template
+    self.innerHTML = CDatabase.main_template()
   end
 end

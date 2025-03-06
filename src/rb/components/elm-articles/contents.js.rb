@@ -5,13 +5,24 @@ export default class CContents
     @container = @parent.query_selector('#articlesContainer')
   end
 
-  def update_container()
-    @parent.c_database.get_all_articles() do |articles|
-      elements = []
+  def self.main_template()
+    return """
+    <div id='articlesContainer' class='container row mx-auto'>
+      <div class='d-flex justify-content-center align-items-center position-fixed top-50 start-50 translate-middle' style='z-index: 999;'>
+        <div class='spinner-border' style='width: 5rem; height: 5rem;' role='status'>
+          <span class='visually-hidden'>Loading...</span>
+        </div>
+      </div>
+    </div>
+    """
+  end
 
-      if articles
-        articles.each do |article|
-          template = """
+  def update_container(articles)
+    elements = []
+
+    if articles
+      articles.each do |article|
+        template = """
 <div class='col-md-6 col-lg-4 mb-4'>
   <div class='card anim-card shadow-sm h-100'>
     <div class='card-img-top'>
@@ -53,12 +64,11 @@ export default class CContents
     </div>
   </div>
 </div>
-          """
-          elements.push(template)
-        end
+        """
+        elements.push(template)
       end
-
-      @container.innerHTML = elements.join('')
     end
+
+    @container.innerHTML = elements.join('')
   end
 end

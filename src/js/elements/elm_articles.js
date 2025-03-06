@@ -6,6 +6,10 @@ export default class ElmArticles extends HTMLElement {
     return this._cDatabase
   };
 
+  get cContents() {
+    return this._cContents
+  };
+
   constructor() {
     super();
     this.initElm();
@@ -14,7 +18,9 @@ export default class ElmArticles extends HTMLElement {
   };
 
   connectedCallback() {
-    return this._cContents.updateContainer()
+    return this._cDatabase.getAllArticles(articles => (
+      this._cContents.updateContainer(articles)
+    ))
   };
 
   disconnectedCallback() {
@@ -22,17 +28,6 @@ export default class ElmArticles extends HTMLElement {
   };
 
   initElm() {
-    let template = `${`
-    <div id='articlesContainer' class='container row mx-auto'>
-    
-      <div class='d-flex justify-content-center align-items-center position-fixed top-50 start-50 translate-middle' style='z-index: 999;'>
-        <div class='spinner-border' style='width: 5rem; height: 5rem;' role='status'>
-          <span class='visually-hidden'>Loading...</span>
-        </div>
-      </div>
-
-    </div>
-    `}`;
-    return this.innerHTML = template
+    return this.innerHTML = CDatabase.mainTemplate()
   }
 }
