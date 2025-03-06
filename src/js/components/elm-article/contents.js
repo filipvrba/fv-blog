@@ -5,7 +5,8 @@ export default class CContents {
 
   setDocumentTitle(articleTitle) {
     let title = `${articleTitle} | ${Language.relevant.elmRoutes.meta[0]}`;
-    return document.title = title
+    document.title = title;
+    return gtag("event", "page_view", {pageTitle: title})
   };
 
   updateContainer() {
