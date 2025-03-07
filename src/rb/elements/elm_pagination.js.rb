@@ -73,5 +73,6 @@ export default class ElmPagination < HTMLElement
       "#{@container_index + 1} / #{@container_length}"
 
     emit_click()
+    window.articles_footer_go_up()
   end
 end

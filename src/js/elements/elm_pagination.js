@@ -67,7 +67,8 @@ export default class ElmPagination extends HTMLElement {
 
   updateDial() {
     this.querySelector("#paginationDial").innerText = `${this._containerIndex + 1} / ${this._containerLength}`;
-    return this.emitClick()
+    this.emitClick();
+    return window.articlesFooterGoUp()
   }
 };
 
