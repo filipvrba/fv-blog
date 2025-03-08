@@ -37,7 +37,7 @@ export default class MDRules {
     return md.renderer.rules.yt_loader = (tokens, idx) => {
       let token = tokens[idx];
       let uri = token.attrs.uri;
-      return `${`\n      <div class='d-flex justify-content-center mb-3'>\n        <iframe width='560' height='315' src='${uri}' title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share' referrerpolicy='strict-origin-when-cross-origin' allowfullscreen></iframe>\n      </div>`}`
+      return `${`\n      <div class='d-flex justify-content-center mb-3'>\n        <iframe class='rounded-3' width='560' height='315' src='${uri}' title='YouTube video player' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share' referrerpolicy='strict-origin-when-cross-origin' allowfullscreen></iframe>\n      </div>`}`
     }
   }
 };
