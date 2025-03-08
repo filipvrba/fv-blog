@@ -6,7 +6,7 @@ export default class CDatabase {
   };
 
   getImages(callback) {
-    let query = `SELECT id, name, description FROM files WHERE user_id = ${this._parent.userId} AND file_type LIKE 'image/%';`;
+    let query = `SELECT id, name, description FROM files WHERE user_id = ${this._parent.userId} AND file_type LIKE 'image/%' ORDER BY created_at DESC;`;
 
     return Net.bef(query, (rows) => {
       let haveRows = rows && rows.length > 0;

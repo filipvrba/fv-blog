@@ -6,7 +6,9 @@ export default class CDatabase
   end
 
   def get_images(&callback)
-    query = "SELECT id, name, description FROM files WHERE user_id = #{@parent.user_id} AND file_type LIKE 'image/%';"
+    query = "SELECT id, name, description FROM files " +
+      "WHERE user_id = #{@parent.user_id} AND file_type LIKE 'image/%' " +
+      "ORDER BY created_at DESC;"
 
     Net.bef(query) do |rows|
       have_rows = rows && rows.length > 0

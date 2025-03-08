@@ -7,7 +7,8 @@ export default class CDatabase
 
   def get_info_articles(&callback)
     query = "SELECT a.id, a.title, a.category, a.is_published " +
-      "FROM articles a JOIN users u ON a.user_id = u.id WHERE a.user_id = #{@parent.user_id};"
+      "FROM articles a JOIN users u ON a.user_id = u.id WHERE a.user_id = #{@parent.user_id} " +
+      "ORDER BY a.created_at DESC;"
 
     Net.bef(query) do |rows|
       have_rows = rows && rows.length > 0

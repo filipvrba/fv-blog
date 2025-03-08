@@ -6,7 +6,7 @@ export default class CDatabase {
   };
 
   getInfoArticles(callback) {
-    let query = `SELECT a.id, a.title, a.category, a.is_published FROM articles a JOIN users u ON a.user_id = u.id WHERE a.user_id = ${this._parent.userId};`;
+    let query = `SELECT a.id, a.title, a.category, a.is_published FROM articles a JOIN users u ON a.user_id = u.id WHERE a.user_id = ${this._parent.userId} ORDER BY a.created_at DESC;`;
 
     return Net.bef(query, (rows) => {
       let articles;
