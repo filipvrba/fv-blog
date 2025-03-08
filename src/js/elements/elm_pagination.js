@@ -57,7 +57,7 @@ export default class ElmPagination extends HTMLElement {
   initElm() {
     let template = `${`
 <nav class='d-flex align-items-center ${this._isCenter ? "justify-content-center" : null} ${this._containerLength <= 1 ? "d-none" : null} mt-2'>
-  <button class='btn btn-outline-primary rounded-pill' onclick='paginationBtnPreviousClick()'>Novější</button>
+  <button class='btn btn-outline-secondary rounded-pill' onclick='paginationBtnPreviousClick()'>Novější</button>
   <span id='paginationDial' class='mx-3'></span>
   <button class='btn btn-outline-secondary rounded-pill' onclick='paginationBtnNextClick()'>Starší</button>
 </nav>

@@ -59,7 +59,7 @@ export default class ElmPagination < HTMLElement
   def init_elm()
     template = """
 <nav class='d-flex align-items-center #{'justify-content-center' if @is_center} #{'d-none' if @container_length <= 1} mt-2'>
-  <button class='btn btn-outline-primary rounded-pill' onclick='paginationBtnPreviousClick()'>Novější</button>
+  <button class='btn btn-outline-secondary rounded-pill' onclick='paginationBtnPreviousClick()'>Novější</button>
   <span id='paginationDial' class='mx-3'></span>
   <button class='btn btn-outline-secondary rounded-pill' onclick='paginationBtnNextClick()'>Starší</button>
 </nav>
