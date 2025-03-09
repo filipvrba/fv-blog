@@ -97,6 +97,9 @@ export default class ElmAdminImages extends HTMLElement {
                 Akce
               </button>
               <ul class='dropdown-menu' >
+                <li class='dropdown-header'>
+                  Velikost: <span id='adminImagesDropdownHeaderSize'>0 MB</span>
+                </li>
                 <li>
                   <button class='dropdown-item' onclick='adminImagesDropdownBtnUploadClick()'>Nahrát</button>
                 </li>

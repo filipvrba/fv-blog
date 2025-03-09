@@ -6,6 +6,7 @@ export default class CContents {
   constructor(parent) {
     this._parent = parent;
     this._tBody = this._parent.querySelector("#adminImagesTBody");
+    this._headerSize = this._parent.querySelector("#adminImagesDropdownHeaderSize");
     window.adminImagesThClick = this.thClick.bind(this)
   };
 
@@ -52,7 +53,20 @@ export default class CContents {
         elements.push(emptyTemaplate)
       };
 
+      this._headerSize.innerText = this.convertToSize(images) + " MB";
       return this._tBody.innerHTML = elements.join("")
     })
+  };
+
+  convertToSize(images) {
+    let totalParts = images.reduce(
+      (acc, val) => acc + parseInt(val.total_parts),
+      0
+    );
+
+    let sizeKb = totalParts * 10;
+    let sizeMb = sizeKb / 1_024;
+    let rounded = sizeMb.toFixed(3);
+    return parseFloat(rounded)
   }
 }

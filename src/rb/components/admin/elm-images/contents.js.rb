@@ -4,7 +4,8 @@ export default class CContents
   def initialize(parent)
     @parent = parent
 
-    @t_body = @parent.query_selector('#adminImagesTBody')
+    @t_body      = @parent.query_selector('#adminImagesTBody')
+    @header_size = @parent.query_selector('#adminImagesDropdownHeaderSize')
 
     window.admin_images_th_click = th_click
   end
@@ -52,8 +53,21 @@ export default class CContents
         """
         elements.push(empty_temaplate)
       end
-
-      @t_body.innerHTML = elements.join('')
+      
+      @header_size.inner_text = convert_to_size(images) + " MB"
+      @t_body.innerHTML       = elements.join('')
     end
+  end
+
+  def convert_to_size(images)
+    total_parts = images.reduce(lambda do |acc, val|
+      acc + val['total_parts'].to_i
+    end, 0)
+
+    size_kb = total_parts * 10
+    size_mb = size_kb / 1024
+    rounded = size_mb.to_fixed(3)
+
+    return parse_float(rounded)
   end
 end
