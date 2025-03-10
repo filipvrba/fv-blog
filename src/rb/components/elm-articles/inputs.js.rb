@@ -7,6 +7,8 @@ export default class CInputs
 
   def card_btn_click(article_id)
     URLParams.set('aid', article_id)
+    URLParams.remove('preview')
+
     location.hash = '#article'
   end
 end

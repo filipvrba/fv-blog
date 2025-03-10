@@ -1,8 +1,12 @@
+import 'CInputs', '../../components/articles/elm-header/inputs'
+
 export default class ElmHeader < HTMLElement
   def initialize
     super
     
     init_elm()
+
+    @c_inputs = CInputs.new()
   end
 
   def connected_callback()
@@ -34,7 +38,7 @@ export default class ElmHeader < HTMLElement
   </div>
   <div class='navbar navbar-dark bg-dark shadow-sm'>
     <div class='container'>
-      <a href='#' class='navbar-brand d-flex align-items-center'>
+      <a href='#' class='navbar-brand d-flex align-items-center' onclick='articleHeaderLogoBtnClick()'>
         <img class='me-2' src='/favicon-32x32.png' alt='Favoicon Filip Vrba Blog'>
         <strong>Filip Vrba - Blog</strong>
       </a>

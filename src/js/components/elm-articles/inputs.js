@@ -6,6 +6,7 @@ export default class CInputs {
 
   cardBtnClick(articleId) {
     URLParams.set("aid", articleId);
+    URLParams.remove("preview");
     return location.hash = "#article"
   }
 }

@@ -17,6 +17,15 @@ class URLParams {
     return window.history.pushState({}, "", url)
   };
 
+  static remove(parameter) {
+    parameter = parameter.replaceAll(/[^a-zA-Z_-]/g, "");
+    let [url, urlParams] = URLParams.getUrls();
+    if (!urlParams.has(parameter)) return;
+    eval(`urlParams.delete('${parameter}')`);
+    url.search = urlParams.toString();
+    return window.history.pushState({}, "", url)
+  };
+
   static getIndex(parameter) {
     let param = URLParams.get(parameter);
     return param === null ? 0 : parseInt(param)

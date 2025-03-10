@@ -1,7 +1,10 @@
+import CInputs from "../../components/articles/elm-header/inputs";
+
 export default class ElmHeader extends HTMLElement {
   constructor() {
     super();
-    this.initElm()
+    this.initElm();
+    this._cInputs = new CInputs()
   };
 
   connectedCallback() {
@@ -35,7 +38,7 @@ export default class ElmHeader extends HTMLElement {
   </div>
   <div class='navbar navbar-dark bg-dark shadow-sm'>
     <div class='container'>
-      <a href='#' class='navbar-brand d-flex align-items-center'>
+      <a href='#' class='navbar-brand d-flex align-items-center' onclick='articleHeaderLogoBtnClick()'>
         <img class='me-2' src='/favicon-32x32.png' alt='Favoicon Filip Vrba Blog'>
         <strong>Filip Vrba - Blog</strong>
       </a>

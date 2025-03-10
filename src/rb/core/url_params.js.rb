@@ -17,6 +17,19 @@ class URLParams
     url.search = url_params.to_string()
     window.history.push_state({}, '', url)
   end
+  
+  def self.remove(parameter)
+    parameter = parameter.gsub(/[^a-zA-Z_-]/, '')
+    url, url_params = URLParams.get_urls()
+
+    unless url_params.has(parameter)
+      return
+    end
+
+    eval("urlParams.delete('#{parameter}')")  # unsafe
+    url.search = url_params.to_string()
+    window.history.push_state({}, '', url)
+  end
 
   def self.get_index(parameter)
     param = URLParams.get(parameter)
