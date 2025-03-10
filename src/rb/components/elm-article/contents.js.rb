@@ -19,7 +19,12 @@ export default class CContents
       unless article
         no_article_title = "Chybějící článek"
         set_document_title(no_article_title)
-        @parent.innerHTML = get_no_article(no_article_title)
+
+        unless @parent.is_preview
+          @parent.innerHTML = get_no_article(no_article_title)
+        else
+          @parent.innerHTML = get_no_article_preview()
+        end
       else
         set_document_title(article.title)
 
@@ -72,6 +77,18 @@ export default class CContents
     <i class='bi bi-slash-circle display-1 text-danger'></i>
     <h1 class='mt-3'>#{no_article_title}</h1>
     <p class='lead'>Omlouváme se, článek neexistuje nebo byl smazán.</p>
+  </div>
+</div>
+    """
+  end
+
+  def get_no_article_preview()
+    return """
+<div class='container d-flex justify-content-center align-items-center'>
+  <div class='text-center'>
+    <i class='bi bi-slash-circle display-1 text-warning'></i>
+    <h1 class='mt-3'>Náhledový režim</h1>
+    <p class='lead'>Pro zobrazení skrytého článku je potřeba se přihlásit.</p>
   </div>
 </div>
     """

@@ -54,10 +54,10 @@ export default class CContents
           </div>
 
           <div class='col-6 text-center'>
-            <a href='?aid=#{article.id}#article' class='btn btn-secondary card-text'>
+            <button class='btn btn-secondary card-text' onclick='articlesCardBtnClick(#{article.id})'>
               <i class='bi bi-eye'></i>
               Podívat se
-            </a>
+            </button>
           </div>
         </div>
       </div>

@@ -1,5 +1,6 @@
 import CContents from "../components/elm-articles/contents";
 import CDatabase from "../components/elm-articles/database";
+import CInputs from "../components/elm-articles/inputs";
 
 export default class ElmArticles extends HTMLElement {
   get cDatabase() {
@@ -14,7 +15,8 @@ export default class ElmArticles extends HTMLElement {
     super();
     this.initElm();
     this._cDatabase = new CDatabase(this);
-    this._cContents = new CContents(this)
+    this._cContents = new CContents(this);
+    this._cInputs = new CInputs(this)
   };
 
   connectedCallback() {

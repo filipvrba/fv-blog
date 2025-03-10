@@ -69,7 +69,7 @@ export default class CContents {
       } else {
         noArticleTitle = "Chybějící článek";
         this.setDocumentTitle(noArticleTitle);
-        return this._parent.innerHTML = this.getNoArticle(noArticleTitle)
+        return this._parent.isPreview ? this._parent.innerHTML = this.getNoArticlePreview() : this._parent.innerHTML = this.getNoArticle(noArticleTitle)
       }
     })
   };
@@ -81,6 +81,18 @@ export default class CContents {
     <i class='bi bi-slash-circle display-1 text-danger'></i>
     <h1 class='mt-3'>${noArticleTitle}</h1>
     <p class='lead'>Omlouváme se, článek neexistuje nebo byl smazán.</p>
+  </div>
+</div>
+    `}`
+  };
+
+  getNoArticlePreview() {
+    return `${`
+<div class='container d-flex justify-content-center align-items-center'>
+  <div class='text-center'>
+    <i class='bi bi-slash-circle display-1 text-warning'></i>
+    <h1 class='mt-3'>Náhledový režim</h1>
+    <p class='lead'>Pro zobrazení skrytého článku je potřeba se přihlásit.</p>
   </div>
 </div>
     `}`
