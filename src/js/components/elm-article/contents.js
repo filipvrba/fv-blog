@@ -26,7 +26,10 @@ export default class CContents {
               <elm-img-loader rounded file-id='${article.fileId}' class='d-flex justify-content-center'></elm-img-loader>
             </div>
             <div class='text-center mt-3'>
-              <h1 class='fw-bold'>${article.title}</h1>
+              <h1 class='fw-bold'>${article.title.replaceAll(
+            /:/g,
+            ":<br>"
+          )}</h1>
               <p class='h4'>Aktualizováno: ${article.changedAt}</p>
             </div>
           </header>
@@ -34,6 +37,7 @@ export default class CContents {
             ${article.fullText.mdToHtml()}
           </article>
           `}`;
+
           return this._parent.innerHTML = template
         };
 

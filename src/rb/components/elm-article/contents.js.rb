@@ -30,7 +30,7 @@ export default class CContents
               <elm-img-loader rounded file-id='#{article.file_id}' class='d-flex justify-content-center'></elm-img-loader>
             </div>
             <div class='text-center mt-3'>
-              <h1 class='fw-bold'>#{article.title}</h1>
+              <h1 class='fw-bold'>#{article.title.gsub(/:/, ":<br>")}</h1>
               <p class='h4'>Aktualizováno: #{article.changed_at}</p>
             </div>
           </header>
