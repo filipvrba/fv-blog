@@ -8,9 +8,21 @@
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
 
-      gtag('config', 'G-9ELVCLQG5E');
+      if (localStorage.getItem('userConsent') == 'all') {
+        gtag('consent', 'default', {
+          'ad_storage': 'granted',
+          'analytics_storage': 'granted'
+        });
+      } else {
+        gtag('consent', 'default', {
+          'ad_storage': 'denied',
+          'analytics_storage': 'denied'
+        });
+      }
+
+      gtag('js', new Date());
+      gtag('config', 'G-9ELVCLQG5E', { 'anonymize_ip': true });
     </script>
 
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
