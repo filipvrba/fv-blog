@@ -67,7 +67,6 @@ export default class ElmCmpBanner < HTMLElement
         'analytics_storage': 'granted'
       })
     else
-      puts "lol"
       gtag('consent', 'update', {
         'ad_storage': 'denied',
         'analytics_storage': 'denied'
