@@ -1,3 +1,5 @@
+import './packages/analytics-rjs-0.1.0/core'
+
 import './core/events'
 import './core/net'
 import './core/routes'

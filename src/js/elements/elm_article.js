@@ -24,7 +24,11 @@ export default class ElmArticle extends HTMLElement {
   };
 
   connectedCallback() {
-    return this._cContents.updateContainer()
+    this._cContents.updateContainer();
+
+    if (localStorage.getItem("userConsent") === "all") {
+      return this._cDatabase.sendLogVisit()
+    }
   };
 
   disconnectedCallback() {

@@ -30,5 +30,14 @@ export default class CDatabase {
         return callback(null)
       }
     })
+  };
+
+  sendLogVisit(callback) {
+    let vi = VisitorTracker.getVisitorInfo(this._parent.articleId);
+    let query = `INSERT OR IGNORE INTO article_visits (article_id, visitor_id, device_type, referrer) VALUES (${this._parent.articleId}, '${vi.visitorId}', '${vi.deviceType}', '${vi.referrer}');`;
+
+    return Net.bef(query, (message) => {
+      if (callback) return callback(message)
+    })
   }
 }

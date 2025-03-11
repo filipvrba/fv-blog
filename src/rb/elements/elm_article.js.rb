@@ -18,6 +18,10 @@ export default class ElmArticle < HTMLElement
 
   def connected_callback()
     @c_contents.update_container()
+
+    if local_storage.get_item('userConsent') == 'all'
+      @c_database.send_log_visit()
+    end
   end
 
   def disconnected_callback()

@@ -35,4 +35,15 @@ export default class CDatabase
       end
     end
   end
+
+  def send_log_visit(&callback)
+    vi = VisitorTracker.get_visitor_info(@parent.article_id)
+
+    query = "INSERT OR IGNORE INTO article_visits (article_id, visitor_id, device_type, referrer) " +
+      "VALUES (#{@parent.article_id}, '#{vi.visitor_id}', '#{vi.device_type}', '#{vi.referrer}');"
+
+    Net.bef(query) do |message|
+      callback(message) if callback
+    end
+  end
 end
