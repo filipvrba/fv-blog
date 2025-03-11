@@ -8,7 +8,9 @@ export default class CContents {
     document.title = title;
 
     if (!this._parent.isPreview) {
-      return gtag("event", "page_view", {pageTitle: title})
+      if (localStorage.getItem("userConsent") === "all") {
+        return gtag("event", "page_view", {pageTitle: title})
+      }
     }
   };
 

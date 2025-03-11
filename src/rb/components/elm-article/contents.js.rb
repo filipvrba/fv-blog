@@ -8,9 +8,11 @@ export default class CContents
     document.title = title
 
     unless @parent.is_preview
-      gtag('event', 'page_view', {
-        'page_title': title
-      })
+      if local_storage.get_item('userConsent') == 'all'
+        gtag('event', 'page_view', {
+          'page_title': title
+        })
+      end
     end
   end
 

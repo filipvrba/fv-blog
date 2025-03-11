@@ -86,15 +86,21 @@ export default class ElmCmpBanner extends HTMLElement {
   };
 
   manageCookies(allowCookies) {
-    return allowCookies ? gtag(
-      "consent",
-      "update",
-      {adStorage: "granted", analyticsStorage: "granted"}
-    ) : gtag(
-      "consent",
-      "update",
-      {adStorage: "denied", analyticsStorage: "denied"}
-    )
+    if (allowCookies) {
+      return gtag(
+        "consent",
+        "update",
+        {adStorage: "granted", analyticsStorage: "granted"}
+      )
+    } else {
+      console.log("lol");
+
+      return gtag(
+        "consent",
+        "update",
+        {adStorage: "denied", analyticsStorage: "denied"}
+      )
+    }
   };
 
   initElm() {
