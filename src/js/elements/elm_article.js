@@ -25,10 +25,7 @@ export default class ElmArticle extends HTMLElement {
 
   connectedCallback() {
     this._cContents.updateContainer();
-
-    if (localStorage.getItem("userConsent") === "all") {
-      return this._cDatabase.sendLogVisit()
-    }
+    if (CMP.getConsent() !== "none") return this._cDatabase.sendLogVisit()
   };
 
   disconnectedCallback() {

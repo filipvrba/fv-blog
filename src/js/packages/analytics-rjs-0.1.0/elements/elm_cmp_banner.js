@@ -6,10 +6,6 @@ export default class ElmCmpBanner extends HTMLElement {
       return this.acceptAllCookies()
     };
 
-    this._hRejectCookiesClick = () => {
-      return this.rejectAllCookies()
-    };
-
     this._timeoutId = null;
     this.initElm()
   };
@@ -18,11 +14,6 @@ export default class ElmCmpBanner extends HTMLElement {
     this._acceptCookies.addEventListener(
       "click",
       this._hAcceptCookiesClick
-    );
-
-    this._rejectCookies.addEventListener(
-      "click",
-      this._hRejectCookiesClick
     );
 
     return this.showBanner()
@@ -34,11 +25,6 @@ export default class ElmCmpBanner extends HTMLElement {
       this._hAcceptCookiesClick
     );
 
-    this._rejectCookies.removeEventListener(
-      "click",
-      this._hRejectCookiesClick
-    );
-
     if (this._timeoutId) return clearTimeout(this._timeoutId)
   };
 
@@ -48,7 +34,7 @@ export default class ElmCmpBanner extends HTMLElement {
   };
 
   showBanner() {
-    if (!localStorage.getItem("userConsent")) {
+    if (!CMP.getConsent()) {
       this._cmpBanner.classList.remove("d-none");
 
       // Animation
@@ -74,27 +60,8 @@ export default class ElmCmpBanner extends HTMLElement {
   };
 
   acceptAllCookies() {
-    localStorage.setItem("userConsent", "all");
-    this.manageCookies(true);
+    CMP.setAllConsent();
     return this.hideBanner()
-  };
-
-  rejectAllCookies() {
-    localStorage.setItem("userConsent", "none");
-    this.manageCookies(false);
-    return this.hideBanner()
-  };
-
-  manageCookies(allowCookies) {
-    return allowCookies ? gtag(
-      "consent",
-      "update",
-      {adStorage: "granted", analyticsStorage: "granted"}
-    ) : gtag(
-      "consent",
-      "update",
-      {adStorage: "denied", analyticsStorage: "denied"}
-    )
   };
 
   initElm() {
@@ -102,11 +69,10 @@ export default class ElmCmpBanner extends HTMLElement {
     let template = `${`
 <div id='cmp-banner' class='d-none'>
   <div class='container'>
-    <h5>${this._words[0]}</h5>
-    <p>${this._words[1]}</p>
+    <h5>Základní ponaučení</h5>
+    <p>Tento web používá základní analýzu dat. <strong>Používáním stránek souhlasíte s tím, že jste se seznámili s mými podmínkami.</strong> Rád bych zdůraznil, že veškeré <strong>informace na tomto blogu nesmějí být šířeny bez mého výslovného souhlasu!</strong> Prosím, respektujte autorská práva a související <a href='?aid=3#article'>podmínky</a>.</p>
     <div class='cmp-options'>
-      <button class='btn btn-success btn-sm' id='accept-cookies'>${this._words[2]}</button>
-      <button class='btn btn-danger btn-sm' id='reject-cookies'>${this._words[3]}</button>
+      <button class='btn btn-success btn-sm' id='accept-cookies'>Ano rozumím</button>
     </div>
   </div>
 </div>
@@ -114,7 +80,6 @@ export default class ElmCmpBanner extends HTMLElement {
     this.innerHTML = template;
     this._cmpBanner = this.querySelector("#cmp-banner");
     this._acceptCookies = this.querySelector("#accept-cookies");
-    this._rejectCookies = this.querySelector("#reject-cookies");
-    return this._rejectCookies
+    return this._acceptCookies
   }
 }

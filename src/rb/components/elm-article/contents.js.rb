@@ -6,14 +6,6 @@ export default class CContents
   def set_document_title(article_title)
     title = "#{article_title} | #{Language.relevant.elm_routes.meta[0]}"
     document.title = title
-
-    unless @parent.is_preview
-      if local_storage.get_item('userConsent') == 'all'
-        gtag('event', 'page_view', {
-          'page_title': title
-        })
-      end
-    end
   end
 
   def update_container()

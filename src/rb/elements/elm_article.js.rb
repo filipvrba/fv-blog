@@ -19,7 +19,7 @@ export default class ElmArticle < HTMLElement
   def connected_callback()
     @c_contents.update_container()
 
-    if local_storage.get_item('userConsent') == 'all'
+    unless CMP.get_consent() == 'none'
       @c_database.send_log_visit()
     end
   end

@@ -4,7 +4,7 @@
   left: 0;
   width: 100%;
   z-index: 999;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.95);
   color: white;
   padding: 15px;
   opacity: 0; /* Banner je ve výchozím stavu neviditelný */
