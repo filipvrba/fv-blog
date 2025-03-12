@@ -22,7 +22,14 @@ class VisitorTracker
   end
 
   def self.get_referrer()
-    document.referrer || "direct"
+    referrer = document.referrer || nil
+
+    unless referrer
+      return 'direct'
+    end
+
+    referrer_url = URL.new(referrer)
+    return referrer_url.host
   end
 
   def self.get_visitor_info()

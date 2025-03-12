@@ -12,6 +12,11 @@ export default class Settings
         content: "<elm-admin-images user-id='#{user_id}'></elm-admin-images>"
       },
       {
+        index: 'analytics',
+        name: 'Analytika',
+        content: "<elm-admin-analytics></elm-admin-analytics>"
+      },
+      {
         index: 'profile',
         name: 'Profil',
         content: "<elm-profile-editing user-id='#{user_id}'></elm-profile-editing>"

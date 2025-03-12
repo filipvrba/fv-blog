@@ -35,3 +35,6 @@ window.custom_elements.define('elm-articles-container', ElmArticlesContainer)
 
 import 'ElmPagination', './elements/elm_pagination'
 window.custom_elements.define('elm-pagination', ElmPagination)
+
+import 'ElmAdminAnalytics', './elements/admin/elm_analytics'
+window.custom_elements.define('elm-admin-analytics', ElmAdminAnalytics)

@@ -42,4 +42,10 @@ window.customElements.define(
 );
 
 import ElmPagination from "./elements/elm_pagination";
-window.customElements.define("elm-pagination", ElmPagination)
+window.customElements.define("elm-pagination", ElmPagination);
+import ElmAdminAnalytics from "./elements/admin/elm_analytics";
+
+window.customElements.define(
+  "elm-admin-analytics",
+  ElmAdminAnalytics
+)

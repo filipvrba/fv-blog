@@ -23,7 +23,10 @@ class VisitorTracker {
   };
 
   static getReferrer() {
-    return document.referrer || "direct"
+    let referrer = document.referrer || null;
+    if (!referrer) return "direct";
+    let referrerUrl = new URL(referrer);
+    return referrerUrl.host
   };
 
   static getVisitorInfo() {
