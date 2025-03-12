@@ -59,7 +59,7 @@ export default class ElmCmpBanner < HTMLElement
     <h5>Základní ponaučení</h5>
     <p>Tento web používá základní analýzu dat. <strong>Používáním stránek souhlasíte s tím, že jste se seznámili s mými podmínkami.</strong> Rád bych zdůraznil, že veškeré <strong>informace na tomto blogu nesmějí být šířeny bez mého výslovného souhlasu!</strong> Prosím, respektujte autorská práva a související <a href='?aid=3#article'>podmínky</a>.</p>
     <div class='cmp-options'>
-      <button class='btn btn-success btn-sm' id='accept-cookies'>Ano rozumím</button>
+      <button class='btn btn-success btn-sm' id='accept-cookies'>Ano, rozumím</button>
     </div>
   </div>
 </div>
