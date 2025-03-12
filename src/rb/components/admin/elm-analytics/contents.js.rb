@@ -5,6 +5,7 @@ export default class CContents
     @artciles_tbody = @parent.query_selector('#analyticsArtcilesTBody')
     @referrer_tbody = @parent.query_selector('#analyticsReferrerTBody')
     @devices_tbody  = @parent.query_selector('#analyticsDevicesTBody')
+    @elm_time       = @parent.query_selector('#analyticsTime')
   end
 
   def empty_tr()
@@ -14,6 +15,12 @@ export default class CContents
       <td class='text-center'>---</td>
     </tr>
     """
+  end
+
+  def update_time()
+    time_string = Date.new.to_locale_time_string('en-US',
+      { hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true })
+    @elm_time.inner_text = time_string
   end
 
   def udpate_tbody_articles(articles)

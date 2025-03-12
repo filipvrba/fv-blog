@@ -1,15 +1,42 @@
 import CDatabase from "../../components/admin/elm-analytics/database";
 import CContents from "../../components/admin/elm-analytics/contents";
+import ElmSettings from "../../packages/bef-client-rjs-0.1.1/elements/elm_settings";
 
 export default class ElmAdminAnalytics extends HTMLElement {
   constructor() {
     super();
+    this._hCategoryClick = e => this.categoryClick(e.detail.value);
     this.initElm();
     this._cDatabase = new CDatabase(this);
     this._cContents = new CContents(this)
   };
 
   connectedCallback() {
+    Events.connect(
+      "#app",
+      ElmSettings.ENVS.categoryClick,
+      this._hCategoryClick
+    );
+
+    return this.updateElements()
+  };
+
+  disconnectedCallback() {
+    return Events.disconnect(
+      "#app",
+      ElmSettings.ENVS.categoryClick,
+      this._hCategoryClick
+    )
+  };
+
+  categoryClick(index) {
+    if (index !== "analytics") return;
+    return this.updateElements()
+  };
+
+  updateElements() {
+    this._cContents.updateTime();
+
     this._cDatabase.getCountArticles(articles => (
       this._cContents.udpateTbodyArticles(articles)
     ));
@@ -23,16 +50,15 @@ export default class ElmAdminAnalytics extends HTMLElement {
     ))
   };
 
-  disconnectedCallback() {
-    return null
-  };
-
   initElm() {
     let template = `${`
 <div class='container mt-5'>
-  <h1 class='text-center'>Analýza článků</h1>
+  <div class='text-center'>
+    <h1>Analýza článků</h1>
+    <p id='analyticsTime'>~~~</p>
+  </div>
 
-  <div class='row d-flex justify-content-center'>
+  <div class='mt-3 row d-flex justify-content-center'>
     <div class='col-md-6 col-lg-4 mb-4'>
       <div class='card anim-card shadow-sm h-100 overflow-hidden'>
         <div class='card-body'>

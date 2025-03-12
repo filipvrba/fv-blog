@@ -29,7 +29,7 @@ export default class ElmSettings < AProtected
 
   def category_btn_click(index)
     URLParams.set('sc-index', index)
-    Events.emit('#app', ENVS.category_click)
+    Events.emit('#app', ENVS.category_click, @categories[index].index)
   end
 
   def init_elm()

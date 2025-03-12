@@ -22,7 +22,12 @@ export default class ElmSettings extends AProtected {
 
   categoryBtnClick(index) {
     URLParams.set("sc-index", index);
-    return Events.emit("#app", ElmSettings.ENVS.categoryClick)
+
+    return Events.emit(
+      "#app",
+      ElmSettings.ENVS.categoryClick,
+      this._categories[index].index
+    )
   };
 
   initElm() {

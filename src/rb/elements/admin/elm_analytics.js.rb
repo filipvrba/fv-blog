@@ -1,9 +1,12 @@
 import 'CDatabase', '../../components/admin/elm-analytics/database'
 import 'CContents', '../../components/admin/elm-analytics/contents'
+import 'ElmSettings', '../../packages/bef-client-rjs-0.1.1/elements/elm_settings'
 
 export default class ElmAdminAnalytics < HTMLElement
   def initialize
     super
+
+    @h_category_click = lambda {|e| category_click(e.detail.value)}
 
     init_elm()
 
@@ -12,6 +15,26 @@ export default class ElmAdminAnalytics < HTMLElement
   end
 
   def connected_callback()
+    Events.connect('#app', ElmSettings::ENVS.category_click, @h_category_click)
+
+    update_elements()
+  end
+
+  def disconnected_callback()
+    Events.disconnect('#app', ElmSettings::ENVS.category_click, @h_category_click)
+  end
+
+  def category_click(index)
+    unless index == 'analytics'
+      return
+    end
+
+    update_elements()
+  end
+
+  def update_elements()
+    @c_contents.update_time()
+
     @c_database.get_count_articles() do |articles|
       @c_contents.udpate_tbody_articles(articles)
     end
@@ -25,15 +48,15 @@ export default class ElmAdminAnalytics < HTMLElement
     end
   end
 
-  def disconnected_callback()
-  end
-
   def init_elm()
     template = """
 <div class='container mt-5'>
-  <h1 class='text-center'>Analýza článků</h1>
+  <div class='text-center'>
+    <h1>Analýza článků</h1>
+    <p id='analyticsTime'>~~~</p>
+  </div>
 
-  <div class='row d-flex justify-content-center'>
+  <div class='mt-3 row d-flex justify-content-center'>
     <div class='col-md-6 col-lg-4 mb-4'>
       <div class='card anim-card shadow-sm h-100 overflow-hidden'>
         <div class='card-body'>

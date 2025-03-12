@@ -3,7 +3,8 @@ export default class CContents {
     this._parent = parent;
     this._artcilesTbody = this._parent.querySelector("#analyticsArtcilesTBody");
     this._referrerTbody = this._parent.querySelector("#analyticsReferrerTBody");
-    this._devicesTbody = this._parent.querySelector("#analyticsDevicesTBody")
+    this._devicesTbody = this._parent.querySelector("#analyticsDevicesTBody");
+    this._elmTime = this._parent.querySelector("#analyticsTime")
   };
 
   emptyTr() {
@@ -13,6 +14,15 @@ export default class CContents {
       <td class='text-center'>---</td>
     </tr>
     `}`
+  };
+
+  updateTime() {
+    let timeString = (new Date).toLocaleTimeString(
+      "en-US",
+      {hour: "numeric", minute: "numeric", second: "numeric", hour12: true}
+    );
+
+    return this._elmTime.innerText = timeString
   };
 
   udpateTbodyArticles(articles) {
