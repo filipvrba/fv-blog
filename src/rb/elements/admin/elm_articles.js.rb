@@ -40,10 +40,10 @@ export default class ElmAdminArticles < HTMLElement
     <table class='table' id='adminArticlesTable'>
       <thead>
         <tr>
-          <th scope='col'></th>
+          <th scope='col' class='hide-on-mobile'></th>
           <th scope='col'>Název</th>
-          <th scope='col'>Kategorie</th>
-          <th scope='col'>Viditelnost</th>
+          <th scope='col' class='hide-on-mobile'>Kategorie</th>
+          <th scope='col' class='hide-on-mobile'>Viditelnost</th>
           <th scope='col' class='text-end'>
             <div class='dropdown' >
               <button class='btn btn-primary dropdown-toggle' type='button' data-bs-toggle='dropdown' aria-expanded='false'>
@@ -67,10 +67,10 @@ export default class ElmAdminArticles < HTMLElement
       </thead>
       <tbody id='adminArticlesTBody'>
         <tr>
+          <td class='text-center hide-on-mobile'>~~~</td>
           <td class='text-center'>~~~</td>
-          <td class='text-center'>~~~</td>
-          <td class='text-center'>~~~</td>
-          <td class='text-center'>~~~</td>
+          <td class='text-center hide-on-mobile'>~~~</td>
+          <td class='text-center hide-on-mobile'>~~~</td>
           <td class='text-center'>~~~</td>
         </tr>
       </tbody>

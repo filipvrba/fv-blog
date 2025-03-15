@@ -64,9 +64,9 @@ export default class ElmAdminImages < HTMLElement
     <table class='table' id='adminImagesTable'>
       <thead>
         <tr>
-          <th scope='col'></th>
+          <th scope='col' class='hide-on-mobile'></th>
           <th scope='col'>Název</th>
-          <th scope='col'>Popis</th>
+          <th scope='col' class='hide-on-mobile'>Popis</th>
           <th scope='col' class='text-end'>
             <div class='dropdown' >
               <button class='btn btn-primary dropdown-toggle' type='button' data-bs-toggle='dropdown' aria-expanded='false'>
@@ -90,9 +90,9 @@ export default class ElmAdminImages < HTMLElement
       </thead>
       <tbody id='adminImagesTBody'>
         <tr>
+          <td class='text-center hide-on-mobile'>~~~</td>
           <td class='text-center'>~~~</td>
-          <td class='text-center'>~~~</td>
-          <td class='text-center'>~~~</td>
+          <td class='text-center hide-on-mobile'>~~~</td>
           <td class='text-center'>~~~</td>
         </tr>
       </tbody>

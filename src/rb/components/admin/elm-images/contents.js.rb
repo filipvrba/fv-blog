@@ -17,9 +17,9 @@ export default class CContents
   def template_image(image)
     return """
     <tr>
-      <th scope='row'>#{image.id}</th>
+      <th class='hide-on-mobile' scope='row'>#{image.id}</th>
       <td class='pointer' onclick='adminImagesThClick(#{image.id})'>#{image.name.decode_base64()}</td>
-      <td>#{image.description.decode_base64() || '---'}</td>
+      <td class='hide-on-mobile'>#{image.description.decode_base64() || '---'}</td>
       <td>
         <div class='form-check form-check-reverse mx-5'>
           <input id='adminImagesCheck-#{image.id}' class='form-check-input' type='checkbox'>
@@ -45,9 +45,9 @@ export default class CContents
       else
         empty_temaplate = """
         <tr>
+          <td class='text-center hide-on-mobile'>---</td>
           <td class='text-center'>---</td>
-          <td class='text-center'>---</td>
-          <td class='text-center'>---</td>
+          <td class='text-center hide-on-mobile'>---</td>
           <td class='text-center'>---</td>
         </tr>
         """

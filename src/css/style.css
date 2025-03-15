@@ -12,3 +12,9 @@
     opacity: 1;
   }
 }
+
+@media (max-width: 576px) {
+  .hide-on-mobile {
+      display: none;
+  }
+}
