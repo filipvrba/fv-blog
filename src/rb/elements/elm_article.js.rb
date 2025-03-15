@@ -21,6 +21,7 @@ export default class ElmArticle < HTMLElement
 
     unless CMP.get_consent() == 'none'
       @c_database.send_log_visit()
+      @c_database.send_log_click()
     end
   end
 

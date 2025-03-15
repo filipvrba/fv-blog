@@ -33,8 +33,17 @@ export default class CDatabase {
   };
 
   sendLogVisit(callback) {
-    let vi = VisitorTracker.getVisitorInfo(this._parent.articleId);
+    let vi = VisitorTracker.getVisitorInfo();
     let query = `INSERT OR IGNORE INTO article_visits (article_id, visitor_id, device_type, referrer) VALUES (${this._parent.articleId}, '${vi.visitorId}', '${vi.deviceType}', '${vi.referrer.encodeBase64()}');`;
+
+    return Net.bef(query, (message) => {
+      if (callback) return callback(message)
+    })
+  };
+
+  sendLogClick(callback) {
+    let visitorId = VisitorTracker.getId();
+    let query = `INSERT INTO article_clicks (article_id, visitor_id) VALUES (${this._parent.articleId}, '${visitorId}');`;
 
     return Net.bef(query, (message) => {
       if (callback) return callback(message)
