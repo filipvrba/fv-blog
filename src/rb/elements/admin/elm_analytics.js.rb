@@ -37,6 +37,10 @@ export default class ElmAdminAnalytics < HTMLElement
 
     @c_database.get_count_articles() do |articles|
       @c_contents.udpate_tbody_articles(articles)
+
+      @c_database.get_count_article_clicks() do |article_clicks|
+        @c_contents.update_article_counts(article_clicks)
+      end
     end
 
     @c_database.get_count_referrer() do |refferer|
@@ -64,7 +68,7 @@ export default class ElmAdminAnalytics < HTMLElement
             <thead>
               <tr>
                 <th scope='col'>Název článku</th>
-                <th scope='col' class='text-end'>Zobrazení</th>
+                <th scope='col' class='text-end' title='uživatelé / celek'>Zobrazení</th>
               </tr>
             </thead>
             <tbody id='analyticsArtcilesTBody'>

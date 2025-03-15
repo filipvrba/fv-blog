@@ -30,8 +30,8 @@ export default class CContents
       articles.each do |article|
         template = """
         <tr>
-          <td class='text-truncate' style='max-width: 200px;' title='#{article.title}'>#{article.title}</td>
-          <td class='text-end px-4'>#{article.count}</td>
+          <td class='text-truncate' style='max-width: 200px;' title='#{article.id} | #{article.title}'>#{article.title}</td>
+          <td class='text-end px-4'>#{article.count} / <span id='adminAnalyticsArticle-#{article.id}'>--</span></td>
         </tr>
         """
         elements.push(template)
@@ -41,6 +41,19 @@ export default class CContents
     end
 
     @artciles_tbody.innerHTML = elements.join('')
+  end
+
+  def update_article_counts(article_clicks)
+    unless article_clicks
+      return
+    end
+
+    article_clicks.each do |article|
+      elm_count = @parent.query_selector("#adminAnalyticsArticle-#{article.id}")
+      if elm_count
+        elm_count.inner_text = article.count
+      end
+    end
   end
 
   def udpate_tbody_referrer(referrer)

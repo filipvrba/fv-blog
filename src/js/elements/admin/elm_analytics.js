@@ -37,9 +37,13 @@ export default class ElmAdminAnalytics extends HTMLElement {
   updateElements() {
     this._cContents.updateTime();
 
-    this._cDatabase.getCountArticles(articles => (
-      this._cContents.udpateTbodyArticles(articles)
-    ));
+    this._cDatabase.getCountArticles((articles) => {
+      this._cContents.udpateTbodyArticles(articles);
+
+      return this._cDatabase.getCountArticleClicks(articleClicks => (
+        this._cContents.updateArticleCounts(articleClicks)
+      ))
+    });
 
     this._cDatabase.getCountReferrer(refferer => (
       this._cContents.udpateTbodyReferrer(refferer)
@@ -66,7 +70,7 @@ export default class ElmAdminAnalytics extends HTMLElement {
             <thead>
               <tr>
                 <th scope='col'>Název článku</th>
-                <th scope='col' class='text-end'>Zobrazení</th>
+                <th scope='col' class='text-end' title='uživatelé / celek'>Zobrazení</th>
               </tr>
             </thead>
             <tbody id='analyticsArtcilesTBody'>

@@ -7,7 +7,7 @@ export default class CDatabase {
 
   getCountArticles(callback) {
     let query = `SELECT 
-    a.title,
+    a.id, a.title,
     COUNT(av.article_id) AS article_count
 FROM articles a
 INNER JOIN article_visits av ON a.id = av.article_id
@@ -21,8 +21,33 @@ ORDER BY article_count DESC;
 
       if (haveRows) {
         articles = rows.map(h => ({
+          id: parseInt(h.id),
           title: h.title.decodeBase64(),
           count: parseInt(h.article_count)
+        }));
+
+        if (callback) return callback(articles)
+      } else if (callback) {
+        return callback(null)
+      }
+    })
+  };
+
+  getCountArticleClicks(callback) {
+    let query = `SELECT article_id, COUNT(*) AS click_count
+FROM article_clicks
+GROUP BY article_id
+ORDER BY click_count DESC;
+`;
+
+    return Net.bef(query, (rows) => {
+      let articles;
+      let haveRows = rows && rows.length > 0;
+
+      if (haveRows) {
+        articles = rows.map(h => ({
+          id: parseInt(h.article_id),
+          count: parseInt(h.click_count)
         }));
 
         if (callback) return callback(articles)

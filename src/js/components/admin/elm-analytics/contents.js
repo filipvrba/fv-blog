@@ -32,8 +32,8 @@ export default class CContents {
       for (let article of articles) {
         let template = `${`
         <tr>
-          <td class='text-truncate' style='max-width: 200px;' title='${article.title}'>${article.title}</td>
-          <td class='text-end px-4'>${article.count}</td>
+          <td class='text-truncate' style='max-width: 200px;' title='${article.id} | ${article.title}'>${article.title}</td>
+          <td class='text-end px-4'>${article.count} / <span id='adminAnalyticsArticle-${article.id}'>--</span></td>
         </tr>
         `}`;
         elements.push(template)
@@ -43,6 +43,15 @@ export default class CContents {
     };
 
     return this._artcilesTbody.innerHTML = elements.join("")
+  };
+
+  updateArticleCounts(articleClicks) {
+    if (!articleClicks) return;
+
+    for (let article of articleClicks) {
+      let elmCount = this._parent.querySelector(`#adminAnalyticsArticle-${article.id}`);
+      if (elmCount) elmCount.innerText = article.count
+    }
   };
 
   udpateTbodyReferrer(referrer) {
