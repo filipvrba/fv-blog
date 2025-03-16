@@ -9,12 +9,18 @@ export default class ElmPagination < HTMLElement
 
     @h_init_elm = lambda do |e|
       @container_length = e.detail.value
-      @container_index  = Math.min(URLParams.get_index('asid'), @container_length - 1)
+
+      if @url_name_index
+        @container_index = Math.min(URLParams.get_index(@url_name_index), @container_length - 1)
+      else
+        @container_index = 0
+      end
 
       init_elm()
       update_dial()
     end
 
+    @url_name_index   = self.get_attribute('name-index') || nil
     @is_center        = self.get_attribute('centered') == '' || false
     @container_length = nil
     @container_index  = nil
@@ -24,11 +30,11 @@ export default class ElmPagination < HTMLElement
   end
 
   def connected_callback()
-    Events.connect('#app', ENVS.init, @h_init_elm)
+    Events.connect(self, ENVS.init, @h_init_elm)
   end
 
   def disconnected_callback()
-    Events.disconnect('#app', ENVS.init, @h_init_elm)
+    Events.disconnect(self, ENVS.init, @h_init_elm)
   end
 
   def btn_next_click()
@@ -52,8 +58,8 @@ export default class ElmPagination < HTMLElement
   end
 
   def emit_click()
-    Events.emit('#app', ENVS.click, @container_index)
-    URLParams.set('asid', @container_index)
+    Events.emit(self, ENVS.click, @container_index)
+    URLParams.set(@url_name_index, @container_index) if @url_name_index
   end
 
   def init_elm()
@@ -73,6 +79,5 @@ export default class ElmPagination < HTMLElement
       "#{@container_index + 1} / #{@container_length}"
 
     emit_click()
-    window.articles_footer_go_up()
   end
 end

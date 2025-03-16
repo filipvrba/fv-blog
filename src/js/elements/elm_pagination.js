@@ -5,15 +5,20 @@ export default class ElmPagination extends HTMLElement {
     this._hInitElm = (e) => {
       this._containerLength = e.detail.value;
 
-      this._containerIndex = Math.min(
-        URLParams.getIndex("asid"),
-        this._containerLength - 1
-      );
+      if (this._urlNameIndex) {
+        this._containerIndex = Math.min(
+          URLParams.getIndex(this._urlNameIndex),
+          this._containerLength - 1
+        )
+      } else {
+        this._containerIndex = 0
+      };
 
       this.initElm();
       return this.updateDial()
     };
 
+    this._urlNameIndex = this.getAttribute("name-index") || null;
     this._isCenter = this.getAttribute("centered") === "" || false;
     this._containerLength = null;
     this._containerIndex = null;
@@ -22,16 +27,12 @@ export default class ElmPagination extends HTMLElement {
   };
 
   connectedCallback() {
-    return Events.connect(
-      "#app",
-      ElmPagination.ENVS.init,
-      this._hInitElm
-    )
+    return Events.connect(this, ElmPagination.ENVS.init, this._hInitElm)
   };
 
   disconnectedCallback() {
     return Events.disconnect(
-      "#app",
+      this,
       ElmPagination.ENVS.init,
       this._hInitElm
     )
@@ -50,8 +51,11 @@ export default class ElmPagination extends HTMLElement {
   };
 
   emitClick() {
-    Events.emit("#app", ElmPagination.ENVS.click, this._containerIndex);
-    return URLParams.set("asid", this._containerIndex)
+    Events.emit(this, ElmPagination.ENVS.click, this._containerIndex);
+
+    if (this._urlNameIndex) {
+      return URLParams.set(this._urlNameIndex, this._containerIndex)
+    }
   };
 
   initElm() {
@@ -67,8 +71,7 @@ export default class ElmPagination extends HTMLElement {
 
   updateDial() {
     this.querySelector("#paginationDial").innerText = `${this._containerIndex + 1} / ${this._containerLength}`;
-    this.emitClick();
-    return window.articlesFooterGoUp()
+    return this.emitClick()
   }
 };
 

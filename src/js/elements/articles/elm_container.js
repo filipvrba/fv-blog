@@ -5,14 +5,20 @@ import ElmPagination from "../elm_pagination";
 export default class ElmArticlesContainer extends ElmArticles {
   constructor() {
     super();
-    this._hPaginationClick = e => this.updateContainer(e.detail.value);
+
+    this._hPaginationClick = (e) => {
+      window.articlesFooterGoUp();
+      return this.updateContainer(e.detail.value)
+    };
+
     this._articleContainers = null;
-    this._idContainer = 0
+    this._idContainer = 0;
+    this._elmArticlePaginations = this.querySelector("#articlesPagination")
   };
 
   connectedCallback() {
     Events.connect(
-      "#app",
+      this._elmArticlePaginations,
       ElmPagination.ENVS.click,
       this._hPaginationClick
     );
@@ -22,7 +28,7 @@ export default class ElmArticlesContainer extends ElmArticles {
 
   disconnectedCallback() {
     Events.disconnect(
-      "#app",
+      this._elmArticlePaginations,
       ElmPagination.ENVS.click,
       this._hPaginationClick
     );
@@ -43,7 +49,7 @@ export default class ElmArticlesContainer extends ElmArticles {
       this._articleContainers = articles.divideIntoGroups(ElmArticlesContainer.NUMERUS_MAXIMUS);
 
       return Events.emit(
-        "#app",
+        this._elmArticlePaginations,
         ElmPagination.ENVS.init,
         this._articleContainers.length
       )
@@ -51,7 +57,7 @@ export default class ElmArticlesContainer extends ElmArticles {
   };
 
   initElm() {
-    let template = `${`\n    ${CContentsArticles.mainTemplate()}\n    <elm-pagination centered></elm-pagination>\n    `}`;
+    let template = `${`\n    ${CContentsArticles.mainTemplate()}\n    <elm-pagination id='articlesPagination' centered name-index='asid'></elm-pagination>\n    `}`;
     return this.innerHTML = template
   }
 };

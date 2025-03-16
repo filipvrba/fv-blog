@@ -1,10 +1,15 @@
 export default class CContents {
+  get elmArticlePaginations() {
+    return this._elmArticlePaginations
+  };
+
   constructor(parent) {
     this._parent = parent;
     this._artcilesTbody = this._parent.querySelector("#analyticsArtcilesTBody");
     this._referrerTbody = this._parent.querySelector("#analyticsReferrerTBody");
     this._devicesTbody = this._parent.querySelector("#analyticsDevicesTBody");
-    this._elmTime = this._parent.querySelector("#analyticsTime")
+    this._elmTime = this._parent.querySelector("#analyticsTime");
+    this._elmArticlePaginations = this._parent.querySelector("#adminAnalyticsArticlesPagination")
   };
 
   emptyTr() {
@@ -33,7 +38,7 @@ export default class CContents {
         let template = `${`
         <tr>
           <td class='text-truncate' style='max-width: 200px;' title='${article.id} | ${article.title}'>${article.title}</td>
-          <td class='text-end px-4'>${article.count} / <span id='adminAnalyticsArticle-${article.id}'>--</span></td>
+          <td class='text-end px-4' title='Konverzní poměr: ${article.conversionRate}'>${article.count} / ${article.clickCount}</td>
         </tr>
         `}`;
         elements.push(template)
@@ -43,15 +48,6 @@ export default class CContents {
     };
 
     return this._artcilesTbody.innerHTML = elements.join("")
-  };
-
-  updateArticleCounts(articleClicks) {
-    if (!articleClicks) return;
-
-    for (let article of articleClicks) {
-      let elmCount = this._parent.querySelector(`#adminAnalyticsArticle-${article.id}`);
-      if (elmCount) elmCount.innerText = article.count
-    }
   };
 
   udpateTbodyReferrer(referrer) {

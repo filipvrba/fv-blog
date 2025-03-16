@@ -1,11 +1,18 @@
 import CDatabase from "../../components/admin/elm-analytics/database";
 import CContents from "../../components/admin/elm-analytics/contents";
 import ElmSettings from "../../packages/bef-client-rjs-0.1.1/elements/elm_settings";
+import ElmPagination from "../elm_pagination";
 
 export default class ElmAdminAnalytics extends HTMLElement {
   constructor() {
     super();
     this._hCategoryClick = e => this.categoryClick(e.detail.value);
+
+    this._hPaginationArticlesClick = e => (
+      this.paginationArticlesClick(e.detail.value)
+    );
+
+    this._articleContainers = null;
     this.initElm();
     this._cDatabase = new CDatabase(this);
     this._cContents = new CContents(this)
@@ -18,15 +25,31 @@ export default class ElmAdminAnalytics extends HTMLElement {
       this._hCategoryClick
     );
 
+    Events.connect(
+      this._cContents.elmArticlePaginations,
+      ElmPagination.ENVS.click,
+      this._hPaginationArticlesClick
+    );
+
     return this.updateElements()
   };
 
   disconnectedCallback() {
-    return Events.disconnect(
+    Events.disconnect(
       "#app",
       ElmSettings.ENVS.categoryClick,
       this._hCategoryClick
+    );
+
+    return Events.disconnect(
+      this._cContents.elmArticlePaginations,
+      ElmPagination.ENVS.click,
+      this._hPaginationArticlesClick
     )
+  };
+
+  paginationArticlesClick(idContainer) {
+    return this._cContents.udpateTbodyArticles(this._articleContainers[idContainer])
   };
 
   categoryClick(index) {
@@ -38,11 +61,13 @@ export default class ElmAdminAnalytics extends HTMLElement {
     this._cContents.updateTime();
 
     this._cDatabase.getCountArticles((articles) => {
-      this._cContents.udpateTbodyArticles(articles);
+      this._articleContainers = articles.divideIntoGroups(ElmAdminAnalytics.NUMERUS_MAXIMUS);
 
-      return this._cDatabase.getCountArticleClicks(articleClicks => (
-        this._cContents.updateArticleCounts(articleClicks)
-      ))
+      return Events.emit(
+        this._cContents.elmArticlePaginations,
+        ElmPagination.ENVS.init,
+        this._articleContainers.length
+      )
     });
 
     this._cDatabase.getCountReferrer(refferer => (
@@ -81,6 +106,8 @@ export default class ElmAdminAnalytics extends HTMLElement {
             </tbody>
           </table>
         </div>
+
+        <elm-pagination id='adminAnalyticsArticlesPagination' class='mb-2' centered></elm-pagination>
       </div>
     </div>
 
@@ -132,4 +159,6 @@ export default class ElmAdminAnalytics extends HTMLElement {
     `}`;
     return this.innerHTML = template
   }
-}
+};
+
+ElmAdminAnalytics.NUMERUS_MAXIMUS = 5

@@ -6,15 +6,27 @@ export default class Events
       }
     })
 
-    document.query_selector(dom).dispatch_event(custom_event)
+    if dom.is_a?(String)
+      document.query_selector(dom).dispatch_event(custom_event)
+    else
+      dom.dispatch_event(custom_event)
+    end
   end
 
   def self.connect(dom, event, &callback)
-    document.query_selector(dom).add_event_listener(event, callback) if callback
+    if dom.is_a?(String)
+      document.query_selector(dom).add_event_listener(event, callback) if callback
+    else
+      dom.add_event_listener(event, callback) if callback
+    end
   end
 
   def self.disconnect(dom, event, &callback)
-    document.query_selector(dom).remove_event_listener(event, callback) if callback
+    if dom.is_a?(String)
+      document.query_selector(dom).remove_event_listener(event, callback) if callback
+    else
+      dom.remove_event_listener(event, callback) if callback
+    end
   end
 end
 window.Events = Events

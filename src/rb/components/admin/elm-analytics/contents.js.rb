@@ -1,4 +1,6 @@
 export default class CContents
+  attr_reader :elm_article_paginations
+
   def initialize(parent)
     @parent = parent
 
@@ -6,6 +8,8 @@ export default class CContents
     @referrer_tbody = @parent.query_selector('#analyticsReferrerTBody')
     @devices_tbody  = @parent.query_selector('#analyticsDevicesTBody')
     @elm_time       = @parent.query_selector('#analyticsTime')
+
+    @elm_article_paginations = @parent.query_selector('#adminAnalyticsArticlesPagination')
   end
 
   def empty_tr()
@@ -31,7 +35,7 @@ export default class CContents
         template = """
         <tr>
           <td class='text-truncate' style='max-width: 200px;' title='#{article.id} | #{article.title}'>#{article.title}</td>
-          <td class='text-end px-4'>#{article.count} / <span id='adminAnalyticsArticle-#{article.id}'>--</span></td>
+          <td class='text-end px-4' title='Konverzní poměr: #{article.conversion_rate}'>#{article.count} / #{article.click_count}</td>
         </tr>
         """
         elements.push(template)
@@ -41,19 +45,6 @@ export default class CContents
     end
 
     @artciles_tbody.innerHTML = elements.join('')
-  end
-
-  def update_article_counts(article_clicks)
-    unless article_clicks
-      return
-    end
-
-    article_clicks.each do |article|
-      elm_count = @parent.query_selector("#adminAnalyticsArticle-#{article.id}")
-      if elm_count
-        elm_count.inner_text = article.count
-      end
-    end
   end
 
   def udpate_tbody_referrer(referrer)
