@@ -31,7 +31,7 @@ export default class CDatabase
 
   def char_data(rows)
     return {
-      labels: rows.map {|row| row.hour + ":00" },
+      labels: rows.map {|row| DateUtils.convert_to_czech_hour(row.hour) },
       datasets: [
         {
           label: "Počet kliknutí za hodinu",

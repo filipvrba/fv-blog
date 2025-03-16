@@ -6,6 +6,16 @@ export default class DateUtils {
     let year = date.getUTCFullYear();
     let formattedate = `${day}. ${month}. ${year}`;
     return formattedate
+  };
+
+  static convertToCzechHour(utcHour) {
+    let now = new Date();
+    now.setUTCHours(utcHour, 0, 0, 0);
+
+    return now.toLocaleTimeString(
+      "cs-CZ",
+      {timeZone: "Europe/Prague", hour: "2-digit", minute: "2-digit"}
+    )
   }
 };
 

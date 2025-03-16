@@ -26,12 +26,16 @@ export default class CDatabase {
   };
 
   charData(rows) {
-    return {labels: rows.map(row => row.hour + ":00"), datasets: [{
-      label: "Počet kliknutí za hodinu",
-      data: rows.map(row => row.clickCount),
-      backgroundColor: "rgba(54, 162, 235, 0.5)",
-      borderColor: "rgba(54, 162, 235, 1)",
-      borderWidth: 1
-    }]}
+    return {
+      labels: rows.map(row => DateUtils.convertToCzechHour(row.hour)),
+
+      datasets: [{
+        label: "Počet kliknutí za hodinu",
+        data: rows.map(row => row.clickCount),
+        backgroundColor: "rgba(54, 162, 235, 0.5)",
+        borderColor: "rgba(54, 162, 235, 1)",
+        borderWidth: 1
+      }]
+    }
   }
 }
