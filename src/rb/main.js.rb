@@ -3,6 +3,7 @@ import 'bootstrap-icons/font/bootstrap-icons.min.css'
 import '../css/elm-spinner.css'
 import '../css/elm-article.css'
 import '../css/elm-cmp-banner.css'
+import '../css/elm-chart-bar.css'
 import '../css/style.css'
 
 import './core'

@@ -38,3 +38,6 @@ window.custom_elements.define('elm-pagination', ElmPagination)
 
 import 'ElmAdminAnalytics', './elements/admin/elm_analytics'
 window.custom_elements.define('elm-admin-analytics', ElmAdminAnalytics)
+
+import 'ElmAdminAnalyticsChartBar', './elements/admin/analytics/elm_chart_bar'
+window.custom_elements.define('elm-admin-analytics-chart-bar', ElmAdminAnalyticsChartBar)

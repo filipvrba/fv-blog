@@ -48,4 +48,11 @@ import ElmAdminAnalytics from "./elements/admin/elm_analytics";
 window.customElements.define(
   "elm-admin-analytics",
   ElmAdminAnalytics
+);
+
+import ElmAdminAnalyticsChartBar from "./elements/admin/analytics/elm_chart_bar";
+
+window.customElements.define(
+  "elm-admin-analytics-chart-bar",
+  ElmAdminAnalyticsChartBar
 )

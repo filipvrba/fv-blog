@@ -153,6 +153,14 @@ export default class ElmAdminAnalytics extends HTMLElement {
       </div>
     </div>
 
+    <div class='col-lg-10 mb-4'>
+      <div class='card anim-card shadow-sm h-100 overflow-hidden'>
+        <div class='card-body'>
+          <elm-admin-analytics-chart-bar></elm-admin-analytics-chart-bar>
+        </div>
+      </div>
+    </div>
+
   </div>
 
 </div>
