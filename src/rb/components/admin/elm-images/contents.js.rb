@@ -17,7 +17,7 @@ export default class CContents
 
   def template_image(image)
     return """
-    <tr>
+    <tr class='anim-table'>
       <th class='hide-on-mobile' scope='row'>#{image.id}</th>
       <td class='pointer' onclick='adminImagesThClick(#{image.id})'>#{image.name.decode_base64()}</td>
       <td class='hide-on-mobile'>#{image.description.decode_base64() || '---'}</td>

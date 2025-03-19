@@ -22,7 +22,7 @@ export default class CContents
 
   def template_article(article)
     return """
-    <tr>
+    <tr class='anim-table'>
       <th class='hide-on-mobile' scope='row'>#{article.id}</th>
       <td class='pointer' onclick='adminArticlesDropdownBtnEditClick(#{article.id})'>#{article.title}</td>
       <td class='hide-on-mobile'>#{article.category}</td>

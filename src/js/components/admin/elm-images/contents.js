@@ -21,7 +21,7 @@ export default class CContents {
 
   templateImage(image) {
     return `${`
-    <tr>
+    <tr class='anim-table'>
       <th class='hide-on-mobile' scope='row'>${image.id}</th>
       <td class='pointer' onclick='adminImagesThClick(${image.id})'>${image.name.decodeBase64()}</td>
       <td class='hide-on-mobile'>${image.description.decodeBase64() || "---"}</td>
