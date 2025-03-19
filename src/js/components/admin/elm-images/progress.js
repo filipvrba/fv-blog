@@ -40,7 +40,7 @@ export default class CProgress {
         1_000
       );
 
-      this._parent.cContents.updateTable();
+      this._parent.updateData();
       break;
 
     case "tNoFile":

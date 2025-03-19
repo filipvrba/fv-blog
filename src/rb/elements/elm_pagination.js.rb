@@ -7,6 +7,9 @@ export default class ElmPagination < HTMLElement
   def initialize
     super
 
+    @h_previous_click = lambda { btn_previous_click() }
+    @h_next_click     = lambda { btn_next_click() }
+
     @h_init_elm = lambda do |e|
       @container_length = e.detail.value
 
@@ -17,6 +20,13 @@ export default class ElmPagination < HTMLElement
       end
 
       init_elm()
+
+      @btn_previous = self.query_selector('#paginationBtnPrevious')
+      @btn_next     = self.query_selector('#paginationBtnNext')
+
+      Events.connect(@btn_previous, 'click', @h_previous_click)
+      Events.connect(@btn_next, 'click', @h_next_click)
+
       update_dial()
     end
 
@@ -24,9 +34,6 @@ export default class ElmPagination < HTMLElement
     @is_center        = self.get_attribute('centered') == '' || false
     @container_length = nil
     @container_index  = nil
-
-    window.pagination_btn_next_click     = btn_next_click
-    window.pagination_btn_previous_click = btn_previous_click
   end
 
   def connected_callback()
@@ -35,6 +42,9 @@ export default class ElmPagination < HTMLElement
 
   def disconnected_callback()
     Events.disconnect(self, ENVS.init, @h_init_elm)
+
+    Events.connect(@btn_previous, 'click', @h_previous_click) if @btn_previous
+    Events.connect(@btn_next, 'click', @h_next_click) if @btn_next
   end
 
   def btn_next_click()
@@ -65,9 +75,9 @@ export default class ElmPagination < HTMLElement
   def init_elm()
     template = """
 <nav class='d-flex align-items-center #{'justify-content-center' if @is_center} #{'d-none' if @container_length <= 1} mt-2'>
-  <button class='btn btn-outline-secondary rounded-pill' onclick='paginationBtnPreviousClick()'>Novější</button>
+  <button id='paginationBtnPrevious' class='btn btn-outline-secondary rounded-pill'>Novější</button>
   <span id='paginationDial' class='mx-3'></span>
-  <button class='btn btn-outline-secondary rounded-pill' onclick='paginationBtnNextClick()'>Starší</button>
+  <button id='paginationBtnNext' class='btn btn-outline-secondary rounded-pill'>Starší</button>
 </nav>
     """
     

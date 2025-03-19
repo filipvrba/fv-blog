@@ -30,7 +30,7 @@ export default class CProgress
         _set_visibility(false)
         @parent.set_spinner_visibility(false)
       end, 1_000)
-      @parent.c_contents.update_table()
+      @parent.update_data()
     when :t_no_file, :t_no_file_id
       _set_visibility(false)
       @parent.set_spinner_visibility(false)

@@ -36,7 +36,7 @@ export default class CInputs {
 
         (message) => {
           this._parent.setSpinnerVisibility(false);
-          if (message) return this._parent.cContents.updateTable()
+          if (message) return this._parent.updateData()
         }
       )
     };
@@ -64,7 +64,7 @@ export default class CInputs {
 
         (message) => {
           this._parent.setSpinnerVisibility(false);
-          if (message) return this._parent.cContents.updateTable()
+          if (message) return this._parent.updateData()
         }
       )
     };

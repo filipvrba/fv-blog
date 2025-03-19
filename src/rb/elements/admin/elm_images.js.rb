@@ -5,16 +5,21 @@ import 'CContents', '../../components/admin/elm-images/contents'
 import 'CSpinner',  '../../packages/template-rjs-0.1.1/components/spinner'
 
 import 'CInputsAdminImagesModal', '../../components/admin/elm-images-modal/inputs'
+import 'ElmPagination', '../elm_pagination'
 
 export default class ElmAdminImages < HTMLElement
+  NUMERUS_MAXIMUS = 8
+
   attr_reader :user_id, :image_compressor
   attr_reader :c_database, :c_progress, :c_contents
 
   def initialize
     super
     @h_images_modal_save = lambda {|e| images_modal_save(e.detail.value)}
+    @h_pagination_images_click = lambda {|e| pagination_images_click(e.detail.value)}
 
-    @user_id = self.get_attribute('user-id')
+    @user_id          = self.get_attribute('user-id')
+    @image_containers = nil
 
     init_elm()
 
@@ -24,25 +29,41 @@ export default class ElmAdminImages < HTMLElement
     @c_database = CDatabase.new(self)
     @c_progress = CProgress.new(self)
     @c_contents = CContents.new(self)
-
-    @c_contents.update_table()
   end
 
   def connected_callback()
+    Events.connect(@c_contents.elm_image_paginations, ElmPagination::ENVS.click, @h_pagination_images_click)
     @c_inputs.connected_callback()
-
     Events.connect('#app', CInputsAdminImagesModal::ENVS.save, @h_images_modal_save)
+
+    update_data()
   end
 
   def disconnected_callback()
+    Events.disconnect(@c_contents.elm_image_paginations, ElmPagination::ENVS.click, @h_pagination_images_click)
     @c_inputs.disconnected_callback()
     @c_progress.disconnected_callback()
 
     Events.disconnect('#app', CInputsAdminImagesModal::ENVS.save, @h_images_modal_save)
   end
 
+  def update_data()
+    set_spinner_visibility(true)
+    @c_database.get_images() do |images|
+      set_spinner_visibility(false)
+
+      @image_containers = images.divide_into_groups(NUMERUS_MAXIMUS)
+      Events.emit(@c_contents.elm_image_paginations, ElmPagination::ENVS.init, @image_containers.length)
+    end
+  end
+
+  def pagination_images_click(id_container)
+    @c_contents.update_table(@image_containers[id_container])
+  end
+
   def images_modal_save(options)
     @c_inputs.upload_file_details = options
+    @c_inputs.upload_file_input.value = ''
     @c_inputs.upload_file_input.click()
   end
 
@@ -97,6 +118,7 @@ export default class ElmAdminImages < HTMLElement
         </tr>
       </tbody>
     </table>
+    <elm-pagination id='adminImagesTablePagination' class='mb-4' centered></elm-pagination>
   </div>
 </div>
 

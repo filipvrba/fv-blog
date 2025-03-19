@@ -3,10 +3,15 @@ export default class CContents {
     return this._tBody
   };
 
+  get elmImagePaginations() {
+    return this._elmImagePaginations
+  };
+
   constructor(parent) {
     this._parent = parent;
     this._tBody = this._parent.querySelector("#adminImagesTBody");
     this._headerSize = this._parent.querySelector("#adminImagesDropdownHeaderSize");
+    this._elmImagePaginations = this._parent.querySelector("#adminImagesTablePagination");
     window.adminImagesThClick = this.thClick.bind(this)
   };
 
@@ -29,33 +34,28 @@ export default class CContents {
     `}`
   };
 
-  updateTable() {
-    this._parent.setSpinnerVisibility(true);
+  updateTable(images) {
+    let elements = [];
 
-    return this._parent.cDatabase.getImages((images) => {
-      this._parent.setSpinnerVisibility(false);
-      let elements = [];
+    if (images) {
+      for (let image of images) {
+        let template = this.templateImage(image);
+        elements.push(template)
+      }
+    } else {
+      let emptyTemaplate = `${`
+      <tr>
+        <td class='text-center hide-on-mobile'>---</td>
+        <td class='text-center'>---</td>
+        <td class='text-center hide-on-mobile'>---</td>
+        <td class='text-center'>---</td>
+      </tr>
+      `}`;
+      elements.push(emptyTemaplate)
+    };
 
-      if (images) {
-        for (let image of images) {
-          let template = this.templateImage(image);
-          elements.push(template)
-        }
-      } else {
-        let emptyTemaplate = `${`
-        <tr>
-          <td class='text-center hide-on-mobile'>---</td>
-          <td class='text-center'>---</td>
-          <td class='text-center hide-on-mobile'>---</td>
-          <td class='text-center'>---</td>
-        </tr>
-        `}`;
-        elements.push(emptyTemaplate)
-      };
-
-      this._headerSize.innerText = this.convertToSize(images) + " MB";
-      return this._tBody.innerHTML = elements.join("")
-    })
+    this._headerSize.innerText = this.convertToSize(images) + " MB";
+    return this._tBody.innerHTML = elements.join("")
   };
 
   convertToSize(images) {

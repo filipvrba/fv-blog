@@ -3,14 +3,21 @@ import 'CContents', '../../components/admin/elm-articles/contents'
 import 'CDatabase', '../../components/admin/elm-articles/database'
 import 'CSpinner',  '../../packages/template-rjs-0.1.1/components/spinner'
 
+import 'ElmPagination', '../elm_pagination'
+
 export default class ElmAdminArticles < HTMLElement
+  NUMERUS_MAXIMUS = 8
+
   attr_reader :user_id
   attr_reader :c_contents, :c_database
 
   def initialize
     super
-    @user_id = self.get_attribute('user-id')
-    
+    @h_pagination_articles_click = lambda {|e| pagination_articles_click(e.detail.value)}
+
+    @user_id            = self.get_attribute('user-id')
+    @article_containers = nil
+
     init_elm()
 
     @c_spinner  = CSpinner.new(self)
@@ -20,10 +27,27 @@ export default class ElmAdminArticles < HTMLElement
   end
 
   def connected_callback()
-    @c_contents.update_table()
+    Events.connect(@c_contents.elm_article_paginations, ElmPagination::ENVS.click, @h_pagination_articles_click)
+
+    update_data()
   end
 
   def disconnected_callback()
+    Events.disconnect(@c_contents.elm_article_paginations, ElmPagination::ENVS.click, @h_pagination_articles_click)
+  end
+
+  def update_data()
+    set_spinner_visibility(true)
+    @c_database.get_info_articles() do |articles|
+      set_spinner_visibility(false)
+
+      @article_containers = articles.divide_into_groups(NUMERUS_MAXIMUS)
+      Events.emit(@c_contents.elm_article_paginations, ElmPagination::ENVS.init, @article_containers.length)
+    end
+  end
+
+  def pagination_articles_click(id_container)
+    @c_contents.update_table(@article_containers[id_container])
   end
 
   def set_spinner_visibility(is_visible)
@@ -75,6 +99,7 @@ export default class ElmAdminArticles < HTMLElement
         </tr>
       </tbody>
     </table>
+    <elm-pagination id='adminArticlesTablePagination' class='mb-4' centered></elm-pagination>
   </div>
 </div>
     """

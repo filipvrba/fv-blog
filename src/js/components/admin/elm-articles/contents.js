@@ -3,9 +3,14 @@ export default class CContents {
     return this._tBody
   };
 
+  get elmArticlePaginations() {
+    return this._elmArticlePaginations
+  };
+
   constructor(parent) {
     this._parent = parent;
-    this._tBody = this._parent.querySelector("#adminArticlesTBody")
+    this._tBody = this._parent.querySelector("#adminArticlesTBody");
+    this._elmArticlePaginations = this._parent.querySelector("#adminArticlesTablePagination")
   };
 
   gotoArticle(articleId="") {
@@ -36,32 +41,27 @@ export default class CContents {
     `}`
   };
 
-  updateTable() {
-    this._parent.setSpinnerVisibility(true);
+  updateTable(articles) {
+    let elements = [];
 
-    return this._parent.cDatabase.getInfoArticles((articles) => {
-      this._parent.setSpinnerVisibility(false);
-      let elements = [];
+    if (articles) {
+      for (let article of articles) {
+        let template = this.templateArticle(article);
+        elements.push(template)
+      }
+    } else {
+      let emptyTemaplate = `${`
+      <tr>
+        <td class='text-center hide-on-mobile'>---</td>
+        <td class='text-center'>---</td>
+        <td class='text-center hide-on-mobile'>---</td>
+        <td class='text-center hide-on-mobile'>---</td>
+        <td class='text-center'>---</td>
+      </tr>
+      `}`;
+      elements.push(emptyTemaplate)
+    };
 
-      if (articles) {
-        for (let article of articles) {
-          let template = this.templateArticle(article);
-          elements.push(template)
-        }
-      } else {
-        let emptyTemaplate = `${`
-        <tr>
-          <td class='text-center hide-on-mobile'>---</td>
-          <td class='text-center'>---</td>
-          <td class='text-center hide-on-mobile'>---</td>
-          <td class='text-center hide-on-mobile'>---</td>
-          <td class='text-center'>---</td>
-        </tr>
-        `}`;
-        elements.push(emptyTemaplate)
-      };
-
-      return this._tBody.innerHTML = elements.join("")
-    })
+    return this._tBody.innerHTML = elements.join("")
   }
 }

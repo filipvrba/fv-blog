@@ -2,6 +2,7 @@ import CInputs from "../../components/admin/elm-articles/inputs";
 import CContents from "../../components/admin/elm-articles/contents";
 import CDatabase from "../../components/admin/elm-articles/database";
 import CSpinner from "../../packages/template-rjs-0.1.1/components/spinner";
+import ElmPagination from "../elm_pagination";
 
 export default class ElmAdminArticles extends HTMLElement {
   get userId() {
@@ -18,7 +19,13 @@ export default class ElmAdminArticles extends HTMLElement {
 
   constructor() {
     super();
+
+    this._hPaginationArticlesClick = e => (
+      this.paginationArticlesClick(e.detail.value)
+    );
+
     this._userId = this.getAttribute("user-id");
+    this._articleContainers = null;
     this.initElm();
     this._cSpinner = new CSpinner(this);
     this._cInputs = new CInputs(this);
@@ -27,11 +34,40 @@ export default class ElmAdminArticles extends HTMLElement {
   };
 
   connectedCallback() {
-    return this._cContents.updateTable()
+    Events.connect(
+      this._cContents.elmArticlePaginations,
+      ElmPagination.ENVS.click,
+      this._hPaginationArticlesClick
+    );
+
+    return this.updateData()
   };
 
   disconnectedCallback() {
-    return null
+    return Events.disconnect(
+      this._cContents.elmArticlePaginations,
+      ElmPagination.ENVS.click,
+      this._hPaginationArticlesClick
+    )
+  };
+
+  updateData() {
+    this.setSpinnerVisibility(true);
+
+    return this._cDatabase.getInfoArticles((articles) => {
+      this.setSpinnerVisibility(false);
+      this._articleContainers = articles.divideIntoGroups(ElmAdminArticles.NUMERUS_MAXIMUS);
+
+      return Events.emit(
+        this._cContents.elmArticlePaginations,
+        ElmPagination.ENVS.init,
+        this._articleContainers.length
+      )
+    })
+  };
+
+  paginationArticlesClick(idContainer) {
+    return this._cContents.updateTable(this._articleContainers[idContainer])
   };
 
   setSpinnerVisibility(isVisible) {
@@ -86,9 +122,12 @@ export default class ElmAdminArticles extends HTMLElement {
         </tr>
       </tbody>
     </table>
+    <elm-pagination id='adminArticlesTablePagination' class='mb-4' centered></elm-pagination>
   </div>
 </div>
     `}`;
     return this.innerHTML = template
   }
-}
+};
+
+ElmAdminArticles.NUMERUS_MAXIMUS = 8

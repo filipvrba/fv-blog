@@ -68,7 +68,7 @@ export default class CInputs
       @parent.set_spinner_visibility(true)
       @parent.c_database.remove_files(id_files) do |message|
         @parent.set_spinner_visibility(false)
-        @parent.c_contents.update_table() if message
+        @parent.update_data() if message
       end
     end
 

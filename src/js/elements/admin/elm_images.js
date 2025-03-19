@@ -4,6 +4,7 @@ import CProgress from "../../components/admin/elm-images/progress";
 import CContents from "../../components/admin/elm-images/contents";
 import CSpinner from "../../packages/template-rjs-0.1.1/components/spinner";
 import CInputsAdminImagesModal from "../../components/admin/elm-images-modal/inputs";
+import ElmPagination from "../elm_pagination";
 
 export default class ElmAdminImages extends HTMLElement {
   get userId() {
@@ -29,28 +30,43 @@ export default class ElmAdminImages extends HTMLElement {
   constructor() {
     super();
     this._hImagesModalSave = e => this.imagesModalSave(e.detail.value);
+    this._hPaginationImagesClick = e => this.paginationImagesClick(e.detail.value);
     this._userId = this.getAttribute("user-id");
+    this._imageContainers = null;
     this.initElm();
     this._imageCompressor = new ImageCompressor(1_280, 720);
     this._cSpinner = new CSpinner(this);
     this._cInputs = new CInputs(this);
     this._cDatabase = new CDatabase(this);
     this._cProgress = new CProgress(this);
-    this._cContents = new CContents(this);
-    this._cContents.updateTable()
+    this._cContents = new CContents(this)
   };
 
   connectedCallback() {
+    Events.connect(
+      this._cContents.elmImagePaginations,
+      ElmPagination.ENVS.click,
+      this._hPaginationImagesClick
+    );
+
     this._cInputs.connectedCallback();
 
-    return Events.connect(
+    Events.connect(
       "#app",
       CInputsAdminImagesModal.ENVS.save,
       this._hImagesModalSave
-    )
+    );
+
+    return this.updateData()
   };
 
   disconnectedCallback() {
+    Events.disconnect(
+      this._cContents.elmImagePaginations,
+      ElmPagination.ENVS.click,
+      this._hPaginationImagesClick
+    );
+
     this._cInputs.disconnectedCallback();
     this._cProgress.disconnectedCallback();
 
@@ -61,8 +77,28 @@ export default class ElmAdminImages extends HTMLElement {
     )
   };
 
+  updateData() {
+    this.setSpinnerVisibility(true);
+
+    return this._cDatabase.getImages((images) => {
+      this.setSpinnerVisibility(false);
+      this._imageContainers = images.divideIntoGroups(ElmAdminImages.NUMERUS_MAXIMUS);
+
+      return Events.emit(
+        this._cContents.elmImagePaginations,
+        ElmPagination.ENVS.init,
+        this._imageContainers.length
+      )
+    })
+  };
+
+  paginationImagesClick(idContainer) {
+    return this._cContents.updateTable(this._imageContainers[idContainer])
+  };
+
   imagesModalSave(options) {
     this._cInputs.uploadFileDetails = options;
+    this._cInputs.uploadFileInput.value = "";
     return this._cInputs.uploadFileInput.click()
   };
 
@@ -120,6 +156,7 @@ export default class ElmAdminImages extends HTMLElement {
         </tr>
       </tbody>
     </table>
+    <elm-pagination id='adminImagesTablePagination' class='mb-4' centered></elm-pagination>
   </div>
 </div>
 
@@ -127,4 +164,6 @@ export default class ElmAdminImages extends HTMLElement {
     `}`;
     return this.innerHTML = template
   }
-}
+};
+
+ElmAdminImages.NUMERUS_MAXIMUS = 8

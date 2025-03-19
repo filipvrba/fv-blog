@@ -84,7 +84,7 @@ export default class CInputs {
 
       return this._parent.cDatabase.removeFiles(idFiles, (message) => {
         this._parent.setSpinnerVisibility(false);
-        if (message) return this._parent.cContents.updateTable()
+        if (message) return this._parent.updateData()
       })
     };
 

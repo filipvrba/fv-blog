@@ -32,7 +32,7 @@ export default class CInputs
       @parent.set_spinner_visibility(true)
       @parent.c_database.set_visibility_article(checked_articles) do |message|
         @parent.set_spinner_visibility(false)
-        @parent.c_contents.update_table() if message
+        @parent.update_data() if message
       end
     end
 
@@ -58,7 +58,7 @@ export default class CInputs
       @parent.set_spinner_visibility(true)
       @parent.c_database.remove_article(id_articles) do |message|
         @parent.set_spinner_visibility(false)
-        @parent.c_contents.update_table() if message
+        @parent.update_data() if message
       end
     end
 

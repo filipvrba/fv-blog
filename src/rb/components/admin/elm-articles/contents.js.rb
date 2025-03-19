@@ -1,10 +1,11 @@
 export default class CContents
-  attr_reader :t_body
+  attr_reader :t_body, :elm_article_paginations
 
   def initialize(parent)
     @parent = parent
 
     @t_body = @parent.query_selector('#adminArticlesTBody')
+    @elm_article_paginations = @parent.query_selector('#adminArticlesTablePagination')
   end
 
   def goto_article(article_id = '')
@@ -35,32 +36,27 @@ export default class CContents
     """
   end
 
-  def update_table()
-    @parent.set_spinner_visibility(true)
-    @parent.c_database.get_info_articles() do |articles|
-      @parent.set_spinner_visibility(false)
+  def update_table(articles)
+    elements = []
 
-      elements = []
-
-      if articles
-        articles.each do |article|
-          template = template_article(article)
-          elements.push(template)
-        end
-      else
-        empty_temaplate = """
-        <tr>
-          <td class='text-center hide-on-mobile'>---</td>
-          <td class='text-center'>---</td>
-          <td class='text-center hide-on-mobile'>---</td>
-          <td class='text-center hide-on-mobile'>---</td>
-          <td class='text-center'>---</td>
-        </tr>
-        """
-        elements.push(empty_temaplate)
+    if articles
+      articles.each do |article|
+        template = template_article(article)
+        elements.push(template)
       end
-
-      @t_body.innerHTML = elements.join('')
+    else
+      empty_temaplate = """
+      <tr>
+        <td class='text-center hide-on-mobile'>---</td>
+        <td class='text-center'>---</td>
+        <td class='text-center hide-on-mobile'>---</td>
+        <td class='text-center hide-on-mobile'>---</td>
+        <td class='text-center'>---</td>
+      </tr>
+      """
+      elements.push(empty_temaplate)
     end
+
+    @t_body.innerHTML = elements.join('')
   end
 end
