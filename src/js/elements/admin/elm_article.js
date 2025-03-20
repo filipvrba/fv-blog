@@ -69,7 +69,7 @@ export default class ElmAdminArticle extends HTMLElement {
 
   initElm() {
     let template = `${`
-<div class='container my-5'>
+<div class='container-lg col-xl-8 my-5'>
   <h1 class='text-center'>Správa článku</h1>
   <div class='card border-0 mt-4'>
     <elm-spinner id='spinnerAdminArticle' class='spinner-overlay'></elm-spinner>
