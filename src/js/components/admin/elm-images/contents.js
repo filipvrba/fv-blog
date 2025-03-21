@@ -54,8 +54,11 @@ export default class CContents {
       elements.push(emptyTemaplate)
     };
 
-    this._headerSize.innerText = this.convertToSize(images) + " MB";
     return this._tBody.innerHTML = elements.join("")
+  };
+
+  updateHeaderSize(images) {
+    return this._headerSize.innerText = this.convertToSize(images) + " MB"
   };
 
   convertToSize(images) {

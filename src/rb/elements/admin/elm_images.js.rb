@@ -59,6 +59,7 @@ export default class ElmAdminImages < HTMLElement
 
   def pagination_images_click(id_container)
     @c_contents.update_table(@image_containers[id_container])
+    @c_contents.update_header_size(@image_containers.flat())
   end
 
   def images_modal_save(options)

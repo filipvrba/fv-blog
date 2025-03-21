@@ -93,7 +93,8 @@ export default class ElmAdminImages extends HTMLElement {
   };
 
   paginationImagesClick(idContainer) {
-    return this._cContents.updateTable(this._imageContainers[idContainer])
+    this._cContents.updateTable(this._imageContainers[idContainer]);
+    return this._cContents.updateHeaderSize(this._imageContainers.flat())
   };
 
   imagesModalSave(options) {

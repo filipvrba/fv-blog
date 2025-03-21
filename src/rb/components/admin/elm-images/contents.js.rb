@@ -50,8 +50,11 @@ export default class CContents
       elements.push(empty_temaplate)
     end
     
-    @header_size.inner_text = convert_to_size(images) + " MB"
     @t_body.innerHTML       = elements.join('')
+  end
+
+  def update_header_size(images)
+    @header_size.inner_text = convert_to_size(images) + " MB"
   end
 
   def convert_to_size(images)
