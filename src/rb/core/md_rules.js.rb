@@ -36,8 +36,10 @@ export default class MDRules
     md.renderer.rules['img_loader'] = lambda do |tokens, idx|
       token = tokens[idx]
       file_id = token.attrs.file_id
-      """<div class='card anim-card border-0 bg-transparent'>
-        <elm-img-loader rounded file-id='#{file_id}'></elm-img-loader>
+      """<div class='row justify-content-center'>
+        <div class='card col-md-10 anim-card border-0 bg-transparent'>
+          <elm-img-loader rounded file-id='#{file_id}'></elm-img-loader>
+        </div>
       </div>"""
     end
 

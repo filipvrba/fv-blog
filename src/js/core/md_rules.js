@@ -29,7 +29,11 @@ export default class MDRules {
     md.renderer.rules.img_loader = (tokens, idx) => {
       let token = tokens[idx];
       let fileId = token.attrs.fileId;
-      return `${`<div class='card anim-card border-0 bg-transparent'>\n        <elm-img-loader rounded file-id='${fileId}'></elm-img-loader>\n      </div>`}`
+      return `${`<div class='row justify-content-center'>
+        <div class='card col-md-10 anim-card border-0 bg-transparent'>
+          <elm-img-loader rounded file-id='${fileId}'></elm-img-loader>
+        </div>
+      </div>`}`
     };
 
     md.inline.ruler.before("text", "yt_loader", MDRules.ytLoader);
