@@ -5,40 +5,6 @@ export default class CDatabase {
     this._parent = parent
   };
 
-  getCountArticles(callback) {
-    let query = `SELECT 
-    a.id, 
-    a.title, 
-    COUNT(DISTINCT av.id) AS article_count, 
-    COUNT(DISTINCT ac.id) AS click_count, 
-    ROUND(CAST(COUNT(DISTINCT ac.id) AS FLOAT) / NULLIF(COUNT(DISTINCT av.id), 0), 2) AS conversion_rate 
-FROM articles a
-INNER JOIN article_visits av ON a.id = av.article_id
-INNER JOIN article_clicks ac ON a.id = ac.article_id
-GROUP BY a.id, a.title
-ORDER BY article_count DESC;
-`;
-
-    return Net.bef(query, (rows) => {
-      let articles;
-      let haveRows = rows && rows.length > 0;
-
-      if (haveRows) {
-        articles = rows.map(h => ({
-          id: parseInt(h.id),
-          title: h.title.decodeBase64(),
-          count: parseInt(h.article_count),
-          clickCount: parseInt(h.click_count),
-          conversionRate: h.conversion_rate
-        }));
-
-        if (callback) return callback(articles)
-      } else if (callback) {
-        return callback(null)
-      }
-    })
-  };
-
   getCountReferrer(callback) {
     let query = `SELECT 
     av.referrer,

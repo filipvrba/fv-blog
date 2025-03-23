@@ -3,6 +3,10 @@ import CContents from "../../../components/admin/analytics/elm-char-bar/contents
 import ElmSettings from "../../../packages/bef-client-rjs-0.1.1/elements/elm_settings";
 
 export default class ElmAdminAnalyticsChartBar extends HTMLElement {
+  get cDatabase() {
+    return this._cDatabase
+  };
+
   constructor() {
     super();
     this._hCategoryClick = e => this.categoryClick(e.detail.value);

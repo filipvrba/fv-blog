@@ -41,3 +41,9 @@ window.custom_elements.define('elm-admin-analytics', ElmAdminAnalytics)
 
 import 'ElmAdminAnalyticsChartBar', './elements/admin/analytics/elm_chart_bar'
 window.custom_elements.define('elm-admin-analytics-chart-bar', ElmAdminAnalyticsChartBar)
+
+import 'ElmAdminAnalyticsArticles', './elements/admin/analytics/elm_articles'
+window.custom_elements.define('elm-admin-analytics-articles', ElmAdminAnalyticsArticles)
+
+import 'ElmAdminAnalyticsCharBarModal', './elements/admin/analytics/elm_char_bar_modal'
+window.custom_elements.define('elm-admin-analytics-char-bar-modal', ElmAdminAnalyticsCharBarModal)

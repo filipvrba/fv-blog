@@ -16,6 +16,27 @@ export default class DateUtils {
       "cs-CZ",
       {timeZone: "Europe/Prague", hour: "2-digit", minute: "2-digit"}
     )
+  };
+
+  static convertToDefaultHour(czechHour) {
+    let [hours, minutes] = czechHour.split(":");
+    let now = new Date();
+    now.setUTCHours(parseInt(hours), parseInt(minutes), 0, 0);
+
+    let date = new Intl.DateTimeFormat("en-US", {
+      timeZone: "Europe/Prague",
+      timeZoneName: "short"
+    }).format(now);
+
+    let czechGmt = parseInt(date.split(", ")[date.split(", ").length - 1].replace(
+      "GMT",
+      ""
+    ));
+
+    return now.toLocaleTimeString(
+      "cs-CZ",
+      {timeZone: `Etc/GMT+${czechGmt}`, hour: "2-digit"}
+    )
   }
 };
 

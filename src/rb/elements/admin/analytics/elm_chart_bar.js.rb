@@ -3,6 +3,8 @@ import 'CContents', '../../../components/admin/analytics/elm-char-bar/contents'
 import 'ElmSettings', '../../../packages/bef-client-rjs-0.1.1/elements/elm_settings'
 
 export default class ElmAdminAnalyticsChartBar < HTMLElement
+  attr_reader :c_database
+
   def initialize
     super
     

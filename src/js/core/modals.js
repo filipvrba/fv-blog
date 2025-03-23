@@ -1,5 +1,6 @@
 import CInputsConfirmModal from "../packages/bef-client-rjs-0.1.1/components/elm-confirm-modal/inputs";
 import CInputsAdminImagesModal from "../components/admin/elm-images-modal/inputs";
+import ElmAdminAnalyticsCharBarModal from "../components/admin/analytics/elm-char-bar-modal/inputs";
 
 export default class Modals {
   static confirm(options) {
@@ -16,6 +17,14 @@ export default class Modals {
 
   static adminImages(fileId) {
     return Events.emit("#app", CInputsAdminImagesModal.ENVS.show, fileId)
+  };
+
+  static charBarModal(hour) {
+    return Events.emit(
+      "#app",
+      ElmAdminAnalyticsCharBarModal.ENVS.show,
+      hour
+    )
   }
 };
 

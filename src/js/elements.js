@@ -55,4 +55,18 @@ import ElmAdminAnalyticsChartBar from "./elements/admin/analytics/elm_chart_bar"
 window.customElements.define(
   "elm-admin-analytics-chart-bar",
   ElmAdminAnalyticsChartBar
+);
+
+import ElmAdminAnalyticsArticles from "./elements/admin/analytics/elm_articles";
+
+window.customElements.define(
+  "elm-admin-analytics-articles",
+  ElmAdminAnalyticsArticles
+);
+
+import ElmAdminAnalyticsCharBarModal from "./elements/admin/analytics/elm_char_bar_modal";
+
+window.customElements.define(
+  "elm-admin-analytics-char-bar-modal",
+  ElmAdminAnalyticsCharBarModal
 )
