@@ -18,4 +18,6 @@ window.customElements.define(
 );
 
 import ElmConfirmModal from "./elements/elm_confirm_modal";
-window.customElements.define("elm-confirm-modal", ElmConfirmModal)
+window.customElements.define("elm-confirm-modal", ElmConfirmModal);
+import ElmAlertModal from "./elements/elm_alert_modal";
+window.customElements.define("elm-alert-modal", ElmAlertModal)

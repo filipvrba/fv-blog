@@ -22,3 +22,6 @@ window.custom_elements.define('elm-profile-editing', ElmProfileEditing)
 
 import 'ElmConfirmModal', './elements/elm_confirm_modal'
 window.custom_elements.define('elm-confirm-modal', ElmConfirmModal)
+
+import 'ElmAlertModal', './elements/elm_alert_modal'
+window.custom_elements.define('elm-alert-modal', ElmAlertModal)

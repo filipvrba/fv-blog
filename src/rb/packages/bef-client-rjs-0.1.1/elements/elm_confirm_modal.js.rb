@@ -13,7 +13,7 @@ export default class ElmConfirmModal < HTMLElement
       title: "<i class='bi bi-question-circle'></i> Potvrzení",
       message: '<p>Opravdu chcete provést tuto akci?</p>',
       fn_true: nil,
-      fn_false: nil
+      fn_false: nil,
     }
     @options = structured_clone(@default_options)
     

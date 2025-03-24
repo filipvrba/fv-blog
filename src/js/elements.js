@@ -69,4 +69,7 @@ import ElmAdminAnalyticsCharBarModal from "./elements/admin/analytics/elm_char_b
 window.customElements.define(
   "elm-admin-analytics-char-bar-modal",
   ElmAdminAnalyticsCharBarModal
-)
+);
+
+import ElmSubscribeForm from "./elements/elm_subscribe_form";
+window.customElements.define("elm-subscribe-form", ElmSubscribeForm)

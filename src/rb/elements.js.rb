@@ -47,3 +47,6 @@ window.custom_elements.define('elm-admin-analytics-articles', ElmAdminAnalyticsA
 
 import 'ElmAdminAnalyticsCharBarModal', './elements/admin/analytics/elm_char_bar_modal'
 window.custom_elements.define('elm-admin-analytics-char-bar-modal', ElmAdminAnalyticsCharBarModal)
+
+import 'ElmSubscribeForm', './elements/elm_subscribe_form'
+window.custom_elements.define('elm-subscribe-form', ElmSubscribeForm)
