@@ -34,6 +34,8 @@ export default class CInputs
         @parent.set_spinner_visibility(false)
         @parent.update_data() if message
       end
+
+      @parent.c_emails.send(checked_articles)
     end
 
     Modals.confirm({fn_true: fn_true})

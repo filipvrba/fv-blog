@@ -1,5 +1,7 @@
 import Net from "./net";
 import SubscribeHTML from "../../html/templates/subscribe.html?raw";
+import CardArticleHTML from "../../html/templates/card_article.html?raw";
+import NewArticlesHTML from "../../html/templates/new_articles.html?raw";
 
 class Email {
   static subscribeRequest(candidate) {
@@ -13,6 +15,54 @@ class Email {
     };
 
     emails.push(email);
+
+    return {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({emails})
+    }
+  };
+
+  static getCardArticles(articles) {
+    let results = [];
+
+    for (let article of articles) {
+      let template = CardArticleHTML.replace(
+        "IMG_BANNER",
+        `${Email.CONFIRMATION_URL}/favicon-169x169.png`
+      ).replace("ARTICLE_TITLE", article.title).replace(
+        "ARTICLE_SHORT_TEXT",
+        article.shortText
+      ).replace(
+        "ARTICLE_LINK",
+        `${Email.CONFIRMATION_URL}?aid=${article.id}#article`
+      );
+
+      results.push(template)
+    };
+
+    return results.join("")
+  };
+
+  static newArticlesRequest(data) {
+    let emails = [];
+
+    for (let candidate of data) {
+      let unsubLink = `${Email.CONFIRMATION_URL}?cid=${candidate.candidateId}#unsubscribe`;
+      let templateArticles = Email.getCardArticles(candidate.articles);
+
+      let email = {
+        to: candidate.email,
+        subject: "Nové články na blogu!",
+
+        html: NewArticlesHTML.replace("UNSUB_LINK", unsubLink).replace(
+          "ARTICLES",
+          templateArticles
+        )
+      };
+
+      emails.push(email)
+    };
 
     return {
       method: "POST",
@@ -40,6 +90,15 @@ class Email {
 
     return Email.send(request, (response) => {
       Email.sendLog({type: "subscribe", candidateId: candidate.id});
+      if (callback) return callback(response)
+    })
+  };
+
+  static sendNewArticles(data, callback) {
+    let request = Email.newArticlesRequest(data);
+
+    return Email.send(request, (response) => {
+      console.log(response);
       if (callback) return callback(response)
     })
   }

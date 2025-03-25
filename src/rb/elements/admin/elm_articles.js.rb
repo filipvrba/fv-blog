@@ -1,6 +1,7 @@
 import 'CInputs',   '../../components/admin/elm-articles/inputs'
 import 'CContents', '../../components/admin/elm-articles/contents'
 import 'CDatabase', '../../components/admin/elm-articles/database'
+import 'CEmails', '../../components/admin/elm-articles/emails'
 import 'CSpinner',  '../../packages/template-rjs-0.1.1/components/spinner'
 
 import 'ElmPagination', '../elm_pagination'
@@ -9,7 +10,7 @@ export default class ElmAdminArticles < HTMLElement
   NUMERUS_MAXIMUS = 8
 
   attr_reader :user_id
-  attr_reader :c_contents, :c_database
+  attr_reader :c_contents, :c_database, :c_emails
 
   def initialize
     super
@@ -24,6 +25,7 @@ export default class ElmAdminArticles < HTMLElement
     @c_inputs   = CInputs.new(self)
     @c_contents = CContents.new(self)
     @c_database = CDatabase.new(self)
+    @c_emails   = CEmails.new(self)
   end
 
   def connected_callback()

@@ -31,14 +31,16 @@ export default class CInputs {
     let fnTrue = () => {
       this._parent.setSpinnerVisibility(true);
 
-      return this._parent.cDatabase.setVisibilityArticle(
+      this._parent.cDatabase.setVisibilityArticle(
         checkedArticles,
 
         (message) => {
           this._parent.setSpinnerVisibility(false);
           if (message) return this._parent.updateData()
         }
-      )
+      );
+
+      return this._parent.cEmails.send(checkedArticles)
     };
 
     return Modals.confirm({fnTrue})

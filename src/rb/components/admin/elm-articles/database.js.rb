@@ -30,6 +30,45 @@ export default class CDatabase
     end
   end
 
+  def get_relevant_info_articles(checked_articles, &callback)
+    unless checked_articles.length > 0
+      return
+    end
+
+    where_ids = checked_articles.map {|h| h.article_id}
+
+    query = "SELECT id, title, short_text FROM articles " +
+      "WHERE id IN (#{where_ids.join(', ')});"
+#     query = "SELECT 
+#     a.id, 
+#     a.title, 
+#     (SELECT GROUP_CONCAT(fp.data, '') 
+#      FROM (SELECT data FROM file_parts 
+#            WHERE file_id = a.file_id 
+#            ORDER BY part_order) fp) AS image_base64, 
+#     a.short_text 
+# FROM articles a 
+# WHERE a.id IN (#{where_ids.join(', ')});
+
+    Net.bef(query) do |rows|
+      have_rows = rows && rows.length > 0
+
+      if have_rows
+        articles = rows.map do |h|
+          {
+            id: h.id.to_i,
+            title: h.title.decode_base64(),
+            short_text: h['short_text'].decode_base64(),
+          }
+        end
+
+        callback(articles) if callback
+      else
+        callback(nil) if callback
+      end
+    end
+  end
+
   def set_visibility_article(checked_articles, &callback)
     unless checked_articles.length > 0
       return
@@ -57,4 +96,33 @@ export default class CDatabase
       callback(message) if callback
     end
   end
+
+  def get_relevant_subscribe_candidates(article_id, &callback)
+    query = "SELECT s.id, s.email
+      FROM subscribers s
+      WHERE s.id NOT IN (
+        SELECT sl.subscriber_id
+        FROM subscriber_email_logs sl
+        WHERE sl.email_type LIKE 'sendArticle-%'
+        AND sl.email_type LIKE 'sendArticle-#{article_id}%'
+      );"
+    
+    Net.bef(query) do |rows|
+      have_rows = rows && rows.length > 0
+
+      if have_rows
+        candidates = rows.map do |h|
+          {
+            id:    h.id.to_i,
+            email: h.email.decode_base64(),
+          }
+        end
+
+        callback(candidates) if callback
+      else
+        callback(nil) if callback
+      end
+    end
+  end
+  
 end

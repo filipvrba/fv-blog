@@ -1,6 +1,7 @@
 import CInputs from "../../components/admin/elm-articles/inputs";
 import CContents from "../../components/admin/elm-articles/contents";
 import CDatabase from "../../components/admin/elm-articles/database";
+import CEmails from "../../components/admin/elm-articles/emails";
 import CSpinner from "../../packages/template-rjs-0.1.1/components/spinner";
 import ElmPagination from "../elm_pagination";
 
@@ -17,6 +18,10 @@ export default class ElmAdminArticles extends HTMLElement {
     return this._cDatabase
   };
 
+  get cEmails() {
+    return this._cEmails
+  };
+
   constructor() {
     super();
 
@@ -30,7 +35,8 @@ export default class ElmAdminArticles extends HTMLElement {
     this._cSpinner = new CSpinner(this);
     this._cInputs = new CInputs(this);
     this._cContents = new CContents(this);
-    this._cDatabase = new CDatabase(this)
+    this._cDatabase = new CDatabase(this);
+    this._cEmails = new CEmails(this)
   };
 
   connectedCallback() {
