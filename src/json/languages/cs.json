@@ -6,7 +6,8 @@
       "articles": "Články",
       "article": "Článek",
       "admin/signin": "Přihlásit se",
-      "admin": "Admin"
+      "admin": "Admin",
+      "unsubscribe": "Odhlásit odběr"
     },
     "meta": [
       "Filip Vrba - Blog"

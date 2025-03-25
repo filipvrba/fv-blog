@@ -72,4 +72,6 @@ window.customElements.define(
 );
 
 import ElmSubscribeForm from "./elements/elm_subscribe_form";
-window.customElements.define("elm-subscribe-form", ElmSubscribeForm)
+window.customElements.define("elm-subscribe-form", ElmSubscribeForm);
+import ElmUnsubscribe from "./elements/elm_unsubscribe";
+window.customElements.define("elm-unsubscribe", ElmUnsubscribe)

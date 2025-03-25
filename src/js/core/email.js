@@ -4,10 +4,12 @@ import SubscribeHTML from "../../html/templates/subscribe.html?raw";
 class Email {
   static subscribeRequest(candidate) {
     let emails = [];
+    let unsubLink = `${Email.CONFIRMATION_URL}?cid=${candidate.id}#unsubscribe`;
 
     let email = {
       to: candidate.email,
-      variables: {unsubLink: `${Email.CONFIRMATION_URL}?cid=${candidate.id}#unsubscribe`}
+      subject: "Nezmeškejte žádnou novinku – máte odběr na blogu!",
+      html: SubscribeHTML.replace("UNSUB_LINK", unsubLink)
     };
 
     emails.push(email);
@@ -27,7 +29,6 @@ class Email {
 
   static sendSubscribe(candidate, callback) {
     let request = Email.subscribeRequest(candidate);
-    console.log(request);
 
     return Email.send(request, (response) => {
       if (callback) return callback(response)

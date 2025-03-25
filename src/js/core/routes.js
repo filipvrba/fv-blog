@@ -6,6 +6,7 @@ import articlesHTML from "../../html/articles.html?raw";
 import articleHTML from "../../html/article.html?raw";
 import adminSigninHTML from "../../html/admin/signin.html?raw";
 import adminHTML from "../../html/admin.html?raw";
+import unsubscribeHTML from "../../html/unsubscribe.html?raw";
 
 window.PAGES = {
   error: errorHTML,
@@ -13,7 +14,8 @@ window.PAGES = {
   articles: articlesHTML,
   article: articleHTML,
   "admin/signin": adminSigninHTML,
-  admin: adminHTML
+  admin: adminHTML,
+  unsubscribe: unsubscribeHTML
 };
 
 class Routes {

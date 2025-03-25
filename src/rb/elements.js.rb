@@ -50,3 +50,6 @@ window.custom_elements.define('elm-admin-analytics-char-bar-modal', ElmAdminAnal
 
 import 'ElmSubscribeForm', './elements/elm_subscribe_form'
 window.custom_elements.define('elm-subscribe-form', ElmSubscribeForm)
+
+import 'ElmUnsubscribe', './elements/elm_unsubscribe'
+window.custom_elements.define('elm-unsubscribe', ElmUnsubscribe)

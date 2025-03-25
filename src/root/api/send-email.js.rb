@@ -7,7 +7,7 @@ export default async def handler(req, res)
     return res.status(405).json({ error: 'Pouze POST požadavky jsou povoleny.' })
   end
 
-  emails      = req.body.emails
+  emails = req.body.emails
 
   if !emails || !Array.isArray(emails) || emails.length == 0
     return res.status(400).json({ error: 'Chybí seznam e-mailů.' })

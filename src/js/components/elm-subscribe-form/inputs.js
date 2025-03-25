@@ -45,5 +45,9 @@ export default class CInputs {
   haveSubscribeFormEmail() {
     let emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$/m;
     return this._subscribeFormEmail.value.length > 0 && emailRegex.test(this._subscribeFormEmail.value)
+  };
+
+  clearValue() {
+    return this._subscribeFormEmail.value = ""
   }
 }

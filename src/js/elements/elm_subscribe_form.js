@@ -25,9 +25,10 @@ export default class ElmSubscribeForm extends HTMLElement {
 
     return this._cDatabase.addSubscribe(email, (candidate) => {
       this._cSpinner.setDisplay(false);
+      this._cInputs.clearValue();
 
       if (candidate) {
-        Email.sendSubscribe(candidate, response => console.log(response));
+        Email.sendSubscribe(candidate);
         return Modals.alert({message: `${`
 <div class='text-center'>
   <i class='bi bi-person-plus display-1 text-success'></i>

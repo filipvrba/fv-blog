@@ -42,4 +42,8 @@ export default class CInputs
     @subscribe_form_email.value.length > 0 &&
       email_regex.test(@subscribe_form_email.value)
   end
+
+  def clear_value()
+    @subscribe_form_email.value = ''
+  end
 end

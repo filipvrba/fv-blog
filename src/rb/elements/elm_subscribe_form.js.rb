@@ -28,11 +28,10 @@ export default class ElmSubscribeForm < HTMLElement
 
     @c_database.add_subscribe(email) do |candidate|
       @c_spinner.set_display(false)
+      @c_inputs.clear_value()
 
       if candidate
-        Email.send_subscribe(candidate) do |response|
-          puts response
-        end
+        Email.send_subscribe(candidate)
 
         Modals.alert({
           message: """

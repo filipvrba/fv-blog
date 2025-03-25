@@ -23,6 +23,10 @@
     {
       "endpoint": "admin",
       "priority": 1
+    },
+    {
+      "endpoint": "unsubscribe",
+      "priority": 1
     }
   ]
 }

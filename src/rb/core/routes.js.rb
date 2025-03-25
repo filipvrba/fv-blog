@@ -8,14 +8,16 @@ import 'articlesHTML', '../../html/articles.html?raw'
 import 'articleHTML', '../../html/article.html?raw'
 import 'adminSigninHTML', '../../html/admin/signin.html?raw'
 import 'adminHTML', '../../html/admin.html?raw'
+import 'unsubscribeHTML', '../../html/unsubscribe.html?raw' 
 
 window.PAGES = {
   error:          errorHTML,
   nointernet:     nointernetHTML,
   articles:       articlesHTML,
-  article:       articleHTML,
+  article:        articleHTML,
   'admin/signin': adminSigninHTML,
   admin:          adminHTML,
+  unsubscribe:    unsubscribeHTML,
 }
 
 class Routes

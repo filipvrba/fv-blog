@@ -10,7 +10,7 @@ class Email
     unsub_link = "#{CONFIRMATION_URL}?cid=#{candidate.id}#unsubscribe"
     email = {
       to: candidate.email,
-      subject: "Děkuji, že jste se přihlásili k odběru"
+      subject: "Nezmeškejte žádnou novinku – máte odběr na blogu!",
       html: SubscribeHTML.sub('UNSUB_LINK', unsub_link),
     }
 
@@ -39,7 +39,6 @@ class Email
 
   def self.send_subscribe(candidate, &callback)
     request = Email.subscribe_request(candidate)
-    puts request
     Email.send(request) do |response|
       callback(response) if callback
     end
