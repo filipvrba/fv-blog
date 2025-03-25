@@ -11,8 +11,6 @@ export default class CEmails
       return
     end
 
-    published_articles = checked_articles
-
     @parent.c_database.get_relevant_info_articles(published_articles) do |articles|
       relevant_candidates(published_articles) do |candidates|
         data = get_data(articles, candidates)

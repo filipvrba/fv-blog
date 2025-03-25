@@ -7,7 +7,6 @@ export default class CEmails {
   send(checkedArticles) {
     let publishedArticles = checkedArticles.filter(h => !h.isPublished);
     if (publishedArticles.length <= 0) return;
-    publishedArticles = checkedArticles;
 
     return this._parent.cDatabase.getRelevantInfoArticles(
       publishedArticles,
