@@ -7,7 +7,8 @@ export default async def handler(req, res)
     return res.status(405).json({ error: 'Pouze POST požadavky jsou povoleny.' })
   end
 
-  emails = req.body.emails
+  emails      = req.body.emails
+  template_id = req.body.template_id
 
   if !emails || !Array.isArray(emails) || emails.length == 0
     return res.status(400).json({ error: 'Chybí seznam e-mailů.' })
@@ -21,11 +22,14 @@ export default async def handler(req, res)
         return res.status(400).json({ error: 'Chybí hlavní e-mail.' })
       end
 
+      have_variables = email.variables && Object.keys(email.variables).length > 0
+
       {
         From: { Email: from_email },
         To: [{ Email: email.to }],
-        Subject: email.subject,
-        HTMLPart: email.html,
+        TemplateID: template_id,
+        TemplateLanguage: have_variables,
+        Variables: email.variables,
       }
     end
 
