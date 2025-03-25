@@ -1,4 +1,5 @@
 import 'Net', './net'
+import 'SubscribeHTML', '../../html/templates/subscribe.html?raw'
 
 class Email
   CONFIRMATION_URL = 'https://filipvrba-blog.vercel.app/'
@@ -6,12 +7,11 @@ class Email
   def self.subscribe_request(candidate)
     emails = []
 
+    unsub_link = "#{CONFIRMATION_URL}?cid=#{candidate.id}#unsubscribe"
     email = {
       to: candidate.email,
-      variables: {
-        url: CONFIRMATION_URL,
-        candidate_id: candidate.id
-      }
+      subject: "Děkuji, že jste se přihlásili k odběru"
+      html: SubscribeHTML.sub('UNSUB_LINK', unsub_link),
     }
 
     emails.push(email)
@@ -22,7 +22,6 @@ class Email
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        template_id: 6839019,
         emails: emails,
       })
     }
@@ -40,6 +39,7 @@ class Email
 
   def self.send_subscribe(candidate, &callback)
     request = Email.subscribe_request(candidate)
+    puts request
     Email.send(request) do |response|
       callback(response) if callback
     end

@@ -11,7 +11,6 @@ export default async function handler(req, res) {
   };
 
   let emails = req.body.emails;
-  let templateId = req.body.templateId;
 
   if (!emails || !Array.isArray(emails) || emails.length === 0) {
     return res.status(400).json({error: "Chybí seznam e-mailů."})
@@ -21,14 +20,12 @@ export default async function handler(req, res) {
     let messages = emails.map((email) => {
       let fromEmail = process.env.FROM_EMAIL || null;
       if (!fromEmail) return res.status(400).json({error: "Chybí hlavní e-mail."});
-      let haveVariables = email.variables && Object.keys(email.variables).length > 0;
 
       return {
         From: {Email: fromEmail},
         To: [{Email: email.to}],
-        TemplateID: templateId,
-        TemplateLanguage: haveVariables,
-        Variables: email.variables
+        Subject: email.subject,
+        HTMLPart: email.html
       }
     });
 

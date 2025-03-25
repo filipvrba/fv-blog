@@ -1,4 +1,5 @@
 import Net from "./net";
+import SubscribeHTML from "../../html/templates/subscribe.html?raw";
 
 class Email {
   static subscribeRequest(candidate) {
@@ -6,7 +7,7 @@ class Email {
 
     let email = {
       to: candidate.email,
-      variables: {url: Email.CONFIRMATION_URL, candidateId: candidate.id}
+      variables: {unsubLink: `${Email.CONFIRMATION_URL}?cid=${candidate.id}#unsubscribe`}
     };
 
     emails.push(email);
@@ -14,7 +15,7 @@ class Email {
     return {
       method: "POST",
       headers: {"Content-Type": "application/json"},
-      body: JSON.stringify({templateId: 6_839_019, emails})
+      body: JSON.stringify({emails})
     }
   };
 
@@ -26,6 +27,7 @@ class Email {
 
   static sendSubscribe(candidate, callback) {
     let request = Email.subscribeRequest(candidate);
+    console.log(request);
 
     return Email.send(request, (response) => {
       if (callback) return callback(response)
