@@ -5,11 +5,9 @@ export default class CEmails {
   };
 
   send(checkedArticles) {
-    // published_articles = checked_articles.select {|h| !h.is_published}
-    // unless published_articles.length > 0
-    //   return
-    // end
-    let publishedArticles = checkedArticles;
+    let publishedArticles = checkedArticles.filter(h => !h.isPublished);
+    if (publishedArticles.length <= 0) return;
+    publishedArticles = checkedArticles;
 
     return this._parent.cDatabase.getRelevantInfoArticles(
       publishedArticles,
@@ -17,7 +15,7 @@ export default class CEmails {
       articles => (
         this.relevantCandidates(publishedArticles, (candidates) => {
           let data = this.getData(articles, candidates);
-          return Email.sendNewArticles(data)
+          if (data.length > 0) return Email.sendNewArticles(data)
         })
       )
     )

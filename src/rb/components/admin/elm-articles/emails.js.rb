@@ -5,18 +5,18 @@ export default class CEmails
   end
 
   def send(checked_articles)
-    # published_articles = checked_articles.select {|h| !h.is_published}
+    published_articles = checked_articles.select {|h| !h.is_published}
 
-    # unless published_articles.length > 0
-    #   return
-    # end
+    unless published_articles.length > 0
+      return
+    end
 
     published_articles = checked_articles
 
     @parent.c_database.get_relevant_info_articles(published_articles) do |articles|
       relevant_candidates(published_articles) do |candidates|
         data = get_data(articles, candidates)
-        Email.send_new_articles(data)
+        Email.send_new_articles(data) if data.length > 0
       end
     end
   end

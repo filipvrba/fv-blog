@@ -29,7 +29,7 @@ class Email {
     for (let article of articles) {
       let template = CardArticleHTML.replace(
         "IMG_BANNER",
-        `${Email.CONFIRMATION_URL}/favicon-169x169.png`
+        `${Email.CONFIRMATION_URL}/android-chrome-192x192.png`
       ).replace("ARTICLE_TITLE", article.title).replace(
         "ARTICLE_SHORT_TEXT",
         article.shortText
@@ -98,7 +98,14 @@ class Email {
     let request = Email.newArticlesRequest(data);
 
     return Email.send(request, (response) => {
-      console.log(response);
+      for (let candidate of data) {
+        let id = candidate.candidateId;
+
+        for (let article of candidate.articles) {
+          Email.sendLog({type: `sendArticle-${article.id}`, candidateId: id})
+        }
+      };
+
       if (callback) return callback(response)
     })
   }

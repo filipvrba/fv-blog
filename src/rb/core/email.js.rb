@@ -35,7 +35,7 @@ class Email
 
     articles.each do |article|
       template = CardArticleHTML
-        .sub('IMG_BANNER', "#{CONFIRMATION_URL}/favicon-169x169.png")
+        .sub('IMG_BANNER', "#{CONFIRMATION_URL}/android-chrome-192x192.png")
         .sub('ARTICLE_TITLE', article.title)
         .sub('ARTICLE_SHORT_TEXT', article.short_text)
         .sub('ARTICLE_LINK', "#{CONFIRMATION_URL}?aid=#{article.id}#article")
@@ -103,8 +103,13 @@ class Email
   def self.send_new_articles(data, &callback)
     request = Email.new_articles_request(data)
     Email.send(request) do |response|
-      puts response
-      # Email.send_log({type: 'subscribe', candidate_id: candidate.id})
+      data.each do |candidate|
+        id = candidate.candidate_id
+
+        candidate.articles.each do |article|
+          Email.send_log({type: "sendArticle-#{article.id}", candidate_id: id})
+        end
+      end
       callback(response) if callback
     end
   end
