@@ -37,9 +37,19 @@ class Email
     end)
   end
 
+  def self.send_log(options, &callback)
+    query = "INSERT INTO subscriber_email_logs (subscriber_id, email_type) " +
+      "VALUES (#{options.candidate_id}, '#{options.type}');"
+
+    Net.bef(query) do |message|
+      callback(message) if callback
+    end
+  end
+
   def self.send_subscribe(candidate, &callback)
     request = Email.subscribe_request(candidate)
     Email.send(request) do |response|
+      Email.send_log({type: 'subscribe', candidate_id: candidate.id})
       callback(response) if callback
     end
   end
