@@ -72,8 +72,15 @@ class Email {
   };
 
   static send(request, callback) {
-    return fetch("/api/send-email", request).then(response => response.json()).then((obj) => {
-      if (callback) return callback(obj)
+    return fetch("/api/send-email", request).then(response => ({
+      obj: response.json(),
+      status: response.status
+    })).then((objDetail) => {
+      if (objDetail.status === 200) {
+        if (callback) return callback(objDetail.obj, true)
+      } else if (callback) {
+        return callback(objDetail.obj, false)
+      }
     })
   };
 
@@ -88,25 +95,27 @@ class Email {
   static sendSubscribe(candidate, callback) {
     let request = Email.subscribeRequest(candidate);
 
-    return Email.send(request, (response) => {
-      Email.sendLog({type: "subscribe", candidateId: candidate.id});
-      if (callback) return callback(response)
+    return Email.send(request, (response, isSend) => {
+      if (isSend) Email.sendLog({type: "subscribe", candidateId: candidate.id});
+      if (callback) return callback(isSend)
     })
   };
 
   static sendNewArticles(data, callback) {
     let request = Email.newArticlesRequest(data);
 
-    return Email.send(request, (response) => {
-      for (let candidate of data) {
-        let id = candidate.candidateId;
+    return Email.send(request, (response, isSend) => {
+      if (isSend) {
+        for (let candidate of data) {
+          let id = candidate.candidateId;
 
-        for (let article of candidate.articles) {
-          Email.sendLog({type: `sendArticle-${article.id}`, candidateId: id})
+          for (let article of candidate.articles) {
+            Email.sendLog({type: `sendArticle-${article.id}`, candidateId: id})
+          }
         }
       };
 
-      if (callback) return callback(response)
+      if (callback) return callback(isSend)
     })
   }
 };

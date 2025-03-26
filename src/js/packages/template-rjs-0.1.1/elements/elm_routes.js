@@ -10,6 +10,10 @@ export default class ElmRoutes extends HTMLElement {
       return this.changePage()
     };
 
+    this._hReloadRoute = () => {
+      return this.changePage()
+    };
+
     this.languageChange();
     this.changePage()
   };
@@ -17,21 +21,25 @@ export default class ElmRoutes extends HTMLElement {
   connectedCallback() {
     window.addEventListener("hashchange", this._lHashchange);
 
-    return Events.connect(
+    Events.connect(
       "#app",
       Language.ENVS.languageChange,
       this._hLanguageChange
-    )
+    );
+
+    return Events.connect("#app", "reloadRoute", this._hReloadRoute)
   };
 
   disconnectedCallback() {
     window.removeEventListener("hashchange", this._lHashchange);
 
-    return Events.disconnect(
+    Events.disconnect(
       "#app",
       Language.ENVS.languageChange,
       this._hLanguageChange
-    )
+    );
+
+    return Events.disconnect("#app", "reloadRoute", this._hReloadRoute)
   };
 
   languageChange() {

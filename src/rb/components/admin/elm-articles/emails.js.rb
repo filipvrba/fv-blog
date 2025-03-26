@@ -14,7 +14,23 @@ export default class CEmails
     @parent.c_database.get_relevant_info_articles(published_articles) do |articles|
       relevant_candidates(published_articles) do |candidates|
         data = get_data(articles, candidates)
-        Email.send_new_articles(data) if data.length > 0
+        have_data = data.length > 0
+
+        if have_data 
+          Email.send_new_articles(data) do |is_send|
+            unless is_send
+              Modals.alert({
+                message: """
+                <div class='text-center'>
+                  <i class='bi bi-file-earmark-x display-1 text-danger'></i>
+                  <h1 class='mt-3'>Zveřejnění selhalo</h1>
+                  <p class='lead'>Publikování článků selhalo, e-mail nebyl odeslán.</p>
+                </div>
+                """
+              })
+            end
+          end
+        end
       end
     end
   end

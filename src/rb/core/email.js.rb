@@ -76,10 +76,14 @@ class Email
   def self.send(request, &callback)
     fetch('/api/send-email', request)
     .then(lambda do |response|
-      response.json()
+      {obj: response.json(), status: response.status}
     end)
-    .then(lambda do |obj|
-      callback(obj) if callback
+    .then(lambda do |obj_detail|
+      if obj_detail.status == 200
+        callback(obj_detail.obj, true) if callback
+      else
+        callback(obj_detail.obj, false) if callback
+      end
     end)
   end
 
@@ -94,23 +98,29 @@ class Email
 
   def self.send_subscribe(candidate, &callback)
     request = Email.subscribe_request(candidate)
-    Email.send(request) do |response|
-      Email.send_log({type: 'subscribe', candidate_id: candidate.id})
-      callback(response) if callback
+    Email.send(request) do |response, is_send|
+      if is_send
+        Email.send_log({type: 'subscribe', candidate_id: candidate.id})
+      end
+
+      callback(is_send) if callback
     end
   end
 
   def self.send_new_articles(data, &callback)
     request = Email.new_articles_request(data)
-    Email.send(request) do |response|
-      data.each do |candidate|
-        id = candidate.candidate_id
+    Email.send(request) do |response, is_send|
+      if is_send
+        data.each do |candidate|
+          id = candidate.candidate_id
 
-        candidate.articles.each do |article|
-          Email.send_log({type: "sendArticle-#{article.id}", candidate_id: id})
+          candidate.articles.each do |article|
+            Email.send_log({type: "sendArticle-#{article.id}", candidate_id: id})
+          end
         end
       end
-      callback(response) if callback
+
+      callback(is_send) if callback
     end
   end
 end

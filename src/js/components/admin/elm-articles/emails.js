@@ -14,7 +14,21 @@ export default class CEmails {
       articles => (
         this.relevantCandidates(publishedArticles, (candidates) => {
           let data = this.getData(articles, candidates);
-          if (data.length > 0) return Email.sendNewArticles(data)
+          let haveData = data.length > 0;
+
+          if (haveData) {
+            return Email.sendNewArticles(data, (isSend) => {
+              if (!isSend) {
+                return Modals.alert({message: `${`
+                <div class='text-center'>
+                  <i class='bi bi-file-earmark-x display-1 text-danger'></i>
+                  <h1 class='mt-3'>Zveřejnění selhalo</h1>
+                  <p class='lead'>Publikování článků selhalo, e-mail nebyl odeslán.</p>
+                </div>
+                `}`})
+              }
+            })
+          }
         })
       )
     )

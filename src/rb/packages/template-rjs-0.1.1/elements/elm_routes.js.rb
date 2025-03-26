@@ -4,6 +4,7 @@ export default class ElmRoutes < HTMLElement
 
     @l_hashchange = lambda { change_page() }
     @h_language_change = lambda { change_page() }
+    @h_reload_route = lambda { change_page() }
 
     language_change()
 
@@ -13,11 +14,13 @@ export default class ElmRoutes < HTMLElement
   def connectedCallback()
     window.add_event_listener('hashchange', @l_hashchange)
     Events.connect('#app', Language::ENVS.language_change, @h_language_change)
+    Events.connect('#app', 'reloadRoute', @h_reload_route)
   end
 
   def disconnectedCallback()
     window.remove_event_listener('hashchange', @l_hashchange)
     Events.disconnect('#app', Language::ENVS.language_change, @h_language_change)
+    Events.disconnect('#app', 'reloadRoute', @h_reload_route)
   end
 
   def language_change()

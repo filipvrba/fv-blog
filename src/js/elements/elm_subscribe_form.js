@@ -27,18 +27,22 @@ export default class ElmSubscribeForm extends HTMLElement {
       this._cSpinner.setDisplay(false);
       this._cInputs.clearValue();
 
-      if (candidate) {
-        Email.sendSubscribe(candidate);
-        return Modals.alert({message: `${`
+      return candidate ? Email.sendSubscribe(candidate, isSend => (
+        isSend ? Modals.alert({message: `${`
 <div class='text-center'>
   <i class='bi bi-person-plus display-1 text-success'></i>
   <h1 class='mt-3'>Přihlášení k odběru</h1>
   <p class='lead'>Byl jste úspěšně přidán mezi odběratele. Do vašeho e-mailu bylo odesláno potvrzení.</p>
   <p>Pokud chcete zrušit odběr, tuto možnost najdete v e-mailu.</p>
 </div>
-          `}`})
-      } else {
-        return Modals.alert({message: `${`
+              `}`}) : Modals.alert({message: `${`
+<div class='text-center'>
+  <i class='bi bi-exclamation-triangle display-1 text-danger'></i>
+  <h1 class='mt-3'>Email se nedokákal poslat</h1>
+  <p class='lead'>Prosím <a href='https://filipvrba.vercel.app/#kontakty' target='_blank'>kontaktujte mě</a> a nahlašte tuto technickou chybu.</p>
+</div>
+              `}`})
+      )) : Modals.alert({message: `${`
 <div class='text-center'>
   <i class='bi bi-exclamation-triangle display-1 text-danger'></i>
   <h1 class='mt-3'>Nepodařané přihlášení k odběru</h1>
@@ -46,7 +50,6 @@ export default class ElmSubscribeForm extends HTMLElement {
   <p>Zkuste to prosím znovu, nebo mě <a href='https://filipvrba.vercel.app/#kontakty' target='_blank'>kontaktujte</a> pro pomoc.</p>
 </div>
           `}`})
-      }
     })
   };
 

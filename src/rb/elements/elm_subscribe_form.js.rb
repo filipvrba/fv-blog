@@ -31,18 +31,30 @@ export default class ElmSubscribeForm < HTMLElement
       @c_inputs.clear_value()
 
       if candidate
-        Email.send_subscribe(candidate)
-
-        Modals.alert({
-          message: """
+        Email.send_subscribe(candidate) do |is_send|
+          if is_send
+            Modals.alert({
+              message: """
 <div class='text-center'>
   <i class='bi bi-person-plus display-1 text-success'></i>
   <h1 class='mt-3'>Přihlášení k odběru</h1>
   <p class='lead'>Byl jste úspěšně přidán mezi odběratele. Do vašeho e-mailu bylo odesláno potvrzení.</p>
   <p>Pokud chcete zrušit odběr, tuto možnost najdete v e-mailu.</p>
 </div>
-          """
-        })
+              """
+            })
+          else
+            Modals.alert({
+              message: """
+<div class='text-center'>
+  <i class='bi bi-exclamation-triangle display-1 text-danger'></i>
+  <h1 class='mt-3'>Email se nedokákal poslat</h1>
+  <p class='lead'>Prosím <a href='https://filipvrba.vercel.app/#kontakty' target='_blank'>kontaktujte mě</a> a nahlašte tuto technickou chybu.</p>
+</div>
+              """
+            })
+          end
+        end
       else
         Modals.alert({
           message: """

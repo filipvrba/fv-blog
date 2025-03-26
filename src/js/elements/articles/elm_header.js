@@ -24,13 +24,19 @@ export default class ElmHeader extends HTMLElement {
         <div class='col-sm-8 col-md-7 py-4'>
           <h4>O blogu</h4>
           <p class='text-body-secondary'>Tento blog je mým osobním prostorem, kde sdílím své názory, myšlenky a postřehy k různým tématům. Každý článek odráží můj pohled na svět, a proto se může lišit od názorů ostatních. Pokud máte jiný názor nebo byste rádi diskutovali o nějakém tématu, neváhejte mi napsat osobně. Vaše názory jsou vítány.</p>
-          <p class='text-body-secondary'>Rád bych také zdůraznil, že veškerý obsah na tomto blogu je mým vlastním dílem a nehodlám, aby se informace zde uvedené šířily bez mého výslovného souhlasu. Respektujte prosím autorská práva a související <a href='?aid=3#article'>podmínky</a>.</p>
+          <p class='text-body-secondary'>Rád bych také zdůraznil, že veškerý obsah na tomto blogu je mým vlastním dílem a nehodlám, aby se informace zde uvedené šířily bez mého výslovného souhlasu. Respektujte prosím autorská práva a související <a class='pointer' onclick='articlesFooterGoArticle(3)'>podmínky</a>.</p>
         </div>
         <div class='col-sm-4 offset-md-1 py-4'>
-          <h4>Kontakt</h4>
+          <h4>Kontakty</h4>
           <ul class='list-unstyled'>
-            <li><a href='https://filipvrba.vercel.app/#kontakty' class='text-white'>Osobní web</a></li>
-            <li><a href='mailto:filipvrbaxi@gmail.com' class='text-white'>Poslat email</a></li>
+            <li><a href='https://filipvrba.vercel.app/#kontakty' class='text-white' target='_blank'>Osobní web</a></li>
+            <li><a href='mailto:filipvrbaxi@gmail.com' class='text-white' target='_blank'>Poslat email</a></li>
+          </ul>
+
+          <h4 class='mt-5'>Přihlaste se k odběru novinek</h4>
+          <p>Zaregistrujte se a buďte informováni o nejnovějších článcích.</p>
+          <ul class='list-unstyled'>
+            <li><a class='text-white pointer' onclick='articlesFooterGoArticle(28)'>Přihlásit se zde</a></li>
           </ul>
         </div>
       </div>
