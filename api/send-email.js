@@ -29,7 +29,7 @@ export default async function handler(req, res) {
       }
     });
 
-    let request = MJ.post("send", {version: "v3.1", trackClicks: false}).request({Messages: messages});
+    let request = MJ.post("send", {version: "v3.1"}).request({Messages: messages});
     let result = await(request);
 
     res.status(200).json({
