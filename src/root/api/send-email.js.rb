@@ -29,7 +29,7 @@ export default async def handler(req, res)
       }
     end
 
-    request = MJ.post('send', {'version': 'v3.1', 'track_clicks': false})
+    request = MJ.post('send', {'version': 'v3.1', })
       .request({ Messages: messages })
     result  = await request
 
