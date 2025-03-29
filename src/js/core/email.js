@@ -29,7 +29,7 @@ class Email {
     for (let article of articles) {
       let template = CardArticleHTML.replace(
         "IMG_BANNER",
-        `${Email.CONFIRMATION_URL}/android-chrome-192x192.png`
+        `${Email.CONFIRMATION_URL}/api/image/${article.fileId}`
       ).replace("ARTICLE_TITLE", article.title).replace(
         "ARTICLE_SHORT_TEXT",
         article.shortText

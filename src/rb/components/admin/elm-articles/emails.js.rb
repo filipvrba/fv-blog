@@ -69,6 +69,7 @@ export default class CEmails
           emails_hash[candidate_id].articles.push(
             {
               id:         article.id,
+              file_id:    article.file_id,
               title:      article.title,
               short_text: article.short_text
             }
@@ -79,8 +80,9 @@ export default class CEmails
             email:        email_address,
             articles: [
               {
-                id: article.id,
-                title: article.title,
+                id:         article.id,
+                file_id:    article.file_id,
+                title:      article.title,
                 short_text: article.short_text
               }
             ]

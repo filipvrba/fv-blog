@@ -35,7 +35,7 @@ class Email
 
     articles.each do |article|
       template = CardArticleHTML
-        .sub('IMG_BANNER', "#{CONFIRMATION_URL}/android-chrome-192x192.png")
+        .sub('IMG_BANNER', "#{CONFIRMATION_URL}/api/image/#{article.file_id}")
         .sub('ARTICLE_TITLE', article.title)
         .sub('ARTICLE_SHORT_TEXT', article.short_text)
         .sub('ARTICLE_LINK', "#{CONFIRMATION_URL}?aid=#{article.id}#article")

@@ -37,7 +37,7 @@ export default class CDatabase
 
     where_ids = checked_articles.map {|h| h.article_id}
 
-    query = "SELECT id, title, short_text FROM articles " +
+    query = "SELECT id, file_id, title, short_text FROM articles " +
       "WHERE id IN (#{where_ids.join(', ')});"
 #     query = "SELECT 
 #     a.id, 
@@ -57,6 +57,7 @@ export default class CDatabase
         articles = rows.map do |h|
           {
             id: h.id.to_i,
+            file_id: h['file_id'].to_i,
             title: h.title.decode_base64(),
             short_text: h['short_text'].decode_base64(),
           }

@@ -69,6 +69,7 @@ export default class CEmails {
         if (emailsHash[candidateId]) {
           emailsHash[candidateId].articles.push({
             id: article.id,
+            fileId: article.fileId,
             title: article.title,
             shortText: article.shortText
           })
@@ -79,6 +80,7 @@ export default class CEmails {
 
             articles: [{
               id: article.id,
+              fileId: article.fileId,
               title: article.title,
               shortText: article.shortText
             }]

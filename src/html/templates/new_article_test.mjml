@@ -1,0 +1,44 @@
+<mjml>
+  <mj-body>
+    <mj-section>
+      <mj-column>
+
+        <mj-image width="64px" src="https://filipvrba-blog.vercel.app/android-chrome-192x192.png"></mj-image>
+
+        <mj-text color="#3a6a57" font-weight='bold' font-size='30px' align='center'>Nové články</mj-text>
+        <mj-divider border-color="#3a6a57"></mj-divider>
+
+        <mj-text font-size="20px" font-family="Helvetica">Mám pro tebe něco nového! Napsal jsem nové články, které by tě mohly zaujmout. Nezmeškej nejnovější obsah a podívej se, co je nového.</mj-text>
+
+      </mj-column>
+    </mj-section>
+
+    <mj-section>
+      <mj-column>
+        <mj-image border-radius="6px" width="256px" src="IMG_BANNER"></mj-image>
+        <mj-text font-weight="bold" align="center" font-size="22px" color="#000" font-family="Helvetica">ARTICLE_TITLE</mj-text>
+        <mj-text align="center" font-size="18px" font-family="Helvetica">ARTICLE_SHORT_TEXT</mj-text>
+        <mj-button href="ARTICLE_LINK" background-color="#6c757d" border-radius="6px" font-family="Helvetica" font-size="18px">Podívat se</mj-button>
+      </mj-column>
+      
+      <mj-column>
+        <mj-image border-radius="6px" width="256px" src="IMG_BANNER"></mj-image>
+        <mj-text font-weight="bold" align="center" font-size="22px" color="#000" font-family="Helvetica">ARTICLE_TITLE</mj-text>
+        <mj-text align="center" font-size="18px" font-family="Helvetica">ARTICLE_SHORT_TEXT</mj-text>
+        <mj-button href="ARTICLE_LINK" background-color="#6c757d" border-radius="6px" font-family="Helvetica" font-size="18px">Podívat se</mj-button>
+      </mj-column>
+    </mj-section>
+
+    <mj-section>
+      <mj-column>
+        <mj-divider border-color="#3a6a57"></mj-divider>
+        <mj-text align="center" font-size="16px" color="#3a6a57" font-family="Helvetica">
+          © 2025 Filip Vrba - Blog | Všechna práva vyhrazena
+        </mj-text>
+        <mj-text align="center" font-size="16px" color="#6c757d">
+          <a href="UNSUB_LINK" style="color:#007bff; text-decoration: none;">Odhlásit odběr</a>
+        </mj-text>
+      </mj-column>
+    </mj-section>
+  </mj-body>
+</mjml>

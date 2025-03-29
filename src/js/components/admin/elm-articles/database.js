@@ -30,7 +30,7 @@ export default class CDatabase {
   getRelevantInfoArticles(checkedArticles, callback) {
     if (checkedArticles.length <= 0) return;
     let whereIds = checkedArticles.map(h => h.articleId);
-    let query = `SELECT id, title, short_text FROM articles WHERE id IN (${whereIds.join(", ")});`;
+    let query = `SELECT id, file_id, title, short_text FROM articles WHERE id IN (${whereIds.join(", ")});`;
 
     return Net.bef(query, (rows) => {
       let articles;
@@ -39,6 +39,7 @@ export default class CDatabase {
       if (haveRows) {
         articles = rows.map(h => ({
           id: parseInt(h.id),
+          fileId: parseInt(h.file_id),
           title: h.title.decodeBase64(),
           shortText: h.short_text.decodeBase64()
         }));
