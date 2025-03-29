@@ -13,7 +13,7 @@ export default async def handler(req, res)
 
   buffer_file = Buffer.from(file, 'base64')
   res.setHeader('Content-Type', get_mime(file))
-  res.status(200).send(image)
+  res.status(200).send(buffer_file)
   res.send(raw_content)
 end
 

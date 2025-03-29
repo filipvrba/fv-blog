@@ -9,7 +9,7 @@ export default async function handler(req, res) {
   if (!file) return res.status(404).json({error: "Image not found"});
   let bufferFile = Buffer.from(file, "base64");
   res.setHeader("Content-Type", getMime(file));
-  res.status(200).send(image);
+  res.status(200).send(bufferFile);
   return res.send(rawContent)
 };
 
