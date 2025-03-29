@@ -5,7 +5,7 @@ export default async def handler(req, res)
 
   id       = Number(req.query.id)
   base_url = "https://filipvrba-blog.vercel.app"
-  file     = await get_file(base_url, id)
+  file     = await get_image(base_url, id)
 
   unless file
     return res.status(404).json({ error: "Image not found" })

@@ -5,7 +5,7 @@ export default async function handler(req, res) {
 
   let id = Number(req.query.id);
   let baseUrl = "https://filipvrba-blog.vercel.app";
-  let file = await getFile(baseUrl, id);
+  let file = await getImage(baseUrl, id);
   if (!file) return res.status(404).json({error: "Image not found"});
   let bufferFile = Buffer.from(file, "base64");
   res.setHeader("Content-Type", getMime(file));
