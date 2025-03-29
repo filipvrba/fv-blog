@@ -5,16 +5,19 @@ export default async def handler(req, res)
 
   id       = Number(req.query.id)
   base_url = "https://filipvrba-blog.vercel.app"
-  file     = await get_image(base_url, id)
+  raw_file     = await get_image(base_url, id)
 
-  unless file
+  unless raw_file
     return res.status(404).json({ error: "Image not found" })
   end
 
-  buffer_file = Buffer.from(file, 'base64')
-  res.setHeader('Content-Type', get_mime(file))
-  res.status(200).send(buffer_file)
-  res.send(raw_content)
+  base64_image = raw_file.sub(/^data:image\/\w+;base64,/, '')
+  mime         = get_mime(raw_file)
+  buffer_file  = Buffer.from(base64_image, 'base64')
+
+  res.setHeader('Content-Type', mime)
+  res.status(200)
+  res.send(buffer_file)
 end
 
 def get_mime(base64)

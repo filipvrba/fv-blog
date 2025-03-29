@@ -5,12 +5,14 @@ export default async function handler(req, res) {
 
   let id = Number(req.query.id);
   let baseUrl = "https://filipvrba-blog.vercel.app";
-  let file = await getImage(baseUrl, id);
-  if (!file) return res.status(404).json({error: "Image not found"});
-  let bufferFile = Buffer.from(file, "base64");
-  res.setHeader("Content-Type", getMime(file));
-  res.status(200).send(bufferFile);
-  return res.send(rawContent)
+  let rawFile = await getImage(baseUrl, id);
+  if (!rawFile) return res.status(404).json({error: "Image not found"});
+  let base64Image = rawFile.replace(/^data:image\/\w+;base64,/m, "");
+  let mime = getMime(rawFile);
+  let bufferFile = Buffer.from(base64Image, "base64");
+  res.setHeader("Content-Type", mime);
+  res.status(200);
+  return res.send(bufferFile)
 };
 
 function getMime(base64) {
