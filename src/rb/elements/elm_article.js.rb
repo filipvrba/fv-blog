@@ -16,11 +16,11 @@ export default class ElmArticle < HTMLElement
     @c_seo      = CSeo.new(self)
     @c_database = CDatabase.new(self)
     @c_contents = CContents.new(self)
+
+    @c_contents.update_container()
   end
 
   def connected_callback()
-    @c_contents.update_container()
-
     unless CMP.get_consent() == 'none'
       @c_database.send_log_visit()
       @c_database.send_log_click()

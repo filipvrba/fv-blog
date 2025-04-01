@@ -26,12 +26,11 @@ export default class ElmArticle extends HTMLElement {
     this._isPreview = this._isPreview === "true";
     this._cSeo = new CSeo(this);
     this._cDatabase = new CDatabase(this);
-    this._cContents = new CContents(this)
+    this._cContents = new CContents(this);
+    this._cContents.updateContainer()
   };
 
   connectedCallback() {
-    this._cContents.updateContainer();
-
     if (CMP.getConsent() !== "none") {
       this._cDatabase.sendLogVisit();
       return this._cDatabase.sendLogClick()
