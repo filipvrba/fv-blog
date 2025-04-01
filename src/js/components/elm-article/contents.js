@@ -4,11 +4,7 @@ export default class CContents {
   };
 
   setSeo(article) {
-    let title = `${article.title} | ${Language.relevant.elmRoutes.meta[0]}`;
-    this._parent.cSeo.setTitle(title);
-    this._parent.cSeo.setImage(article.fileId);
-    this._parent.cSeo.setUrl();
-    return this._parent.cSeo.setDescription(article.fullText.shortenText(150))
+    return this._parent.cSeo.setTitle(article.title)
   };
 
   updateContainer() {

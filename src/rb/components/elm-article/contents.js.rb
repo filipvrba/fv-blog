@@ -4,12 +4,7 @@ export default class CContents
   end
 
   def set_seo(article)
-    title = "#{article.title} | #{Language.relevant.elm_routes.meta[0]}"
-
-    @parent.c_seo.set_title(title)
-    @parent.c_seo.set_image(article.file_id)
-    @parent.c_seo.set_url()
-    @parent.c_seo.set_description(article.full_text.shorten_text(150))
+    @parent.c_seo.set_title(article.title)
   end
 
   def update_container()
