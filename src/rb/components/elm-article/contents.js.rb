@@ -3,16 +3,20 @@ export default class CContents
     @parent = parent
   end
 
-  def set_document_title(article_title)
-    title = "#{article_title} | #{Language.relevant.elm_routes.meta[0]}"
-    document.title = title
+  def set_seo(article)
+    title = "#{article.title} | #{Language.relevant.elm_routes.meta[0]}"
+
+    @parent.c_seo.set_title(title)
+    @parent.c_seo.set_image(article.file_id)
+    @parent.c_seo.set_url()
+    @parent.c_seo.set_description(article.full_text.shorten_text(150))
   end
 
   def update_container()
     @parent.c_database.get_artcile() do |article|
       unless article
         no_article_title = "Chybějící článek"
-        set_document_title(no_article_title)
+        set_seo({title: no_article_title})
 
         unless @parent.is_preview
           @parent.innerHTML = get_no_article(no_article_title)
@@ -20,7 +24,7 @@ export default class CContents
           @parent.innerHTML = get_no_article_preview()
         end
       else
-        set_document_title(article.title)
+        set_seo(article)
 
         fn_true = lambda do
           template = """

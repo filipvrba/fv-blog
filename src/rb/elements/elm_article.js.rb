@@ -1,9 +1,10 @@
 import 'CDatabase', '../components/elm-article/database'
 import 'CContents', '../components/elm-article/contents'
+import 'CSeo',      '../components/elm-article/seo'
 
 export default class ElmArticle < HTMLElement
   attr_reader :article_id, :is_preview
-  attr_reader :c_database
+  attr_reader :c_database, :c_seo
 
   def initialize
     super
@@ -12,6 +13,7 @@ export default class ElmArticle < HTMLElement
     @is_preview = URLParams.get('preview') || ''
     @is_preview = @is_preview == 'true'
     
+    @c_seo      = CSeo.new(self)
     @c_database = CDatabase.new(self)
     @c_contents = CContents.new(self)
   end

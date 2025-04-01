@@ -3,9 +3,12 @@ export default class CContents {
     this._parent = parent
   };
 
-  setDocumentTitle(articleTitle) {
-    let title = `${articleTitle} | ${Language.relevant.elmRoutes.meta[0]}`;
-    return document.title = title
+  setSeo(article) {
+    let title = `${article.title} | ${Language.relevant.elmRoutes.meta[0]}`;
+    this._parent.cSeo.setTitle(title);
+    this._parent.cSeo.setImage(article.fileId);
+    this._parent.cSeo.setUrl();
+    return this._parent.cSeo.setDescription(article.fullText.shortenText(150))
   };
 
   updateContainer() {
@@ -13,7 +16,7 @@ export default class CContents {
       let fnTrue, confirmOptions, noArticleTitle;
 
       if (article) {
-        this.setDocumentTitle(article.title);
+        this.setSeo(article);
 
         fnTrue = () => {
           let template = `${`
@@ -64,7 +67,7 @@ export default class CContents {
         }
       } else {
         noArticleTitle = "Chybějící článek";
-        this.setDocumentTitle(noArticleTitle);
+        this.setSeo({title: noArticleTitle});
         return this._parent.isPreview ? this._parent.innerHTML = this.getNoArticlePreview() : this._parent.innerHTML = this.getNoArticle(noArticleTitle)
       }
     })
