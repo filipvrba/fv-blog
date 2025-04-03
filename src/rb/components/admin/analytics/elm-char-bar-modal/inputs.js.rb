@@ -16,13 +16,13 @@ export default class CInputs
     Events.disconnect('#app', ENVS.show, @h_show)
   end
 
-  def show(hour)
+  def show(options)
     if @parent.c_contents.bs_modal_char_bar._is_shown
       return
     end
 
-    @parent.c_contents.update_label(hour)
-    @parent.c_contents.update_body(hour)
+    @parent.c_contents.update_label(options.hour)
+    @parent.c_contents.update_body(options)
 
     @parent.c_contents.bs_modal_char_bar.show()
   end

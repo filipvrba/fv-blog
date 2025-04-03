@@ -26,7 +26,7 @@ export default class CContents {
   };
 
   barClick(event) {
-    let index, label;
+    let index, label, options;
 
     let activePoints = this._chart.getElementsAtEventForMode(
       event,
@@ -38,7 +38,8 @@ export default class CContents {
     if (activePoints.length > 0) {
       index = activePoints[0].index;
       label = this._chart.data.labels[index];
-      return Modals.charBarModal(label)
+      options = {hour: label, filterDate: this._parent.filterDate};
+      return Modals.charBarModal(options)
     }
   }
 }

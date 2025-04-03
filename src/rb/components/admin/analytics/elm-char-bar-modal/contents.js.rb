@@ -14,9 +14,10 @@ export default class CContents
     @modal_label.inner_text = "Články od #{hour}"
   end
 
-  def update_body(hour)
+  def update_body(options)
+    filter_date = options.filter_date ? options.filter_date : '' 
     template = """
-    <elm-admin-analytics-articles hour='#{hour}'></elm-admin-analytics-articles>
+    <elm-admin-analytics-articles hour='#{options.hour}' filter-date='#{filter_date}'></elm-admin-analytics-articles>
     """
 
     @modal_body.innerHTML = template

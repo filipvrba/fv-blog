@@ -6,11 +6,12 @@ export default class CDatabase
   end
 
   def get_count_referrer(&callback)
+    query_where_filter = @parent.filter_date ? "AND av.visited_at >= '#{@parent.filter_date}'" : ''
     query = "SELECT 
     av.referrer,
     COUNT(av.referrer) AS referrer_count
 FROM article_visits av
-WHERE av.referrer IS NOT NULL
+WHERE av.referrer IS NOT NULL #{query_where_filter} 
 GROUP BY av.referrer
 ORDER BY referrer_count DESC;
 "
@@ -34,10 +35,12 @@ ORDER BY referrer_count DESC;
   end
 
   def get_count_devices(&callback)
+    query_where_filter = @parent.filter_date ? "WHERE av.visited_at >= '#{@parent.filter_date}'" : ''
     query = "SELECT 
     av.device_type,
     COUNT(av.device_type) AS device_count
 FROM article_visits av
+#{query_where_filter}
 GROUP BY av.device_type
 ORDER BY device_count DESC;
 "

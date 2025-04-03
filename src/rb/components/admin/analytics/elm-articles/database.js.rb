@@ -6,6 +6,8 @@ export default class CDatabase
   end
 
   def get_count_articles(&callback)
+    query_where_filter     = @parent.filter_date ? "WHERE ac.clicked_at >= '#{@parent.filter_date}'" : ''
+    query_where_filter_two = @parent.filter_date ? "AND av.visited_at >= '#{@parent.filter_date}'" : ''
     query = "SELECT 
     a.id, 
     a.title, 
@@ -14,7 +16,8 @@ export default class CDatabase
     ROUND(CAST(COUNT(DISTINCT ac.id) AS FLOAT) / NULLIF(COUNT(DISTINCT av.id), 0), 2) AS conversion_rate 
 FROM articles a
 INNER JOIN article_visits av ON a.id = av.article_id
-INNER JOIN article_clicks ac ON a.id = ac.article_id
+LEFT JOIN article_clicks ac ON a.id = ac.article_id
+#{query_where_filter} #{query_where_filter_two}
 GROUP BY a.id, a.title
 ORDER BY article_count DESC;
 "
@@ -30,7 +33,7 @@ FROM
 JOIN 
     articles a ON ac.article_id = a.id
 WHERE 
-    strftime('%H', ac.clicked_at) = '#{hour}'
+    strftime('%H', ac.clicked_at) = '#{hour}' #{query_where_filter.sub('WHERE', 'AND')}
 GROUP BY 
     a.id, a.title
 ORDER BY 

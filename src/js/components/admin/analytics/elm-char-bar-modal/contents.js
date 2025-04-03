@@ -15,8 +15,9 @@ export default class CContents {
     return this._modalLabel.innerText = `Články od ${hour}`
   };
 
-  updateBody(hour) {
-    let template = `${`\n    <elm-admin-analytics-articles hour='${hour}'></elm-admin-analytics-articles>\n    `}`;
+  updateBody(options) {
+    let filterDate = options.filterDate ? options.filterDate : "";
+    let template = `${`\n    <elm-admin-analytics-articles hour='${options.hour}' filter-date='${filterDate}'></elm-admin-analytics-articles>\n    `}`;
     return this._modalBody.innerHTML = template
   }
 }

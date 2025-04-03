@@ -26,11 +26,11 @@ export default class Modals {
     return Events.emit("#app", CInputsAdminImagesModal.ENVS.show, fileId)
   };
 
-  static charBarModal(hour) {
+  static charBarModal(options) {
     return Events.emit(
       "#app",
       ElmAdminAnalyticsCharBarModal.ENVS.show,
-      hour
+      options
     )
   }
 };

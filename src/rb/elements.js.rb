@@ -53,3 +53,6 @@ window.custom_elements.define('elm-subscribe-form', ElmSubscribeForm)
 
 import 'ElmUnsubscribe', './elements/elm_unsubscribe'
 window.custom_elements.define('elm-unsubscribe', ElmUnsubscribe)
+
+import 'ElmAdminAnalyticsFilter', './elements/admin/analytics/elm_filter'
+window.custom_elements.define('elm-admin-analytics-filter', ElmAdminAnalyticsFilter)

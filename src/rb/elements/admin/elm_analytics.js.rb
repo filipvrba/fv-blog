@@ -2,11 +2,16 @@ import 'CDatabase', '../../components/admin/elm-analytics/database'
 import 'CContents', '../../components/admin/elm-analytics/contents'
 import 'ElmSettings', '../../packages/bef-client-rjs-0.1.1/elements/elm_settings'
 
+import 'ElmAdminAnalyticsFilter', './analytics/elm_filter'
+
 export default class ElmAdminAnalytics < HTMLElement
+  attr_reader :filter_date
+
   def initialize
     super
 
     @h_category_click = lambda {|e| category_click(e.detail.value)}
+    @h_filter_active  = lambda {|e| filter_active(e.detail.value)}
 
     init_elm()
 
@@ -16,12 +21,14 @@ export default class ElmAdminAnalytics < HTMLElement
 
   def connected_callback()
     Events.connect('#app', ElmSettings::ENVS.category_click, @h_category_click)
+    Events.connect('#app', ElmAdminAnalyticsFilter::ENVS.active, @h_filter_active)
 
     update_elements()
   end
 
   def disconnected_callback()
     Events.disconnect('#app', ElmSettings::ENVS.category_click, @h_category_click)
+    Events.disconnect('#app', ElmAdminAnalyticsFilter::ENVS.active, @h_filter_active)
   end
 
   def category_click(index)
@@ -29,6 +36,11 @@ export default class ElmAdminAnalytics < HTMLElement
       return
     end
 
+    update_elements()
+  end
+
+  def filter_active(date)
+    @filter_date = date
     update_elements()
   end
 
@@ -49,7 +61,10 @@ export default class ElmAdminAnalytics < HTMLElement
 <div class='container mt-5'>
   <div class='text-center'>
     <h1>Analýza článků</h1>
-    <p id='analyticsTime'>~~~</p>
+    <div class='d-flex justify-content-center align-items-center gap-3'>
+      <p id='analyticsTime' class='m-0'>~~~</p>
+      <elm-admin-analytics-filter></elm-admin-analytics-filter>
+    </div>
   </div>
 
   <div class='mt-3 row d-flex justify-content-center'>

@@ -3,19 +3,22 @@ import "CDatabase", '../../../components/admin/analytics/elm-articles/database'
 import 'ElmSettings', '../../../packages/bef-client-rjs-0.1.1/elements/elm_settings'
 
 import 'ElmPagination', '../../elm_pagination'
+import 'ElmAdminAnalyticsFilter', './elm_filter'
 
 export default class ElmAdminAnalyticsArticles < HTMLElement
   NUMERUS_MAXIMUS = 5
 
-  attr_reader :hour
+  attr_reader :hour, :filter_date
 
   def initialize
     super
 
     @h_category_click            = lambda {|e| category_click(e.detail.value)}
     @h_pagination_articles_click = lambda {|e| pagination_articles_click(e.detail.value)}
+    @h_filter_active             = lambda {|e| filter_active(e.detail.value)}
 
-    @hour = self.get_attribute('hour') || nil
+    @hour        = self.get_attribute('hour') || nil
+    @filter_date = self.get_attribute('filter-date') || nil
     @article_containers = nil
 
     init_elm()
@@ -27,6 +30,7 @@ export default class ElmAdminAnalyticsArticles < HTMLElement
   def connected_callback()
     Events.connect('#app', ElmSettings::ENVS.category_click, @h_category_click)
     Events.connect(@c_contents.elm_article_paginations, ElmPagination::ENVS.click, @h_pagination_articles_click)
+    Events.connect('#app', ElmAdminAnalyticsFilter::ENVS.active, @h_filter_active)
 
     update_elements()
   end
@@ -34,6 +38,7 @@ export default class ElmAdminAnalyticsArticles < HTMLElement
   def disconnected_callback()
     Events.disconnect('#app', ElmSettings::ENVS.category_click, @h_category_click)
     Events.disconnect(@c_contents.elm_article_paginations, ElmPagination::ENVS.click, @h_pagination_articles_click)
+    Events.disconnect('#app', ElmAdminAnalyticsFilter::ENVS.active, @h_filter_active)
   end
 
   def category_click(index)
@@ -46,6 +51,13 @@ export default class ElmAdminAnalyticsArticles < HTMLElement
 
   def pagination_articles_click(id_container)
     @c_contents.udpate_tbody_articles(@article_containers[id_container])
+  end
+
+  def filter_active(date)
+    unless @hour
+      @filter_date = date
+      update_elements()
+    end
   end
 
   def update_elements()

@@ -12,10 +12,10 @@ export default class CInputs {
     return Events.disconnect("#app", CInputs.ENVS.show, this._hShow)
   };
 
-  show(hour) {
+  show(options) {
     if (this._parent.cContents.bsModalCharBar._isShown) return;
-    this._parent.cContents.updateLabel(hour);
-    this._parent.cContents.updateBody(hour);
+    this._parent.cContents.updateLabel(options.hour);
+    this._parent.cContents.updateBody(options);
     return this._parent.cContents.bsModalCharBar.show()
   }
 };

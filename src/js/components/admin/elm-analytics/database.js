@@ -6,11 +6,12 @@ export default class CDatabase {
   };
 
   getCountReferrer(callback) {
+    let queryWhereFilter = this._parent.filterDate ? `AND av.visited_at >= '${this._parent.filterDate}'` : "";
     let query = `SELECT 
     av.referrer,
     COUNT(av.referrer) AS referrer_count
 FROM article_visits av
-WHERE av.referrer IS NOT NULL
+WHERE av.referrer IS NOT NULL ${queryWhereFilter} 
 GROUP BY av.referrer
 ORDER BY referrer_count DESC;
 `;
@@ -33,10 +34,12 @@ ORDER BY referrer_count DESC;
   };
 
   getCountDevices(callback) {
+    let queryWhereFilter = this._parent.filterDate ? `WHERE av.visited_at >= '${this._parent.filterDate}'` : "";
     let query = `SELECT 
     av.device_type,
     COUNT(av.device_type) AS device_count
 FROM article_visits av
+${queryWhereFilter}
 GROUP BY av.device_type
 ORDER BY device_count DESC;
 `;

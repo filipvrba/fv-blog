@@ -1,11 +1,17 @@
 import CDatabase from "../../components/admin/elm-analytics/database";
 import CContents from "../../components/admin/elm-analytics/contents";
 import ElmSettings from "../../packages/bef-client-rjs-0.1.1/elements/elm_settings";
+import ElmAdminAnalyticsFilter from "./analytics/elm_filter";
 
 export default class ElmAdminAnalytics extends HTMLElement {
+  get filterDate() {
+    return this._filterDate
+  };
+
   constructor() {
     super();
     this._hCategoryClick = e => this.categoryClick(e.detail.value);
+    this._hFilterActive = e => this.filterActive(e.detail.value);
     this.initElm();
     this._cDatabase = new CDatabase(this);
     this._cContents = new CContents(this)
@@ -18,19 +24,36 @@ export default class ElmAdminAnalytics extends HTMLElement {
       this._hCategoryClick
     );
 
+    Events.connect(
+      "#app",
+      ElmAdminAnalyticsFilter.ENVS.active,
+      this._hFilterActive
+    );
+
     return this.updateElements()
   };
 
   disconnectedCallback() {
-    return Events.disconnect(
+    Events.disconnect(
       "#app",
       ElmSettings.ENVS.categoryClick,
       this._hCategoryClick
+    );
+
+    return Events.disconnect(
+      "#app",
+      ElmAdminAnalyticsFilter.ENVS.active,
+      this._hFilterActive
     )
   };
 
   categoryClick(index) {
     if (index !== "analytics") return;
+    return this.updateElements()
+  };
+
+  filterActive(date) {
+    this._filterDate = date;
     return this.updateElements()
   };
 
@@ -51,7 +74,10 @@ export default class ElmAdminAnalytics extends HTMLElement {
 <div class='container mt-5'>
   <div class='text-center'>
     <h1>Analýza článků</h1>
-    <p id='analyticsTime'>~~~</p>
+    <div class='d-flex justify-content-center align-items-center gap-3'>
+      <p id='analyticsTime' class='m-0'>~~~</p>
+      <elm-admin-analytics-filter></elm-admin-analytics-filter>
+    </div>
   </div>
 
   <div class='mt-3 row d-flex justify-content-center'>

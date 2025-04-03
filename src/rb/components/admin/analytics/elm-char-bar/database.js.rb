@@ -6,8 +6,10 @@ export default class CDatabase
   end
 
   def clicks_per_hour(&callback)
+    query_where_filter = @parent.filter_date ? "WHERE clicked_at >= '#{@parent.filter_date}'" : ''
     query = "SELECT strftime('%H', clicked_at) AS hour, COUNT(*) AS click_count
       FROM article_clicks
+      #{query_where_filter}
       GROUP BY hour
       ORDER BY hour;"
 

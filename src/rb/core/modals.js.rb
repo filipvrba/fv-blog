@@ -31,8 +31,8 @@ export default class Modals
     Events.emit('#app', CInputsAdminImagesModal::ENVS.show, file_id)
   end
 
-  def self.char_bar_modal(hour)
-    Events.emit('#app', ElmAdminAnalyticsCharBarModal::ENVS.show, hour)
+  def self.char_bar_modal(options)
+    Events.emit('#app', ElmAdminAnalyticsCharBarModal::ENVS.show, options)
   end
 end
 window.Modals = Modals

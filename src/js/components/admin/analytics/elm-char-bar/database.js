@@ -6,7 +6,12 @@ export default class CDatabase {
   };
 
   clicksPerHour(callback) {
-    let query = `SELECT strftime('%H', clicked_at) AS hour, COUNT(*) AS click_count\n      FROM article_clicks\n      GROUP BY hour\n      ORDER BY hour;`;
+    let queryWhereFilter = this._parent.filterDate ? `WHERE clicked_at >= '${this._parent.filterDate}'` : "";
+    let query = `SELECT strftime('%H', clicked_at) AS hour, COUNT(*) AS click_count
+      FROM article_clicks
+      ${queryWhereFilter}
+      GROUP BY hour
+      ORDER BY hour;`;
 
     return Net.bef(query, (rows) => {
       let data;

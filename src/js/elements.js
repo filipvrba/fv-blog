@@ -74,4 +74,10 @@ window.customElements.define(
 import ElmSubscribeForm from "./elements/elm_subscribe_form";
 window.customElements.define("elm-subscribe-form", ElmSubscribeForm);
 import ElmUnsubscribe from "./elements/elm_unsubscribe";
-window.customElements.define("elm-unsubscribe", ElmUnsubscribe)
+window.customElements.define("elm-unsubscribe", ElmUnsubscribe);
+import ElmAdminAnalyticsFilter from "./elements/admin/analytics/elm_filter";
+
+window.customElements.define(
+  "elm-admin-analytics-filter",
+  ElmAdminAnalyticsFilter
+)

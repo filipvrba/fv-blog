@@ -18,7 +18,7 @@ export default class CContents
           responsive: true,
           maintain_aspect_ratio: false,
           scales: {
-              y: { begin_at_zero: true }
+            y: { begin_at_zero: true }
           },
           on_click: bar_click,
         },
@@ -35,10 +35,11 @@ export default class CContents
     active_points = @chart.get_elements_at_event_for_mode(event, 'nearest', {intersect: true}, true)
   
     if active_points.length > 0
-      index = active_points[0].index
-      label = @chart.data.labels[index]
+      index   = active_points[0].index
+      label   = @chart.data.labels[index]
+      options = {hour: label, filter_date: @parent.filter_date}
 
-      Modals.char_bar_modal(label)
+      Modals.char_bar_modal(options)
     end
   end
 end
