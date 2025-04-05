@@ -64,7 +64,7 @@ export default class ElmAdminAnalyticsChartBar extends HTMLElement {
 
   updateElm() {
     return this._cDatabase.clicksPerHour((rows) => {
-      let data = this._cDatabase.charData(rows);
+      let data = this._cDatabase.charData(rows ? rows : []);
       return this._cContents.renderChart(data)
     })
   };

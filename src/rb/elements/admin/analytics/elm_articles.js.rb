@@ -62,7 +62,7 @@ export default class ElmAdminAnalyticsArticles < HTMLElement
 
   def update_elements()
     @c_database.get_count_articles() do |articles|
-      @article_containers = articles.divide_into_groups(NUMERUS_MAXIMUS)
+      @article_containers = articles ? articles.divide_into_groups(NUMERUS_MAXIMUS) : []
       Events.emit(@c_contents.elm_article_paginations, ElmPagination::ENVS.init, @article_containers.length)
     end
   end

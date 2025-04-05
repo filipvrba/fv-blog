@@ -48,7 +48,7 @@ export default class ElmAdminAnalyticsChartBar < HTMLElement
 
   def update_elm()
     @c_database.clicks_per_hour() do |rows|
-      data = @c_database.char_data(rows)
+      data = @c_database.char_data(rows ? rows : [])
       @c_contents.render_chart(data)
     end
   end

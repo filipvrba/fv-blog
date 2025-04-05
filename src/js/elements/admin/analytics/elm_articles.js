@@ -90,7 +90,7 @@ export default class ElmAdminAnalyticsArticles extends HTMLElement {
 
   updateElements() {
     return this._cDatabase.getCountArticles((articles) => {
-      this._articleContainers = articles.divideIntoGroups(ElmAdminAnalyticsArticles.NUMERUS_MAXIMUS);
+      this._articleContainers = articles ? articles.divideIntoGroups(ElmAdminAnalyticsArticles.NUMERUS_MAXIMUS) : [];
 
       return Events.emit(
         this._cContents.elmArticlePaginations,
