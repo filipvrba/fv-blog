@@ -13,7 +13,7 @@ export default class CContents
 
     if is_two
       @modal_label.inner_text = "Obrázek"
-      @modal_body_two.innerHTML = "<elm-img-loader file-id='#{file_id}'></elm-img-loader>"
+      @modal_body_two.innerHTML = "<elm-img-loader class='d-flex justify-content-center' file-id='#{file_id}'></elm-img-loader>"
     else
       @modal_label.inner_text = "Nahrání obrázku"
       @modal_body_two.innerHTML = ''

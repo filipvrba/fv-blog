@@ -1,11 +1,13 @@
 import 'CDatabase', '../../components/admin/elm-analytics/database'
 import 'CContents', '../../components/admin/elm-analytics/contents'
+import 'CPagination', '../../components/admin/elm-analytics/pagination'
 import 'ElmSettings', '../../packages/bef-client-rjs-0.1.1/elements/elm_settings'
 
 import 'ElmAdminAnalyticsFilter', './analytics/elm_filter'
 
 export default class ElmAdminAnalytics < HTMLElement
   attr_reader :filter_date
+  attr_reader :c_contents
 
   def initialize
     super
@@ -15,13 +17,15 @@ export default class ElmAdminAnalytics < HTMLElement
 
     init_elm()
 
-    @c_database = CDatabase.new(self)
-    @c_contents = CContents.new(self)
+    @c_database   = CDatabase.new(self)
+    @c_contents   = CContents.new(self)
+    @c_pagination = CPagination.new(self)
   end
 
   def connected_callback()
     Events.connect('#app', ElmSettings::ENVS.category_click, @h_category_click)
     Events.connect('#app', ElmAdminAnalyticsFilter::ENVS.active, @h_filter_active)
+    @c_pagination.connected_callback()
 
     update_elements()
   end
@@ -29,6 +33,7 @@ export default class ElmAdminAnalytics < HTMLElement
   def disconnected_callback()
     Events.disconnect('#app', ElmSettings::ENVS.category_click, @h_category_click)
     Events.disconnect('#app', ElmAdminAnalyticsFilter::ENVS.active, @h_filter_active)
+    @c_pagination.disconnected_callback()
   end
 
   def category_click(index)
@@ -48,7 +53,8 @@ export default class ElmAdminAnalytics < HTMLElement
     @c_contents.update_time()
 
     @c_database.get_count_referrer() do |refferer|
-      @c_contents.udpate_tbody_referrer(refferer)
+      #@c_contents.udpate_tbody_referrer(refferer)
+      @c_pagination.set_referrer_containers(refferer)
     end
 
     @c_database.get_count_devices() do |devices|
@@ -90,6 +96,8 @@ export default class ElmAdminAnalytics < HTMLElement
             </tbody>
           </table>
         </div>
+
+        <elm-pagination id='adminAnalyticsReferrerPagination' class='mb-2' centered></elm-pagination>
       </div>
     </div>
 

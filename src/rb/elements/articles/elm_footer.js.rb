@@ -30,8 +30,8 @@ export default class ElmArticlesFooter < HTMLElement
   <div class='text-bg-dark py-4'>
     <div class='container d-flex justify-content-between align-items-center'>
       <p class='mb-0'>&copy; 2025 Filip Vrba - Blog | Všechna práva vyhrazena</p>
-      <button class='btn btn-outline-light rounded-pill px-3' onclick='articlesFooterGoArticle(28)'>
-        <i class='bi bi-envelope'></i> Získávat nové články e-mailem
+      <button class='btn btn-outline-light rounded-pill px-3' onclick='articlesFooterGoUp()'>
+        <i class='bi bi-caret-up-fill'></i> Nahoru
       </button>
     </div>
   </div>

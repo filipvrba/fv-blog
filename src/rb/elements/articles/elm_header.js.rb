@@ -27,9 +27,8 @@ export default class ElmHeader < HTMLElement
           <p class='text-body-secondary'>Rád bych také zdůraznil, že veškerý obsah na tomto blogu je mým vlastním dílem a nehodlám, aby se informace zde uvedené šířily bez mého výslovného souhlasu. Respektujte prosím autorská práva a související <a class='pointer' onclick='articlesFooterGoArticle(3)'>podmínky</a>.</p>
         </div>
         <div class='col-sm-4 offset-md-1 py-4'>
-          <h4>Kontakty</h4>
+          <h4>Kontakt</h4>
           <ul class='list-unstyled'>
-            <li><a href='https://filipvrba.vercel.app/#kontakty' class='text-white' target='_blank'>Osobní web</a></li>
             <li><a href='mailto:filipvrbaxi@gmail.com' class='text-white' target='_blank'>Poslat email</a></li>
           </ul>
 

@@ -1,5 +1,6 @@
 import CDatabase from "../../components/admin/elm-analytics/database";
 import CContents from "../../components/admin/elm-analytics/contents";
+import CPagination from "../../components/admin/elm-analytics/pagination";
 import ElmSettings from "../../packages/bef-client-rjs-0.1.1/elements/elm_settings";
 import ElmAdminAnalyticsFilter from "./analytics/elm_filter";
 
@@ -8,13 +9,18 @@ export default class ElmAdminAnalytics extends HTMLElement {
     return this._filterDate
   };
 
+  get cContents() {
+    return this._cContents
+  };
+
   constructor() {
     super();
     this._hCategoryClick = e => this.categoryClick(e.detail.value);
     this._hFilterActive = e => this.filterActive(e.detail.value);
     this.initElm();
     this._cDatabase = new CDatabase(this);
-    this._cContents = new CContents(this)
+    this._cContents = new CContents(this);
+    this._cPagination = new CPagination(this)
   };
 
   connectedCallback() {
@@ -30,6 +36,7 @@ export default class ElmAdminAnalytics extends HTMLElement {
       this._hFilterActive
     );
 
+    this._cPagination.connectedCallback();
     return this.updateElements()
   };
 
@@ -40,11 +47,13 @@ export default class ElmAdminAnalytics extends HTMLElement {
       this._hCategoryClick
     );
 
-    return Events.disconnect(
+    Events.disconnect(
       "#app",
       ElmAdminAnalyticsFilter.ENVS.active,
       this._hFilterActive
-    )
+    );
+
+    return this._cPagination.disconnectedCallback()
   };
 
   categoryClick(index) {
@@ -61,7 +70,7 @@ export default class ElmAdminAnalytics extends HTMLElement {
     this._cContents.updateTime();
 
     this._cDatabase.getCountReferrer(refferer => (
-      this._cContents.udpateTbodyReferrer(refferer)
+      this._cPagination.setReferrerContainers(refferer)
     ));
 
     return this._cDatabase.getCountDevices(devices => (
@@ -103,6 +112,8 @@ export default class ElmAdminAnalytics extends HTMLElement {
             </tbody>
           </table>
         </div>
+
+        <elm-pagination id='adminAnalyticsReferrerPagination' class='mb-2' centered></elm-pagination>
       </div>
     </div>
 

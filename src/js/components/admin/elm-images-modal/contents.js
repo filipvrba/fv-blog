@@ -12,7 +12,7 @@ export default class CContents {
 
     if (isTwo) {
       this._modalLabel.innerText = "Obrázek";
-      this._modalBodyTwo.innerHTML = `<elm-img-loader file-id='${fileId}'></elm-img-loader>`
+      this._modalBodyTwo.innerHTML = `<elm-img-loader class='d-flex justify-content-center' file-id='${fileId}'></elm-img-loader>`
     } else {
       this._modalLabel.innerText = "Nahrání obrázku";
       this._modalBodyTwo.innerHTML = "";
